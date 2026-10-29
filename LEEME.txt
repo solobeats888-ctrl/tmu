@@ -32,8 +32,10 @@ CONTROLES (la interfaz es una consola de cartucho)
 - ST: transporte en semitonos.  Doble click en una perilla la vuelve a cero.
 - SWING: atrasa las notas que caen en los 16avos "de atras" (de 50 % recto a 75 %), como el
   swing de una MPC. Funciona con FL Studio en play (usa el tempo del proyecto).
-- HUMAN: cada nota sale con una fuerza (velocity) un poco distinta y, con FL en play, hasta
-  18 ms tarde. Para que no suene todo cuadrado.
+- HUMAN: cada nota sale con una fuerza (velocity) distinta (hasta +-28 al maximo) y, con FL en
+  play, hasta 18 ms tarde. Para que no suene todo cuadrado. Cambia cada vez que suena, no toca
+  las notas del Piano roll. En la pantalla, al lado de SONANDO, ves la velocity real de cada nota.
+  (Si queres que el cambio quede fijo en las notas, usa el Randomize del Piano roll de FL: Alt+R.)
 - VEL: curva de velocity. SUAVE (suena fuerte aunque toques despacio), NORMAL, DURA (hay que
   pegarle) o FIJA (todas iguales, como las maquinas viejas). Click para cambiar.
 - Pitch bend del teclado: funciona directo.

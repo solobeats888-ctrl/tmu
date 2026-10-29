@@ -55,6 +55,10 @@ public:
     int getAssignedCC (const juce::String& paramId) const;
     juce::String getLearningParam() const;
 
+    // velocity de la ultima nota que sono (ya con la curva y el HUMAN), 1..127; -1 = ninguna
+    int getLastVelocity() const { return lastVelocity.load(); }
+    int getNoteCount() const { return noteCounter.load(); }
+
     // estado de la interfaz (se guarda con el proyecto)
     juce::String uiView { "type" }, uiGroup, uiSearch;
 
@@ -87,6 +91,7 @@ private:
     juce::int64 sampleCounter = 0;
     juce::int64 modTriggerTime = 0;   // cuando empezo la frase (para el vibrato con retardo estilo Roland)
     int notesHeld = 0;
+    std::atomic<int> lastVelocity { -1 }, noteCounter { 0 };
     juce::Random rng;
     static juce::AudioProcessorValueTreeState::ParameterLayout createLayout();
 

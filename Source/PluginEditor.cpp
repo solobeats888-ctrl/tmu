@@ -658,7 +658,18 @@ void TMUEditor::paint (juce::Graphics& g)
     else if (info.error.isNotEmpty()) top = "ERROR: " + info.error;
     auto topRow = mi.removeFromTop (14);
     g.setFont (look.pixel (8.0f));
-    glowText (g, top, topRow, juce::Justification::centredLeft, screenDim.brighter (0.7f), 0.0f);
+    glowText (g, top, topRow.removeFromLeft (90), juce::Justification::centredLeft, screenDim.brighter (0.7f), 0.0f);
+    // velocity de la ultima nota (ya con la curva VEL y el HUMAN): numero + barrita
+    if (const int lv = proc.getLastVelocity(); lv > 0)
+    {
+        auto vr = topRow.removeFromLeft (150);
+        glowText (g, "VEL " + juce::String (lv).paddedLeft ('0', 3), vr.removeFromLeft (52), juce::Justification::centredLeft, screenTxt, 0.0f);
+        auto bar = vr.withSizeKeepingCentre (vr.getWidth() - 8, 4).toFloat();
+        g.setColour (violet.withAlpha (0.25f));
+        g.fillRect (bar);
+        g.setColour (violetHi);
+        g.fillRect (bar.withWidth (bar.getWidth() * (float) lv / 127.0f));
+    }
     if (info.name.isNotEmpty() && ! info.loading)
     {
         const int st = prefs->getStars (PresetEntry::makeKey (juce::File (info.file).getFileName(), info.phdrIndex, info.name));
@@ -805,7 +816,7 @@ void TMUEditor::timerCallback()
     // repintar solo si algo cambio (con la ventana abierta y quieta casi no gasta CPU)
     juce::String sig;
     if (velButton.getButtonText() != velText()) updateVelButton();
-    sig << (int) proc.library->isScanning() << "|" << (int) filtered.size() << "|" << (int) transpose.getValue() << "|" << proc.getLearningParam();
+    sig << (int) proc.library->isScanning() << "|" << (int) filtered.size() << "|" << (int) transpose.getValue() << "|" << proc.getLearningParam() << "|" << proc.getNoteCount();
     for (auto* k : allKnobs()) sig << "|" << proc.getAssignedCC (k->paramId);
     if (sig != lastPaintSig)
     {

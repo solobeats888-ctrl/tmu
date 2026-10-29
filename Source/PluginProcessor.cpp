@@ -178,14 +178,14 @@ void TMUProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuf
             switch (curve)
             {
                 case 0:  v = std::pow (v, 0.6f); break;   // suave: toca fuerte aunque toques despacio
-                case 2:  v = std::pow (v, 1.7f); break;   // dura: hay que pegarle para que suene fuerte
+                case 2:  v = std::pow (v, 1.4f); break;   // dura: hay que pegarle para que suene fuerte
                 case 3:  v = 100.0f / 127.0f; break;      // fija
                 default: break;
             }
             juce::int64 delay = 0;
             if (human > 0.0f)
             {
-                v *= 1.0f + (rng.nextFloat() - 0.5f) * 0.5f * human;   // hasta +-25 %
+                v += (rng.nextFloat() * 2.0f - 1.0f) * 0.22f * human;   // hasta +-28 de velocity (de 127)
                 if (playing) delay += (juce::int64) (rng.nextFloat() * human * 0.018 * sr);   // hasta 18 ms tarde
             }
             if (swing > 0.0f && playing && ppqAtStart >= 0.0)
@@ -298,7 +298,11 @@ void TMUProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuf
             noteMap[(size_t) e.d1] = key;
             if (notesHeld <= 0) modTriggerTime = e.time;   // frase nueva: el vibrato vuelve a esperar
             ++notesHeld;
-            tsf_channel_note_on (synth, 0, key, e.vel);
+            lastVelocity = juce::jlimit (1, 127, juce::roundToInt (e.vel * 127.0f));
+            ++noteCounter;
+            // TinySoundFont responde a la velocity en forma lineal (casi no se nota la diferencia).
+            // Al cuadrado se parece a la respuesta de un sampler / rompler: tocar suave suena de verdad mas suave.
+            tsf_channel_note_on (synth, 0, key, e.vel * e.vel);
         }
         else if (type == 0x80 || (type == 0x90 && e.d2 == 0))
         {

@@ -1,0 +1,4 @@
+#!/bin/bash
+# Borra una version anterior de TMU antes de instalar la nueva.
+rm -rf "/Library/Audio/Plug-Ins/VST3/TMU.vst3"
+exit 0

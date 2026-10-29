@@ -12,10 +12,10 @@ FetchContent_Declare(JUCE
 FetchContent_MakeAvailable(JUCE)
 
 juce_add_plugin(TMU
-    COMPANY_NAME "CHIRU"
+    COMPANY_NAME "viszeversa"
     PRODUCT_NAME "TMU"
-    BUNDLE_ID com.chiru.tmu
-    PLUGIN_MANUFACTURER_CODE Chru
+    BUNDLE_ID com.viszeversa.tmu
+    PLUGIN_MANUFACTURER_CODE Vszv
     PLUGIN_CODE Tmu1
     IS_SYNTH TRUE
     NEEDS_MIDI_INPUT TRUE

@@ -31,13 +31,22 @@ jobs:
           ditto "$A/VST3/TMU.vst3" stage/vst3/TMU.vst3
           ditto "$A/AU/TMU.component" stage/au/TMU.component
           chmod +x installer/scripts-vst3/* installer/scripts-au/*
-          for kind in vst3 au; do
-            pkgbuild --analyze --root stage/$kind comp-$kind.plist
-            /usr/libexec/PlistBuddy -c "Set :0:BundleIsRelocatable false" comp-$kind.plist
+          for b in vst3:TMU.vst3 au:TMU.component; do
+            kind=${b%%:*}; bundle=${b#*:}
+            printf '%s\n' '<?xml version="1.0" encoding="UTF-8"?>' \
+              '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">' \
+              '<plist version="1.0"><array><dict>' \
+              '<key>BundleHasStrictIdentifier</key><false/>' \
+              '<key>BundleIsRelocatable</key><false/>' \
+              '<key>BundleIsVersionChecked</key><false/>' \
+              '<key>BundleOverwriteAction</key><string>upgrade</string>' \
+              "<key>RootRelativeBundlePath</key><string>$bundle</string>" \
+              '</dict></array></plist>' > comp-$kind.plist
+            plutil -lint comp-$kind.plist
           done
-          pkgbuild --root stage/vst3 --component-plist comp-vst3.plist --identifier com.chiru.tmu.vst3 \
+          pkgbuild --root stage/vst3 --component-plist comp-vst3.plist --identifier com.viszeversa.tmu.vst3 \
             --version 1.0.0 --install-location /Library/Audio/Plug-Ins/VST3 --scripts installer/scripts-vst3 out/TMU-VST3.pkg
-          pkgbuild --root stage/au --component-plist comp-au.plist --identifier com.chiru.tmu.au \
+          pkgbuild --root stage/au --component-plist comp-au.plist --identifier com.viszeversa.tmu.au \
             --version 1.0.0 --install-location /Library/Audio/Plug-Ins/Components --scripts installer/scripts-au out/TMU-AU.pkg
           productbuild --package out/TMU-VST3.pkg --package out/TMU-AU.pkg out/TMU-Solo-Plugin.pkg
 
@@ -55,15 +64,15 @@ jobs:
           sudo installer -pkg TMU-Test.pkg -target / -verboseR
           ls -la "/Library/Application Support/TMU/SoundFonts" /Library/Audio/Plug-Ins/VST3/TMU.vst3 /Library/Audio/Plug-Ins/Components/TMU.component
           cmp "test sine.sf2" "/Library/Application Support/TMU/SoundFonts/Test Sine.sf2"
-          pkgutil --pkgs | grep chiru
+          pkgutil --pkgs | grep viszeversa
           echo "INSTALADOR OK"
 
       - name: Validar Audio Unit (auval)
         run: |
           killall -9 AudioComponentRegistrar || true
           sleep 3
-          auval -a | grep -i chiru || true
-          auval -strict -v aumu Tmu1 Chru
+          auval -a | grep -i viszeversa || true
+          auval -strict -v aumu Tmu1 Vszv
 
       - name: Validar VST3 (pluginval)
         continue-on-error: true

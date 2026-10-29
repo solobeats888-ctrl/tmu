@@ -19,7 +19,7 @@ import argparse, bz2, ctypes, ctypes.util, hashlib, json, os, struct, subprocess
 from xml.sax.saxutils import escape
 
 VERSION = "1.0.0"
-SOUNDS_ID = "com.chiru.tmu.sounds"
+SOUNDS_ID = "com.viszeversa.tmu.sounds"
 SOUNDS_LOCATION = "/Library/Application Support/TMU"
 UID, GID = 0, 80   # root:admin
 

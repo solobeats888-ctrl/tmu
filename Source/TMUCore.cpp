@@ -23,8 +23,8 @@ namespace tmu
 const char* categoryName (int c)
 {
     static const char* names[] = {
-        "Pianos", "Teclados y Organos", "Guitarras", "Bajos", "Cuerdas", "Metales", "Vientos",
-        "Synth Leads", "Pads y Atmosferas", "Chiptune / 8-bit", "Campanas y Mallets",
+        "Pianos", "Teclados/Organos", "Guitarras", "Bajos", "Cuerdas", "Metales", "Vientos",
+        "Synth Leads", "Pads/Atmosferas", "Chiptune 8-bit", "Campanas/Mallets",
         "Voces y Coros", "Kits de Bateria", "Percusion", "FX", "Etnicos", "Otros" };
     return (c >= 0 && c < NumCategories) ? names[c] : "Otros";
 }

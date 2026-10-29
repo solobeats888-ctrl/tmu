@@ -48,23 +48,14 @@ jobs:
             --version 1.0.0 --install-location /Library/Audio/Plug-Ins/VST3 --scripts installer/scripts-vst3 out/TMU-VST3.pkg
           pkgbuild --root stage/au --component-plist comp-au.plist --identifier com.viszeversa.tmu.au \
             --version 1.0.0 --install-location /Library/Audio/Plug-Ins/Components --scripts installer/scripts-au out/TMU-AU.pkg
-          productbuild --package out/TMU-VST3.pkg --package out/TMU-AU.pkg out/TMU-Solo-Plugin.pkg
+          productbuild --package out/TMU-VST3.pkg --package out/TMU-AU.pkg out/TMU-Instalador.pkg
+          rm out/TMU-VST3.pkg out/TMU-AU.pkg   # queda un solo instalador (solo el plugin, sin soundfonts)
 
-      - name: Prueba del instalador completo (con un soundfont de prueba)
+      - name: Prueba del instalador
         run: |
           set -e
-          git clone -q --depth 1 https://github.com/hogliux/bomutils.git
-          mkdir -p bomutils/build/bin
-          c++ -std=c++11 -O2 -w -o bomutils/build/bin/mkbom bomutils/src/mkbom.cpp bomutils/src/printnode.cpp bomutils/src/crc32.cpp
-          python3 tools/make_test_sf2.py "test sine.sf2"
-          printf "%s\t%s\n" "$PWD/test sine.sf2" "Test Sine.sf2" > test-list.tsv
-          python3 tools/make_pkg.py all --out TMU-Test.pkg --sounds test-list.tsv \
-            --component out/TMU-VST3.pkg --component out/TMU-AU.pkg --mkbom bomutils/build/bin/mkbom
-          pkgutil --expand TMU-Test.pkg expanded
-          lsbom expanded/TMU-SoundFonts.pkg/Bom
-          sudo installer -pkg TMU-Test.pkg -target / -verboseR
-          ls -la "/Library/Application Support/TMU/SoundFonts" /Library/Audio/Plug-Ins/VST3/TMU.vst3 /Library/Audio/Plug-Ins/Components/TMU.component
-          cmp "test sine.sf2" "/Library/Application Support/TMU/SoundFonts/Test Sine.sf2"
+          sudo installer -pkg out/TMU-Instalador.pkg -target / -verboseR
+          ls -la /Library/Audio/Plug-Ins/VST3/TMU.vst3 /Library/Audio/Plug-Ins/Components/TMU.component
           pkgutil --pkgs | grep viszeversa
           echo "INSTALADOR OK"
 

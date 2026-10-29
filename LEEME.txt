@@ -1,4 +1,4 @@
-TMU - SoundFont Library (viszeversa)
+TMU - Sound Font Player (viszeversa)
 ====================================
 
 INSTALAR
@@ -11,6 +11,8 @@ INSTALAR
 
 2. Abri FL Studio > Options > Manage plugins > Find installed plugins.
    TMU aparece como generador (VST3 y AU).
+3. TMU es la herramienta: no trae soundfonts. Toca CARPETA en el plugin (abre Musica / TMU SoundFonts),
+   copia ahi tus .sf2 (pueden ir en subcarpetas) y toca RESCAN.
 
 
 CONTROLES (la interfaz es una consola de cartucho)
@@ -38,8 +40,8 @@ CONTROLES (la interfaz es una consola de cartucho)
 - FAVORITOS: click en las estrellas de un sonido (1, 2 o 3 estrellas), o click derecho > Favoritos,
   o las teclas 1, 2, 3 (0 para quitar). Quedan en el grupo "FAVORITOS" de la izquierda,
   primero los de 3 estrellas. Se guardan para todos tus proyectos.
-- SIN REPETIDOS (arriba en la pantalla): oculta los sonidos que suenan igual a otro y los que
-  no suenan. Tocalo para ver todos. La lista de cuales son esta en REPORTE_REPETIDOS.txt.
+- SIN REP: oculta los sonidos repetidos y los que no suenan de los soundfonts que TMU ya
+  conoce. Tocalo para ver todos.
 - Asignar una perilla de tu teclado MIDI: click derecho en la perilla > "Aprender controlador",
   y move la perilla del teclado. Queda guardado con el proyecto.
   Tambien podes usar el "Link to controller" de FL: click derecho > Opciones del DAW,
@@ -62,9 +64,11 @@ Despues cerra y abri FL Studio y volve a tocar Find installed plugins.
 DONDE QUEDA CADA COSA
 - Plugin VST3:   /Library/Audio/Plug-Ins/VST3/TMU.vst3
 - Plugin AU:     /Library/Audio/Plug-Ins/Components/TMU.component
-- Soundfonts:    /Library/Application Support/TMU/SoundFonts
-- Tus soundfonts extra: Musica / TMU SoundFonts (boton CARPETA del plugin, despues RESCAN)
+- Tus soundfonts: Musica / TMU SoundFonts (boton CARPETA del plugin, despues RESCAN)
+- Favoritos:      ~/Library/Application Support/TMU/TMU-favoritos.xml
 
 
 DESINSTALAR
-sudo rm -rf "/Library/Audio/Plug-Ins/VST3/TMU.vst3" "/Library/Audio/Plug-Ins/Components/TMU.component" "/Library/Application Support/TMU"
+sudo rm -rf "/Library/Audio/Plug-Ins/VST3/TMU.vst3" "/Library/Audio/Plug-Ins/Components/TMU.component"
+sudo pkgutil --forget com.viszeversa.tmu.vst3; sudo pkgutil --forget com.viszeversa.tmu.au
+(Tus soundfonts en Musica / TMU SoundFonts no se tocan.)

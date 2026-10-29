@@ -1,6 +1,6 @@
-# TMU — SoundFont Library
+# TMU — Sound Font Player
 
-Instrumento VST3 / AU para FL Studio (Mac) que junta todos los soundfonts (.sf2) en un solo plugin
+Instrumento VST3 / AU para FL Studio (Mac) que junta todos tus soundfonts (.sf2) en un solo plugin
 y los organiza **por tipo de sonido**, **por soundfont** o **de la A a la Z**, con buscador.
 
 ## Cómo se usa
@@ -38,12 +38,8 @@ Más detalles en `LEEME.txt`.
    La carpeta `.github` está oculta en el Finder: si subís por el navegador, creá el archivo a mano con
    **Add file > Create new file**, nombre `.github/workflows/build-mac.yml`, y pegá el contenido de `COPIAR_build-mac.yml.txt`.
 2. En la pestaña **Actions**, abrí "Build macOS" y esperá que termine en verde (~15 min).
-3. Bajá el artifact **TMU-mac**. Trae:
-   - `TMU-VST3.pkg` y `TMU-AU.pkg`: las piezas del plugin para armar el instalador completo con los soundfonts.
-   - `TMU-Solo-Plugin.pkg`: instala solo el plugin (sin soundfonts).
-
-## Instalador completo
-`tools/make_pkg.py` arma `TMU.pkg` (plugin + soundfonts) sin necesitar una Mac. Ver la ayuda dentro del archivo.
+3. Bajá el artifact **TMU-mac**: trae `TMU-Instalador.pkg` (solo el plugin, VST3 + AU).
+   TMU no incluye soundfonts: cada usuario pone los suyos en `Música/TMU SoundFonts`.
 
 ## Repetidos
 `tools/tmufp.cpp` hace sonar cada preset en 4 notas, calcula una huella del espectro y la compara entre todos.

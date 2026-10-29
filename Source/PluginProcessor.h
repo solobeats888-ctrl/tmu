@@ -73,6 +73,7 @@ private:
     std::atomic<float>* filterParam = nullptr;
     juce::SmoothedValue<float> modSmoothed, filterSmoothed;
     double lfoPhase = 0.0;
+    bool wasSilent = false;
     juce::dsp::StateVariableTPTFilter<float> lowCut, highCut;
     static juce::AudioProcessorValueTreeState::ParameterLayout createLayout();
 

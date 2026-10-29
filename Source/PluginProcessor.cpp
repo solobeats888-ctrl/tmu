@@ -13,7 +13,7 @@ TMUProcessor::TMUProcessor()
     filterParam = params.getRawParameterValue ("filter");
     for (auto& m : ccMap) m = -1;
     for (auto& v : pendingCC) v = -1.0f;
-    startTimerHz (60);
+    startTimerHz (30);
     for (int i = 0; i < 128; ++i) noteMap[(size_t) i] = i;
     startThread (juce::Thread::Priority::normal);
     library->addChangeListener (this);
@@ -130,6 +130,17 @@ void TMUProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuf
         lastTranspose = transpose;
     }
 
+    // Sin notas sonando y sin MIDI nuevo: no hay nada que calcular (asi 10 TMU quietos no gastan CPU)
+    filterSmoothed.setTargetValue (filterParam->load());
+    if (midi.isEmpty() && tsf_active_voice_count (synth) == 0 && ! filterSmoothed.isSmoothing())
+    {
+        gainSmoothed.skip (numSamples);
+        modSmoothed.skip (numSamples);
+        if (! wasSilent) { lowCut.reset(); highCut.reset(); wasSilent = true; }
+        return;
+    }
+    wasSilent = false;
+
     auto* left = buffer.getWritePointer (0);
     auto* right = buffer.getNumChannels() > 1 ? buffer.getWritePointer (1) : nullptr;
 
@@ -140,14 +151,17 @@ void TMUProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuf
     {
         while (count > 0)
         {
-            // vibrato: se actualiza cada 32 muestras (hasta medio semitono, como la rueda de mod de un GM)
+            // vibrato: se actualiza cada 32 muestras (hasta medio semitono, como la rueda de mod de un GM).
+            // Sin vibrato se calcula todo el bloque de una vez (mas liviano).
+            const bool vibrato = modSmoothed.isSmoothing() || modSmoothed.getTargetValue() > 0.0005f;
+            const int span = vibrato ? juce::jmin (count, 32) : count;
             const float depth = modSmoothed.getNextValue();
-            if (count > 1) modSmoothed.skip (juce::jmin (count, 32) - 1);
+            if (span > 1) modSmoothed.skip (span - 1);
             const float tune = depth > 0.0005f ? 0.5f * depth * (float) std::sin (lfoPhase) : 0.0f;
             tsf_channel_set_tuning (synth, 0, tune);
-            lfoPhase = std::fmod (lfoPhase + lfoInc * juce::jmin (count, 32), juce::MathConstants<double>::twoPi);
+            if (vibrato) lfoPhase = std::fmod (lfoPhase + lfoInc * span, juce::MathConstants<double>::twoPi);
 
-            const int chunk = juce::jmin (count, 32, (int) renderBuffer.size() / 2);
+            const int chunk = juce::jmin (span, (int) renderBuffer.size() / 2);
             tsf_render_float (synth, renderBuffer.data(), chunk, 0);
             for (int i = 0; i < chunk; ++i)
             {
@@ -200,7 +214,6 @@ void TMUProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuf
     if (pos < numSamples) render (pos, numSamples - pos);
 
     // ---- filtro de salida
-    filterSmoothed.setTargetValue (filterParam->load());
     const float fv = filterSmoothed.skip (numSamples);
     if (std::abs (fv) > 0.005f)
     {

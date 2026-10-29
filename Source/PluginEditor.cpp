@@ -33,7 +33,7 @@ juce::Font scriptFont (float h)
     return juce::Font (juce::FontOptions (juce::Font::getDefaultSerifFontName(), h, juce::Font::italic));
 }
 
-void glowText (juce::Graphics& g, const juce::String& s, juce::Rectangle<int> r, juce::Justification j, juce::Colour c, float glow = 0.18f)
+void glowText (juce::Graphics& g, const juce::String& s, juce::Rectangle<int> r, juce::Justification j, juce::Colour c, float glow = 0.0f)
 {
     if (glow > 0)
     {
@@ -477,8 +477,8 @@ void TMUEditor::showTutorial()
 //==============================================================================
 void TMUEditor::buildChassis()
 {
-    const float scale = 2.0f;
-    chassis = juce::Image (juce::Image::ARGB, (int) (W * scale), (int) (H * scale), true);
+    const float scale = chassisScale;
+    chassis = juce::Image (juce::Image::ARGB, (int) std::ceil (W * scale), (int) std::ceil (H * scale), true);
     juce::Graphics g (chassis);
     g.addTransform (juce::AffineTransform::scale (scale));
 
@@ -547,14 +547,8 @@ void TMUEditor::buildChassis()
     knobLabel (filterArea, "FILTRO");
     g.drawText ("POWER", juce::Rectangle<int> (prevButton.getX(), 478, 80, 12), juce::Justification::centredLeft);
     g.drawText ("SONIDO", prevButton.getBounds().getUnion (nextButton.getBounds()).withY (prevButton.getY() - 14).withHeight (10), juce::Justification::centred);
-}
 
-void TMUEditor::paint (juce::Graphics& g)
-{
-    g.drawImage (chassis, getLocalBounds().toFloat());
-    drawLed (g, { (float) prevButton.getX() + 88.0f, 483.0f }, 5.0f);
-
-    // ---- vidrio
+    // ---- vidrio de la pantalla y LED (fijos)
     auto glass = lcdArea.toFloat().reduced (14.0f);
     {
         juce::ColourGradient crt (juce::Colour (0xff1c0b2c), glass.getCentreX(), glass.getCentreY(), glassBase, glass.getX(), glass.getY(), true);
@@ -569,6 +563,22 @@ void TMUEditor::paint (juce::Graphics& g)
         g.setGradientFill (refl);
         g.fillRoundedRectangle (glass.reduced (4.0f), 8.0f);
     }
+    drawLed (g, { (float) prevButton.getX() + 88.0f, 483.0f }, 5.0f);
+}
+
+void TMUEditor::paint (juce::Graphics& g)
+{
+    // fondo fijo pre-dibujado a la resolucion real de la pantalla: se copia 1 a 1 (muy liviano)
+    const float sc = juce::jmax (1.0f, g.getInternalContext().getPhysicalPixelScaleFactor());
+    if (chassis.isNull() || std::abs (sc - chassisScale) > 0.01f)
+    {
+        chassisScale = sc;
+        buildChassis();
+    }
+    g.setImageResamplingQuality (juce::Graphics::lowResamplingQuality);
+    g.drawImageTransformed (chassis, juce::AffineTransform::scale (1.0f / chassisScale));
+
+    auto glass = lcdArea.toFloat().reduced (14.0f);
 
     const auto info = proc.getLoadedInfo();
     auto gi = glass.toNearestInt().reduced (18, 10);
@@ -674,7 +684,7 @@ void TMUEditor::resized()
     keyboard.setKeyWidth ((float) keySlot.getWidth() / 22.0f);   // C4..C7 = 22 teclas blancas
 
     tutorial.setBounds (getLocalBounds());
-    buildChassis();
+    chassis = {};   // se vuelve a dibujar en el proximo paint
 }
 
 bool TMUEditor::keyPressed (const juce::KeyPress& k)
@@ -721,8 +731,13 @@ void TMUEditor::timerCallback()
         repaint();
     }
 
-    if (++tick % 8 == 0 || proc.getLearningParam().isNotEmpty())
+    // repintar solo si algo cambio (con la ventana abierta y quieta casi no gasta CPU)
+    juce::String sig;
+    sig << (int) proc.library->isScanning() << "|" << (int) filtered.size() << "|" << (int) transpose.getValue() << "|" << proc.getLearningParam();
+    for (auto* k : { &volume, &modKnob, &filterKnob, &transpose }) sig << "|" << proc.getAssignedCC (k->paramId);
+    if (sig != lastPaintSig)
     {
+        lastPaintSig = sig;
         repaint (miniLcdArea.expanded (4));
         repaint (volArea.getUnion (trArea).expanded (30, 20));
         repaint (lcdArea.withHeight (70));
@@ -916,7 +931,7 @@ void TMUEditor::GroupModel::paintListBoxItem (int row, juce::Graphics& g, int w,
         g.drawText (juce::String (gr.count), r.removeFromRight (52).withTrimmedRight (4), juce::Justification::centredRight);
     }
     glowText (g, gr.label.toUpperCase().replace (juce::String (juce::CharPointer_UTF8 ("\xe2\x98\x85 ")), ""), r,
-              juce::Justification::centredLeft, col, selected ? 0.2f : 0.1f);
+              juce::Justification::centredLeft, col, selected ? 0.2f : 0.0f);
 }
 
 void TMUEditor::PresetModel::paintListBoxItem (int row, juce::Graphics& g, int w, int h, bool selected)
@@ -945,7 +960,7 @@ void TMUEditor::PresetModel::paintListBoxItem (int row, juce::Graphics& g, int w
     drawStars (g, starsArea (w, h), st, violetHi, violetHi.withAlpha (selected || isLoaded ? 0.25f : 0.1f));
     r.setRight (starsArea (w, h).getX() - 6);
     g.setFont (ed.look.pixel (10.0f));
-    glowText (g, e.name.toUpperCase(), r, juce::Justification::centredLeft, textCol, isLoaded ? 0.25f : 0.12f);
+    glowText (g, e.name.toUpperCase(), r, juce::Justification::centredLeft, textCol, isLoaded ? 0.25f : 0.0f);
 }
 
 void TMUEditor::GroupModel::selectedRowsChanged (int row)

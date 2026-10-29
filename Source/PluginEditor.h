@@ -131,6 +131,8 @@ private:
     int tick = 0;
     TMUProcessor::LoadedInfo lastInfo;
     juce::Image chassis;
+    float chassisScale = 2.0f;
+    juce::String lastPaintSig;
 
     GroupModel groupModel { *this };
     PresetModel presetModel { *this };

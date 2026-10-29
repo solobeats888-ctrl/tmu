@@ -193,13 +193,18 @@ void RetroKeyboard::drawWhiteNote (int note, juce::Graphics& g, juce::Rectangle<
     key.addRoundedRectangle (r.getX(), r.getY() - 6.0f, r.getWidth(), r.getHeight() + 6.0f, 4.0f);
     g.saveState();
     g.reduceClipRegion (area.toNearestInt());
-    g.setColour (isDown ? violetHi : (isOver ? juce::Colours::white : lavender));
+    // teclas negras: las "blancas" en negro grafito con separacion violeta
+    juce::ColourGradient kg (isDown ? violetHi : (isOver ? juce::Colour (0xff2e2636) : juce::Colour (0xff221c28)), 0, r.getY(),
+                             isDown ? violet : juce::Colour (0xff120f15), 0, r.getBottom(), false);
+    g.setGradientFill (kg);
     g.fillPath (key);
+    g.setColour (violet.withAlpha (isDown ? 0.9f : 0.35f));
+    g.drawRoundedRectangle (r.getX() + 0.5f, r.getY() - 6.0f, r.getWidth() - 1.0f, r.getHeight() + 5.5f, 4.0f, 1.0f);
     g.restoreState();
     if (note % 12 == 0)
     {
         g.setFont (look.pixel (7.0f));
-        g.setColour (isDown ? juce::Colours::white : purple);
+        g.setColour (isDown ? juce::Colours::white : violetHi.withAlpha (0.7f));
         g.drawText ("C" + juce::String (note / 12), area.withTrimmedBottom (5).removeFromBottom (10).toNearestInt(), juce::Justification::centred);
     }
 }
@@ -207,8 +212,12 @@ void RetroKeyboard::drawWhiteNote (int note, juce::Graphics& g, juce::Rectangle<
 void RetroKeyboard::drawBlackNote (int, juce::Graphics& g, juce::Rectangle<float> area, bool isDown, bool isOver, juce::Colour)
 {
     auto r = area.reduced (1.5f, 0.0f).withTrimmedTop (-4.0f);
-    g.setColour (isDown ? violet : (isOver ? juce::Colour (0xff2a1a3a) : black));
+    g.setColour (juce::Colours::black.withAlpha (0.6f));
+    g.fillRoundedRectangle (r.translated (1.5f, 1.5f), 2.5f);
+    g.setColour (isDown ? violet : (isOver ? juce::Colour (0xff2a1a3a) : juce::Colour (0xff050406)));
     g.fillRoundedRectangle (r, 2.5f);
+    g.setColour (violet.withAlpha (isDown ? 1.0f : 0.5f));
+    g.drawRoundedRectangle (r.reduced (0.5f), 2.5f, 1.0f);
 }
 
 void RetroKeyboard::drawUpDownButton (juce::Graphics&, int, int, bool, bool, bool) {}
@@ -450,21 +459,17 @@ void TMUEditor::buildChassis()
     g.setGradientFill (floor);
     g.fillAll();
 
-    // ---- cuerpo negro
-    auto body = juce::Rectangle<float> (30, 24, W - 60, H - 48);
-    g.setColour (juce::Colours::black.withAlpha (0.7f));
-    g.fillRoundedRectangle (body.translated (0, 12), 40.0f);
+    // ---- cuerpo negro: ocupa toda la ventana, sin bordes
+    auto body = juce::Rectangle<float> (0, 0, (float) W, (float) H);
     juce::ColourGradient bg (bodyTop, 0, body.getY(), black, 0, body.getY() + body.getHeight() * 0.6f, false);
     g.setGradientFill (bg);
-    g.fillRoundedRectangle (body, 40.0f);
-    g.setColour (juce::Colours::white.withAlpha (0.10f));
-    g.drawRoundedRectangle (body.reduced (0.5f).translated (0, 1), 40.0f, 1.2f);
+    g.fillRect (body);
 
     // ---- franja violeta superior
     {
         juce::Path p;
-        p.addRoundedRectangle (body.getX(), body.getY(), body.getWidth(), 96.0f, 40.0f, 40.0f, true, true, false, false);
-        juce::ColourGradient vg (juce::Colour (0xffb06bff), 0, body.getY(), purple, 0, body.getY() + 96, false);
+        p.addRectangle (body.getX(), body.getY(), body.getWidth(), 110.0f);
+        juce::ColourGradient vg (juce::Colour (0xffb06bff), 0, body.getY(), purple, 0, body.getY() + 110, false);
         vg.addColour (0.5, violet);
         g.setGradientFill (vg);
         g.fillPath (p);
@@ -472,7 +477,7 @@ void TMUEditor::buildChassis()
         g.setGradientFill (shine);
         g.fillPath (p);
         g.setColour (juce::Colours::black.withAlpha (0.35f));
-        g.fillRect (body.getX(), body.getY() + 93, body.getWidth(), 3.0f);
+        g.fillRect (body.getX(), body.getY() + 107, body.getWidth(), 3.0f);
     }
     g.setFont (look.pixel (46.0f));
     g.setColour (purpleDark);

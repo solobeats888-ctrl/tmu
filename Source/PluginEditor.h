@@ -147,12 +147,18 @@ private:
     int prefsVersion = -1;
     bool showDuplicates = false;
 
-    ParamKnob volume { "volume" }, modKnob { "mod" }, filterKnob { "filter" }, transpose { "transpose" };
-    juce::AudioProcessorValueTreeState::SliderAttachment volumeAtt, modAtt, filterAtt, transposeAtt;
+    ParamKnob volume { "volume" }, modKnob { "mod" }, filterKnob { "filter" }, transpose { "transpose" },
+              rateKnob { "rate" }, swingKnob { "swing" }, humanKnob { "humanize" };
+    juce::AudioProcessorValueTreeState::SliderAttachment volumeAtt, modAtt, filterAtt, transposeAtt, rateAtt, swingAtt, humanAtt;
+    juce::TextButton velButton;   // curva de velocity: SUAVE / NORMAL / DURA / FIJA
+    std::array<ParamKnob*, 7> allKnobs() { return { &volume, &modKnob, &rateKnob, &filterKnob, &transpose, &swingKnob, &humanKnob }; }
+    void updateVelButton();
+    juce::String velText() const;
 
     RetroKeyboard keyboard;
 
-    juce::Rectangle<int> lcdArea, miniLcdArea, keySlot, volArea, modArea, filterArea, trArea;
+    juce::Rectangle<int> lcdArea, miniLcdArea, keySlot, volArea, modArea, filterArea, trArea,
+                         rateArea, swingArea, humanArea, velArea, knobsArea;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TMUEditor)
 };

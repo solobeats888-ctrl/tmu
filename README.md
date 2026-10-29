@@ -8,6 +8,8 @@ y los organiza **por tipo de sonido**, **por soundfont** o **de la A a la Z**, c
 - **Buscar**: filtra por nombre del sonido, del soundfont o de la categoría (por ejemplo `bass`, `mario`, `pad`).
 - **Click en un sonido** lo carga al instante. Con las flechas ↑ ↓ (o los botones `<` `>`) pasás al anterior o siguiente.
 - **VOL**, **MOD** (vibrato, igual que la rueda de modulación), **FILTRO** (centro sin filtro, izquierda corta agudos, derecha corta graves) y **ST** (transporte ±24 semitonos). Doble click los vuelve a cero.
+- **RATE** (velocidad de la modulación) — **MOD** es estilo Roland: vibrato con retardo + filtro que se mueve.
+- **SWING** (50–75 %, con el tempo de FL), **HUMAN** (velocity y timing humanos) y **VEL** (curva: Suave / Normal / Dura / Fija).
 - **Favoritos**: click en las estrellas de un sonido (1, 2 o 3), click derecho > Favoritos, o las teclas 1, 2, 3 (0 para quitar). Aparecen en el grupo **★ FAVORITOS**, ordenados por estrellas. Se guardan en `~/Library/Application Support/TMU/TMU-favoritos.xml` y valen para todos los proyectos.
 - **SIN REPETIDOS**: oculta los sonidos que suenan igual a otro y los que no suenan (ver `REPORTE_REPETIDOS.txt`). Tocalo para verlos todos.
 - **Rueda de modulación (CC1)** y **pitch bend** de tu teclado MIDI funcionan directo.

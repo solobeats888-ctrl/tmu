@@ -19,10 +19,21 @@ CONTROLES (la interfaz es una consola de cartucho)
   FAV (estrellas del sonido elegido) y ? (tutorial).
 - Botones < > (debajo de POWER): sonido anterior / siguiente. Tambien con las flechas del teclado.
 - RESCAN vuelve a buscar soundfonts. CARPETA abre Musica/TMU SoundFonts.
-- Perillas: VOL, MOD, FILTRO y ST. El mini piano de la izquierda se toca con el mouse.
-- VOL: volumen.  MOD: vibrato (tambien lo mueve la rueda de modulacion de tu teclado).
+- Perillas, fila de arriba (SONIDO): VOL, MOD, RATE y FILTRO. Fila de abajo (GROOVE): ST, SWING,
+  HUMAN y VEL. El mini piano de la izquierda se toca con el mouse.
+- VOL: volumen.
+- MOD: modulacion estilo Roland (como un Fantom / JV): cuando tocas, la nota arranca quieta y
+  despues de un ratito entra el vibrato y un filtro que se abre y se cierra (efecto "wah").
+  Tambien la mueve la rueda de modulacion de tu teclado. Cuanto mas, mas profundo.
+- RATE: la velocidad de esa modulacion (0.1 a 12 Hz; doble click = 5.5 Hz).
 - FILTRO: al centro no filtra; a la izquierda corta agudos, a la derecha corta graves.
 - ST: transporte en semitonos.  Doble click en una perilla la vuelve a cero.
+- SWING: atrasa las notas que caen en los 16avos "de atras" (de 50 % recto a 75 %), como el
+  swing de una MPC. Funciona con FL Studio en play (usa el tempo del proyecto).
+- HUMAN: cada nota sale con una fuerza (velocity) un poco distinta y, con FL en play, hasta
+  18 ms tarde. Para que no suene todo cuadrado.
+- VEL: curva de velocity. SUAVE (suena fuerte aunque toques despacio), NORMAL, DURA (hay que
+  pegarle) o FIJA (todas iguales, como las maquinas viejas). Click para cambiar.
 - Pitch bend del teclado: funciona directo.
 - FAVORITOS: click en las estrellas de un sonido (1, 2 o 3 estrellas), o click derecho > Favoritos,
   o las teclas 1, 2, 3 (0 para quitar). Quedan en el grupo "FAVORITOS" de la izquierda,

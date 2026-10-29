@@ -63,7 +63,7 @@ private:
     void changeListenerCallback (juce::ChangeBroadcaster*) override;
     void timerCallback() override;
 
-    static constexpr int numLearnable = 4;
+    static constexpr int numLearnable = 7;
     static const char* learnableIds[numLearnable];
     std::array<std::atomic<int>, 128> ccMap;
     std::array<std::atomic<float>, numLearnable> pendingCC;
@@ -74,7 +74,20 @@ private:
     juce::SmoothedValue<float> modSmoothed, filterSmoothed;
     double lfoPhase = 0.0;
     bool wasSilent = false;
-    juce::dsp::StateVariableTPTFilter<float> lowCut, highCut;
+    juce::dsp::StateVariableTPTFilter<float> lowCut, highCut, modFilter;
+    std::atomic<float>* rateParam = nullptr;
+    std::atomic<float>* swingParam = nullptr;
+    std::atomic<float>* humanParam = nullptr;
+    std::atomic<float>* velCurveParam = nullptr;
+
+    // eventos MIDI programados (para SWING y HUMANIZE, que atrasan notas)
+    struct Event { juce::int64 time; juce::uint8 status, d1, d2; float vel; };
+    std::vector<Event> scheduled, due;
+    std::array<juce::int64, 128> noteDelay {};
+    juce::int64 sampleCounter = 0;
+    juce::int64 modTriggerTime = 0;   // cuando empezo la frase (para el vibrato con retardo estilo Roland)
+    int notesHeld = 0;
+    juce::Random rng;
     static juce::AudioProcessorValueTreeState::ParameterLayout createLayout();
 
     juce::SpinLock synthLock;

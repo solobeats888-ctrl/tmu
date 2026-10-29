@@ -6,7 +6,7 @@ namespace
 // ---- paleta: violeta, purpura y negro (+ lavanda clara para teclas y etiquetas)
 const juce::Colour outerBg    (0xff050406);
 const juce::Colour black      (0xff0b090d);
-const juce::Colour bodyTop    (0xff231e27);
+const juce::Colour bodyTop    (0xff0b090d);   // todo negro
 const juce::Colour violetHi   (0xffc98cff);
 const juce::Colour violet     (0xff8b3dff);
 const juce::Colour purple     (0xff5b1a9e);
@@ -14,9 +14,27 @@ const juce::Colour purpleDark (0xff2a0a4a);
 const juce::Colour screenTxt  (0xffb77dff);
 const juce::Colour screenDim  (0xff5a3a86);
 const juce::Colour glassBase  (0xff0d0514);
-const juce::Colour lavender   (0xffece2ff);
+const juce::Colour lavender   (0xffb98cff);   // texto: violeta
 
-constexpr int W = 1000, H = 686;
+constexpr int W = 1000, H = 658;
+constexpr int M = 70;            // margen izquierdo / derecho de todo el contenido
+constexpr int R = W - M;         // borde derecho
+constexpr int HEADER = 76;       // alto de la franja violeta
+
+// limites exactos del dibujo de un texto (sin el espacio extra de la fuente), para alinear al pixel
+juce::Rectangle<float> tightBounds (const juce::Font& f, const juce::String& t)
+{
+    juce::GlyphArrangement ga;
+    ga.addLineOfText (f, t, 0.0f, 0.0f);
+    return ga.getBoundingBox (0, -1, false);
+}
+
+void drawTight (juce::Graphics& g, const juce::Font& f, const juce::String& t, float left, float top)
+{
+    const auto b = tightBounds (f, t);
+    g.setFont (f);
+    g.drawSingleLineText (t, juce::roundToInt (left - b.getX()), juce::roundToInt (top - b.getY()));
+}
 
 const juce::StringArray& installedFonts()
 {
@@ -167,20 +185,21 @@ void TMULook::drawButtonBackground (juce::Graphics& g, juce::Button& b, const ju
     const float rad = r.getHeight() * 0.5f;
     const bool on = b.getToggleState();
 
-    if (style == "stripe")   // pill sobre la franja violeta
+    if (style == "stripe")   // pill de la barra de arriba: negra con borde violeta; la activa se ilumina
     {
-        g.setColour (on ? black : (over ? juce::Colours::black.withAlpha (0.28f) : juce::Colours::black.withAlpha (0.16f)));
-        g.fillRoundedRectangle (r.translated (0, down ? 1.0f : 0.0f), rad);
+        auto f = r.reduced (0.5f).translated (0, down ? 1.0f : 0.0f);
+        g.setColour (on ? violet.withAlpha (0.22f) : (over ? juce::Colour (0xff1a1420) : juce::Colour (0xff110e14)));
+        g.fillRoundedRectangle (f, rad);
+        g.setColour (on ? violetHi : violet.withAlpha (over ? 0.6f : 0.35f));
+        g.drawRoundedRectangle (f, rad, on ? 1.5f : 1.0f);
         return;
     }
-    // "body": pill oscura sobre el cuerpo negro
-    g.setColour (juce::Colours::black.withAlpha (0.6f));
-    g.fillRoundedRectangle (r.translated (0, 2.0f), rad);
-    juce::ColourGradient gr (over ? juce::Colour (0xff3a3340) : juce::Colour (0xff2c2631), 0, r.getY(), juce::Colour (0xff17131a), 0, r.getBottom(), false);
-    g.setGradientFill (gr);
-    g.fillRoundedRectangle (r.translated (0, down ? 1.0f : 0.0f), rad);
-    g.setColour (juce::Colours::white.withAlpha (0.08f));
-    g.drawRoundedRectangle (r.reduced (0.5f), rad, 1.0f);
+    // "body": pill negra con borde violeta, igual que las de arriba
+    auto f = r.reduced (0.5f).translated (0, down ? 1.0f : 0.0f);
+    g.setColour (over ? juce::Colour (0xff1a1420) : juce::Colour (0xff110e14));
+    g.fillRoundedRectangle (f, rad);
+    g.setColour (violet.withAlpha (over ? 0.6f : 0.35f));
+    g.drawRoundedRectangle (f, rad, 1.0f);
 }
 
 void TMULook::drawButtonText (juce::Graphics& g, juce::TextButton& b, bool over, bool down)
@@ -188,7 +207,8 @@ void TMULook::drawButtonText (juce::Graphics& g, juce::TextButton& b, bool over,
     const auto style = b.getProperties()["style"].toString();
     auto r = b.getLocalBounds().translated (0, down ? 1 : 0);
     const bool on = b.getToggleState();
-    const auto col = style == "stripe" ? (on ? juce::Colours::white : black) : (over ? juce::Colours::white : lavender);
+    const auto col = style == "stripe" ? (on ? violetHi : (over ? lavender : violet.brighter (0.15f)))
+                                       : (over ? violetHi : lavender);
     if (b.getProperties()["star"])
     {
         g.setColour (col);
@@ -350,6 +370,9 @@ TMUEditor::TMUEditor (TMUProcessor& p)
       modAtt (p.params, "mod", modKnob),
       filterAtt (p.params, "filter", filterKnob),
       transposeAtt (p.params, "transpose", transpose),
+      rateAtt (p.params, "rate", rateKnob),
+      swingAtt (p.params, "swing", swingKnob),
+      humanAtt (p.params, "humanize", humanKnob),
       keyboard (p.keyboardState, look)
 {
     setLookAndFeel (&look);
@@ -422,9 +445,23 @@ TMUEditor::TMUEditor (TMUProcessor& p)
     }
     presetList.setWantsKeyboardFocus (true);
 
-    for (auto* k : { &volume, &modKnob, &filterKnob, &transpose })
+    velButton.getProperties().set ("style", "body");
+    velButton.setTooltip ("Curva de velocity: SUAVE (suena fuerte aunque toques despacio), NORMAL, DURA (hay que pegarle) o FIJA");
+    velButton.onClick = [this]
     {
-        k->setDoubleClickReturnValue (true, 0.0);
+        if (auto* prm = proc.params.getParameter ("velcurve"))
+        {
+            const int n = ((int) proc.params.getRawParameterValue ("velcurve")->load() + 1) % 4;
+            prm->setValueNotifyingHost (prm->convertTo0to1 ((float) n));
+        }
+        updateVelButton();
+    };
+    addAndMakeVisible (velButton);
+    updateVelButton();
+
+    for (auto* k : allKnobs())
+    {
+        k->setDoubleClickReturnValue (true, k == &rateKnob ? 5.5 : 0.0);
         k->setPopupDisplayEnabled (true, true, this);
         k->onRightClick = [this] (ParamKnob& knob) { showKnobMenu (knob); };
         k->setTooltip ("Click derecho: asignar a un control de tu teclado MIDI");
@@ -461,13 +498,13 @@ TMUEditor::~TMUEditor()
 void TMUEditor::showTutorial()
 {
     const auto pills = viewType.getBounds().getUnion (helpButton.getBounds());
-    const auto knobs = volArea.getUnion (trArea).withTrimmedBottom (-16);
+    const auto knobs = knobsArea;
     tutorial.start ({
         { "BIENVENIDO A TMU",  "Todos tus soundfonts en una consola. Son miles de sonidos ordenados para que encuentres rapido lo que buscas.\n\nEn 6 pasos te muestro como se usa.", {} },
         { "LA PANTALLA",       "Elegi un sonido con un click o con las flechas arriba/abajo. A la izquierda estan los grupos. Arriba escribis para buscar: bass, pad, mario...", lcdArea },
         { "COMO SE ORDENA",    "TIPO: pianos, bajos, pads...\nSF2: por soundfont.\nA-Z: alfabetico.\nSIN REP: oculta los sonidos repetidos y los que no suenan.", pills },
         { "FAVORITOS",         "Toca FAV (o las teclas 1, 2, 3) para darle estrellas al sonido elegido. Los vas a encontrar en el grupo FAVORITOS de la pantalla.", favButton.getBounds() },
-        { "PERILLAS",          "VOL, MOD (vibrato, tambien con la rueda de tu teclado), FILTRO (izq. corta agudos, der. corta graves) y ST (semitonos). Click derecho: asignar a una perilla de tu MIDI.", knobs },
+        { "PERILLAS",          "MOD: vibrato y filtro que se mueven estilo Roland (arranca despues de un ratito, tambien con la rueda de tu teclado). RATE: velocidad. FILTRO, ST, SWING (atrasa los 16avos), HUMAN (velocity y tiempo humanos) y VEL (curva de velocity). Click derecho: asignar a tu MIDI.", knobs },
         { "PROBA Y SUMA MAS",  "Toca el mini piano con el mouse. < > pasan de sonido. CARPETA abre la carpeta para sumar tus .sf2 y RESCAN los carga.", keySlot.getUnion (folderButton.getBounds()) },
         { "LISTO!",            "Si te olvidas de algo, toca ? arriba a la derecha y vuelve este tutorial.", helpButton.getBounds() },
     });
@@ -496,29 +533,35 @@ void TMUEditor::buildChassis()
     // ---- franja violeta superior
     {
         juce::Path p;
-        p.addRectangle (body.getX(), body.getY(), body.getWidth(), 76.0f);
-        juce::ColourGradient vg (juce::Colour (0xffb06bff), 0, body.getY(), purple, 0, body.getY() + 76, false);
-        vg.addColour (0.5, violet);
-        g.setGradientFill (vg);
-        g.fillPath (p);
-        juce::ColourGradient shine (juce::Colours::white.withAlpha (0.25f), 0, body.getY(), juce::Colours::transparentWhite, 0, body.getY() + 24, false);
-        g.setGradientFill (shine);
-        g.fillPath (p);
-        g.setColour (juce::Colours::black.withAlpha (0.35f));
-        g.fillRect (body.getX(), body.getY() + 73, body.getWidth(), 3.0f);
-    }
-    g.setFont (look.heavy (52.0f));
-    g.setColour (purpleDark);
-    g.drawText ("TMU", juce::Rectangle<int> (68, -4, 200, 60).translated (2, 3), juce::Justification::centredLeft);
-    g.setColour (black);
-    g.drawText ("TMU", juce::Rectangle<int> (68, -4, 200, 60), juce::Justification::centredLeft);
-    g.setFont (look.pixel (8.0f));
-    g.drawText ("SOUND FONT PLAYER", juce::Rectangle<int> (71, 50, 300, 16), juce::Justification::centredLeft);
-    // firma "viszeversa": imagen hecha con la fuente Kihim (asi no hace falta incluir el archivo de la fuente)
-    {
-        auto logo = juce::ImageCache::getFromMemory (BinaryData::viszeversa_png, BinaryData::viszeversa_pngSize);
+        p.addRectangle (body.getX(), body.getY(), body.getWidth(), (float) HEADER);
         g.setColour (black);
-        g.drawImage (logo, juce::Rectangle<float> (190, 15, 250, 30), juce::RectanglePlacement::xLeft | juce::RectanglePlacement::yMid, true);
+        g.fillPath (p);
+        g.setColour (violet.withAlpha (0.45f));   // linea fina que separa la barra
+        g.fillRect (body.getX(), body.getY() + (float) HEADER - 1.0f, body.getWidth(), 1.0f);
+    }
+    // ---- logo: TMU y SOUND FONT PLAYER alineados a la izquierda, como bloque centrado en la franja
+    {
+        const auto logoFont = look.heavy (52.0f);
+        const auto subFont = look.pixel (8.0f);
+        const auto lb = tightBounds (logoFont, "TMU");
+        const auto sb = tightBounds (subFont, "SOUND FONT PLAYER");
+        const float gap = 7.0f;
+        const float top = ((float) HEADER - (lb.getHeight() + gap + sb.getHeight())) * 0.5f;
+        g.setColour (purpleDark);
+        drawTight (g, logoFont, "TMU", (float) M + 2.0f, top + 3.0f);
+        g.setColour (violetHi);
+        drawTight (g, logoFont, "TMU", (float) M, top);
+        g.setColour (violet);
+        drawTight (g, subFont, "SOUND FONT PLAYER", (float) M, top + lb.getHeight() + gap);
+
+        // firma "viszeversa": imagen hecha con la fuente Kihim, del alto de las letras de TMU
+        auto logo = juce::ImageCache::getFromMemory (BinaryData::viszeversa_png, BinaryData::viszeversa_pngSize);
+        const float h = std::round (lb.getHeight() * 0.62f);
+        const float w = h * (float) logo.getWidth() / (float) juce::jmax (1, logo.getHeight());
+        g.setColour (violet);
+        // centrada en el alto de las letras de TMU
+        g.drawImage (logo, juce::Rectangle<float> ((float) M + lb.getWidth() + 24.0f, top + (lb.getHeight() - h) * 0.5f, w, h),
+                     juce::RectanglePlacement::stretchToFit, true);
     }
 
     // ---- ranura del cartucho (pantalla)
@@ -531,11 +574,12 @@ void TMUEditor::buildChassis()
     // ---- rejilla de ventilacion
     for (int i = 0; i < 26; ++i)
     {
-        const float x = 80.0f + (float) i * 16.0f;
+        const float x = (float) keySlot.getX() + (float) i * ((float) keySlot.getWidth() - 8.0f) / 25.0f;
+        const float y = (float) folderButton.getBottom() - 24.0f;   // termina a la misma altura que CARPETA
         g.setColour (juce::Colours::black);
-        g.fillRoundedRectangle (x, 616.0f, 8.0f, 26.0f, 3.0f);
+        g.fillRoundedRectangle (x, y, 8.0f, 24.0f, 3.0f);
         g.setColour (juce::Colours::white.withAlpha (0.05f));
-        g.fillRect (x, 642.0f, 8.0f, 1.0f);
+        g.fillRect (x, y + 24.0f, 8.0f, 1.0f);
     }
 
     // ---- etiquetas
@@ -545,7 +589,11 @@ void TMUEditor::buildChassis()
     knobLabel (volArea, "VOL");
     knobLabel (modArea, "MOD");
     knobLabel (filterArea, "FILTRO");
-    g.drawText ("POWER", juce::Rectangle<int> (prevButton.getX(), 478, 80, 12), juce::Justification::centredLeft);
+    knobLabel (rateArea, "RATE");
+    knobLabel (swingArea, "SWING");
+    knobLabel (humanArea, "HUMAN");
+    knobLabel (velArea, "VEL");
+    g.drawText ("POWER", juce::Rectangle<int> (prevButton.getX(), keySlot.getY(), 80, 16), juce::Justification::centredLeft);
     g.drawText ("SONIDO", prevButton.getBounds().getUnion (nextButton.getBounds()).withY (prevButton.getY() - 14).withHeight (10), juce::Justification::centred);
 
     // ---- vidrio de la pantalla y LED (fijos)
@@ -563,7 +611,7 @@ void TMUEditor::buildChassis()
         g.setGradientFill (refl);
         g.fillRoundedRectangle (glass.reduced (4.0f), 8.0f);
     }
-    drawLed (g, { (float) prevButton.getX() + 88.0f, 483.0f }, 5.0f);
+    drawLed (g, { (float) R - 6.0f, (float) keySlot.getY() + 8.0f }, 5.0f);
 }
 
 void TMUEditor::paint (juce::Graphics& g)
@@ -632,7 +680,7 @@ void TMUEditor::paint (juce::Graphics& g)
     g.setColour (lavender.withAlpha (0.8f));
     g.drawText ("ST " + juce::String (tr > 0 ? "+" : "") + juce::String (tr), trArea.withY (trArea.getBottom() + 6).withHeight (10).expanded (20, 0), juce::Justification::centred);
     const auto learning = proc.getLearningParam();
-    for (auto* k : { &volume, &modKnob, &filterKnob, &transpose })
+    for (auto* k : allKnobs())
     {
         const int cc = proc.getAssignedCC (k->paramId);
         const bool isLearning = learning == k->paramId;
@@ -645,22 +693,45 @@ void TMUEditor::paint (juce::Graphics& g)
 
 void TMUEditor::resized()
 {
-    lcdArea = { 70, 106, W - 140, 340 };
+    // Grilla: todo arranca en x = M y termina en x = R; 24 px entre bloques.
+    lcdArea = { M, HEADER + 30, R - M, 340 };
     auto glass = lcdArea.reduced (14).reduced (18, 10);
     miniLcdArea = { glass.getX(), glass.getBottom() - 36, glass.getWidth(), 36 };
-    keySlot = { 80, 472, 410, 126 };
-    volArea = { 520, 478, 62, 62 };
-    modArea = { 594, 478, 62, 62 };
-    filterArea = { 668, 478, 62, 62 };
-    trArea = { 742, 478, 62, 62 };
 
-    // botones de la franja violeta
-    int x = W - 60;
-    struct B { juce::TextButton* b; int w; };
-    for (auto b : { B { &helpButton, 40 }, B { &favButton, 78 }, B { &dupButton, 96 }, B { &viewAZ, 62 }, B { &viewSource, 62 }, B { &viewType, 72 } })
+    const int rowTop = lcdArea.getBottom() + 24;
+    keySlot = { M, rowTop, 420, 126 };
+
+    // columna derecha (POWER, < >, RESCAN, CARPETA), alineada al borde derecho
+    const int colW = 108, colX = R - colW;
+    prevButton.setBounds   (colX, rowTop + 42, 52, 30);
+    nextButton.setBounds   (R - 52, rowTop + 42, 52, 30);
+    rescanButton.setBounds (colX, rowTop + 88, colW, 30);
+    folderButton.setBounds (colX, rowTop + 134, colW, 30);
+
+    // 2 filas de 4 perillas con el mismo espacio entre el piano y la columna derecha:
+    // arriba el sonido (VOL MOD RATE FILTRO), abajo el groove (ST SWING HUMAN VEL)
+    const int knob = 46, freeW = colX - keySlot.getRight(), gapK = (freeW - 4 * knob) / 5;
+    const int rowY[2] = { rowTop + 4, rowTop + 4 + 82 };
+    juce::Rectangle<int>* rows[2][4] = { { &volArea, &modArea, &rateArea, &filterArea }, { &trArea, &swingArea, &humanArea, &velArea } };
+    for (int r = 0; r < 2; ++r)
     {
-        x -= b.w;
-        b.b->setBounds (x, 22, b.w, 32);
+        int kx = keySlot.getRight() + gapK + (freeW - 4 * knob - 5 * gapK) / 2;
+        for (auto* a : rows[r])
+        {
+            *a = { kx, rowY[r], knob, knob };
+            kx += knob + gapK;
+        }
+    }
+    knobsArea = volArea.getUnion (velArea).expanded (12, 16);
+
+    // botones de la franja violeta: mismo ancho, mismo espacio, centrados en la franja y alineados a la derecha
+    int x = R;
+    const int bh = 32, by = (HEADER - bh) / 2;
+    for (auto* b : { &helpButton, &favButton, &dupButton, &viewAZ, &viewSource, &viewType })
+    {
+        const int bw = b == &helpButton ? bh : 80;
+        x -= bw;
+        b->setBounds (x, by, bw, bh);
         x -= 8;
     }
 
@@ -674,11 +745,11 @@ void TMUEditor::resized()
     modKnob.setBounds (modArea);
     filterKnob.setBounds (filterArea);
     transpose.setBounds (trArea);
+    rateKnob.setBounds (rateArea);
+    swingKnob.setBounds (swingArea);
+    humanKnob.setBounds (humanArea);
+    velButton.setBounds (velArea.withSizeKeepingCentre (64, 26));
 
-    prevButton.setBounds (832, 512, 52, 30);
-    nextButton.setBounds (888, 512, 52, 30);
-    rescanButton.setBounds (832, 554, 108, 30);
-    folderButton.setBounds (832, 592, 108, 30);
 
     keyboard.setBounds (keySlot);
     keyboard.setKeyWidth ((float) keySlot.getWidth() / 22.0f);   // C4..C7 = 22 teclas blancas
@@ -733,19 +804,32 @@ void TMUEditor::timerCallback()
 
     // repintar solo si algo cambio (con la ventana abierta y quieta casi no gasta CPU)
     juce::String sig;
+    if (velButton.getButtonText() != velText()) updateVelButton();
     sig << (int) proc.library->isScanning() << "|" << (int) filtered.size() << "|" << (int) transpose.getValue() << "|" << proc.getLearningParam();
-    for (auto* k : { &volume, &modKnob, &filterKnob, &transpose }) sig << "|" << proc.getAssignedCC (k->paramId);
+    for (auto* k : allKnobs()) sig << "|" << proc.getAssignedCC (k->paramId);
     if (sig != lastPaintSig)
     {
         lastPaintSig = sig;
         repaint (miniLcdArea.expanded (4));
-        repaint (volArea.getUnion (trArea).expanded (30, 20));
+        repaint (knobsArea.expanded (20, 6));
         repaint (lcdArea.withHeight (70));
     }
 
     const int row = presetList.getSelectedRow();
     const bool selFav = entries != nullptr && row >= 0 && row < (int) filtered.size() && prefs->getStars ((*entries)[(size_t) filtered[(size_t) row]].key) > 0;
     if (favButton.getToggleState() != selFav) favButton.setToggleState (selFav, juce::dontSendNotification);
+}
+
+juce::String TMUEditor::velText() const
+{
+    static const char* names[] = { "SUAVE", "NORMAL", "DURA", "FIJA" };
+    return names[juce::jlimit (0, 3, (int) proc.params.getRawParameterValue ("velcurve")->load())];
+}
+
+void TMUEditor::updateVelButton()
+{
+    velButton.setButtonText (velText());
+    velButton.setToggleState (velButton.getButtonText() != "NORMAL", juce::dontSendNotification);
 }
 
 void TMUEditor::showKnobMenu (ParamKnob& knob)

@@ -1,0 +1,59 @@
+TMU - SoundFont Library (viszeversa)
+====================================
+
+INSTALAR
+1. Doble click en TMU-Instalador.pkg y segui los pasos.
+   Si macOS dice que no se puede abrir o que esta danado:
+   click derecho sobre el .pkg > Abrir > Abrir.
+   Si igual no abre, abri la app Terminal y pega esto (cambia la ruta si el .pkg esta en otro lado):
+
+   xattr -cr ~/Downloads/TMU-Instalador.pkg
+
+2. Abri FL Studio > Options > Manage plugins > Find installed plugins.
+   TMU aparece como generador (VST3 y AU).
+
+
+CONTROLES (la interfaz es una consola de cartucho)
+- La primera vez que abris TMU aparece un tutorial. Para verlo de nuevo, toca "?" (arriba a la derecha).
+- Botones de la franja violeta: TIPO, SF2 (por soundfont), A-Z, SIN REP (oculta repetidos),
+  FAV (estrellas del sonido elegido) y ? (tutorial).
+- Botones < > (debajo de POWER): sonido anterior / siguiente. Tambien con las flechas del teclado.
+- RESCAN vuelve a buscar soundfonts. CARPETA abre Musica/TMU SoundFonts.
+- Perillas: VOL, MOD, FILTRO y ST. El mini piano de la izquierda se toca con el mouse.
+- VOL: volumen.  MOD: vibrato (tambien lo mueve la rueda de modulacion de tu teclado).
+- FILTRO: al centro no filtra; a la izquierda corta agudos, a la derecha corta graves.
+- ST: transporte en semitonos.  Doble click en una perilla la vuelve a cero.
+- Pitch bend del teclado: funciona directo.
+- FAVORITOS: click en las estrellas de un sonido (1, 2 o 3 estrellas), o click derecho > Favoritos,
+  o las teclas 1, 2, 3 (0 para quitar). Quedan en el grupo "FAVORITOS" de la izquierda,
+  primero los de 3 estrellas. Se guardan para todos tus proyectos.
+- SIN REPETIDOS (arriba en la pantalla): oculta los sonidos que suenan igual a otro y los que
+  no suenan. Tocalo para ver todos. La lista de cuales son esta en REPORTE_REPETIDOS.txt.
+- Asignar una perilla de tu teclado MIDI: click derecho en la perilla > "Aprender controlador",
+  y move la perilla del teclado. Queda guardado con el proyecto.
+  Tambien podes usar el "Link to controller" de FL: click derecho > Opciones del DAW,
+  o move la perilla y en FL anda a Tools > Last tweaked > Link to controller.
+
+
+SI FL STUDIO NO VE EL PLUGIN O MAC LO BLOQUEA
+Abri la app Terminal (Aplicaciones > Utilidades > Terminal), pega estas lineas
+y apreta Enter. Te va a pedir la contrasena de tu Mac (cuando la escribis no se ve, es normal):
+
+sudo xattr -cr "/Library/Audio/Plug-Ins/VST3/TMU.vst3"
+sudo xattr -cr "/Library/Audio/Plug-Ins/Components/TMU.component"
+sudo codesign --force --deep --sign - "/Library/Audio/Plug-Ins/VST3/TMU.vst3"
+sudo codesign --force --deep --sign - "/Library/Audio/Plug-Ins/Components/TMU.component"
+killall -9 AudioComponentRegistrar
+
+Despues cerra y abri FL Studio y volve a tocar Find installed plugins.
+
+
+DONDE QUEDA CADA COSA
+- Plugin VST3:   /Library/Audio/Plug-Ins/VST3/TMU.vst3
+- Plugin AU:     /Library/Audio/Plug-Ins/Components/TMU.component
+- Soundfonts:    /Library/Application Support/TMU/SoundFonts
+- Tus soundfonts extra: Musica / TMU SoundFonts (boton CARPETA del plugin, despues RESCAN)
+
+
+DESINSTALAR
+sudo rm -rf "/Library/Audio/Plug-Ins/VST3/TMU.vst3" "/Library/Audio/Plug-Ins/Components/TMU.component" "/Library/Application Support/TMU"

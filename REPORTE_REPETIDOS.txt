@@ -1,0 +1,4215 @@
+TMU - sonidos repetidos (se muestra uno por grupo)
+
+Total de sonidos: 13926
+Repetidos ocultos: 2014
+Sonidos que no suenan (ocultos): 142
+Quedan visibles: 11770
+
+SE QUEDA: Tuba (Minecraft)
+   oculto: Koto (Minecraft)
+   oculto: Sitar (Minecraft)
+   oculto: Banjo (Minecraft)
+   oculto: Agogo (Minecraft)
+   oculto: O. Hit (Minecraft)
+   oculto: Fiddle (Minecraft)
+   oculto: Shanai (Minecraft)
+   oculto: Trumpet (Minecraft)
+   oculto: Bagpipe (Minecraft)
+   oculto: Gunshot (Minecraft)
+   oculto: Clavinet (Minecraft)
+   oculto: Trombone (Minecraft)
+   oculto: Shamisen (Minecraft)
+   oculto: Accordion (Minecraft)
+   oculto: Harmonica (Minecraft)
+   oculto: H.T. Piano (Minecraft)
+   oculto: E. Piano 1 (Minecraft)
+   oculto: E. Piano 2 (Minecraft)
+   oculto: Rock Organ (Minecraft)
+   oculto: Reed Organ (Minecraft)
+   oculto: T. Strings (Minecraft)
+   oculto: P. Strings (Minecraft)
+   oculto: Choir Aahs (Minecraft)
+   oculto: Voice Oohs (Minecraft)
+   oculto: Grand Piano (Minecraft)
+   oculto: String E. 1 (Minecraft)
+   oculto: String E. 2 (Minecraft)
+   oculto: Synth Choir (Minecraft)
+   oculto: French Horn (Minecraft)
+   oculto: P. 2 (warm) (Minecraft)
+   oculto: P. 7 (halo) (Minecraft)
+   oculto: Steel Drums (Minecraft)
+   oculto: Church Organ (Minecraft)
+   oculto: T. Accordion (Minecraft)
+   oculto: S. Strings 1 (Minecraft)
+   oculto: S. Strings 2 (Minecraft)
+   oculto: L. 4 (chiff) (Minecraft)
+   oculto: L. 6 (voice) (Minecraft)
+   oculto: P. 4 (choir) (Minecraft)
+   oculto: P. 5 (bowed) (Minecraft)
+   oculto: P. 8 (sweep) (Minecraft)
+   oculto: FX (crystal) (Minecraft)
+   oculto: Muted Trumpet (Minecraft)
+   oculto: Brass Section (Minecraft)
+   oculto: L. 1 (square) (Minecraft)
+   oculto: L. 7 (fifths) (Minecraft)
+   oculto: FX (atmosph.) (Minecraft)
+   oculto: FX (brightn.) (Minecraft)
+   oculto: Acoustic Piano (Minecraft)
+   oculto: E. Grand Piano (Minecraft)
+   oculto: L. 5 (charang) (Minecraft)
+   oculto: P. 1 (new age) (Minecraft)
+   oculto: L. 2 (sawtooth) (Minecraft)
+   oculto: L. 3 (calliope) (Minecraft)
+   oculto: P. 6 (metallic) (Minecraft)
+   oculto: P. 3 (polysynth) (Minecraft)
+
+SE QUEDA: GB Square (Pokémon Emerald)
+   oculto: Type 2 @0xfb4d68 (Mario & Luigi - Superstar Saga)
+   oculto: Type 1 @0xfb4d74 (Mario & Luigi - Superstar Saga)
+   oculto: Type 1 @0xfb4d98 (Mario & Luigi - Superstar Saga)
+   oculto: Type 1 @0xfb4da4 (Mario & Luigi - Superstar Saga)
+   oculto: Type 1 @0xfb4db0 (Mario & Luigi - Superstar Saga)
+   oculto: Type 1 @0xd406c (Game & Watch Gallery 4)
+   oculto: Type 2 @0xd4090 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd4240 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd42b8 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd42c4 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd43a8 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd43b4 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd43c0 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd43cc (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd43f0 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd43fc (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd4408 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd4474 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd4480 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd448c (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd4498 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd44a4 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd44ec (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd44f8 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd4828 (Game & Watch Gallery 4)
+   oculto: Type 2 @0xd4858 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd499c (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd49a8 (Game & Watch Gallery 4)
+   oculto: [GB] Pulse 50% (MOTHER 3)
+   oculto: Square 3 (Magical Quest Starring Mickey & Minnie (GBA))
+
+SE QUEDA: PAD 9 (Nintendo Entertainment System)
+   oculto: PAD 8 (Nintendo Entertainment System)
+   oculto: PAD 7 (Nintendo Entertainment System)
+   oculto: PAD 6 (Nintendo Entertainment System)
+   oculto: PAD 5 (Nintendo Entertainment System)
+   oculto: PAD 4 (Nintendo Entertainment System)
+   oculto: PAD 3 (Nintendo Entertainment System)
+   oculto: PAD 2 (Nintendo Entertainment System)
+   oculto: PAD 1 (Nintendo Entertainment System)
+   oculto: FIDDLE (Nintendo Entertainment System)
+   oculto: PAD 16 (Nintendo Entertainment System)
+   oculto: PAD 15 (Nintendo Entertainment System)
+   oculto: PAD 14 (Nintendo Entertainment System)
+   oculto: PAD 13 (Nintendo Entertainment System)
+   oculto: PAD 12 (Nintendo Entertainment System)
+   oculto: PAD 11 (Nintendo Entertainment System)
+   oculto: PAD 10 (Nintendo Entertainment System)
+   oculto: BAGPIPE (Nintendo Entertainment System)
+   oculto: STRINGS 9 (Nintendo Entertainment System)
+   oculto: STRINGS 5 (Nintendo Entertainment System)
+   oculto: STRINGS 4 (Nintendo Entertainment System)
+   oculto: STRINGS 3 (Nintendo Entertainment System)
+   oculto: STRINGS 2 (Nintendo Entertainment System)
+   oculto: STRINGS 1 (Nintendo Entertainment System)
+   oculto: STRINGS 15 (Nintendo Entertainment System)
+   oculto: STRINGS 14 (Nintendo Entertainment System)
+   oculto: STRINGS 13 (Nintendo Entertainment System)
+   oculto: STRINGS 12 (Nintendo Entertainment System)
+   oculto: STRINGS 11 (Nintendo Entertainment System)
+   oculto: STRINGS 10 (Nintendo Entertainment System)
+
+SE QUEDA: Gunshot (Pokémon Emerald)
+   oculto: Applause (Pokémon Emerald)
+   oculto: Type 4 @0x1073b8 (MOTHER 1+2)
+   oculto: Type 4 @0xfb4e64 (Mario & Luigi - Superstar Saga)
+   oculto: Type 4 @0xd4180 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd418c (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd4198 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd41a4 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd41b0 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd41bc (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd41c8 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd4300 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd4654 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd4660 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd466c (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd4678 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd4684 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd4690 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd469c (Game & Watch Gallery 4)
+   oculto: Type 4 @0xfb4d80 (Mario & Luigi - Superstar Saga)
+   oculto: Type 4 @0xd4174 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd463c (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd4648 (Game & Watch Gallery 4)
+   oculto: [GB] Noise (MOTHER 3)
+
+SE QUEDA: Gunshot (Scratch)
+   oculto: Seashore (Scratch)
+   oculto: Applause (Scratch)
+   oculto: Bird Tweet (Scratch)
+   oculto: Helicopter (Scratch)
+   oculto: FX 1 (rain) (Scratch)
+   oculto: Pad 2 (warm) (Scratch)
+   oculto: Pad 7 (halo) (Scratch)
+   oculto: Breath Noise (Scratch)
+   oculto: Pad 4 (choir) (Scratch)
+   oculto: Pad 5 (bowed) (Scratch)
+   oculto: Pad 8 (sweep) (Scratch)
+   oculto: FX 7 (echoes) (Scratch)
+   oculto: FX 8 (sci-fi) (Scratch)
+   oculto: FX 3 (crystal) (Scratch)
+   oculto: FX 6 (goblins) (Scratch)
+   oculto: Telephone Ring (Scratch)
+   oculto: Pad 1 (new age) (Scratch)
+   oculto: Pad 6 (metallic) (Scratch)
+   oculto: Pad 3 (polysynth) (Scratch)
+   oculto: FX 2 (soundtrack) (Scratch)
+   oculto: FX 4 (atmosphere) (Scratch)
+   oculto: FX 5 (brightness) (Scratch)
+   oculto: Guitar Fret Noise (Scratch)
+
+SE QUEDA: SHENAI (Nintendo Entertainment System)
+   oculto: ORGAN 9 (Nintendo Entertainment System)
+   oculto: ORGAN 8 (Nintendo Entertainment System)
+   oculto: ORGAN 7 (Nintendo Entertainment System)
+   oculto: ORGAN 6 (Nintendo Entertainment System)
+   oculto: TRUMPET 9 (Nintendo Entertainment System)
+   oculto: TRUMPET 8 (Nintendo Entertainment System)
+   oculto: TRUMPET 7 (Nintendo Entertainment System)
+   oculto: TRUMPET 6 (Nintendo Entertainment System)
+   oculto: TRUMPET 5 (Nintendo Entertainment System)
+   oculto: TRUMPET 4 (Nintendo Entertainment System)
+   oculto: TRUMPET 3 (Nintendo Entertainment System)
+   oculto: TRUMPET 2 (Nintendo Entertainment System)
+   oculto: TRUMPET 1 (Nintendo Entertainment System)
+   oculto: TRUMPET 12 (Nintendo Entertainment System)
+   oculto: TRUMPET 11 (Nintendo Entertainment System)
+   oculto: TRUMPET 10 (Nintendo Entertainment System)
+
+SE QUEDA: AGOGO (Nintendo Entertainment System)
+   oculto: LEAD 1 (Nintendo Entertainment System)
+   oculto: VIBES 8 (Nintendo Entertainment System)
+   oculto: VIBES 7 (Nintendo Entertainment System)
+   oculto: VIBES 6 (Nintendo Entertainment System)
+   oculto: VIBES 5 (Nintendo Entertainment System)
+   oculto: VIBES 4 (Nintendo Entertainment System)
+   oculto: VIBES 3 (Nintendo Entertainment System)
+   oculto: VIBES 2 (Nintendo Entertainment System)
+   oculto: VIBES 1 (Nintendo Entertainment System)
+   oculto: PIANO 3 (Nintendo Entertainment System)
+   oculto: PIANO 2 (Nintendo Entertainment System)
+   oculto: PIANO 1 (Nintendo Entertainment System)
+   oculto: STRINGS 7 (Nintendo Entertainment System)
+   oculto: STRINGS 6 (Nintendo Entertainment System)
+   oculto: TINKLE BELL (Nintendo Entertainment System)
+
+SE QUEDA: Type 1 @0xfb4dd4 (Mario & Luigi - Superstar Saga)
+   oculto: Type 1 @0xd4084 (Game & Watch Gallery 4)
+   oculto: Type 2 @0xd40a8 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd42d0 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd4384 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd4390 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd44bc (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd44c8 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd44d4 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd44e0 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd484c (Game & Watch Gallery 4)
+   oculto: Type 2 @0xd4870 (Game & Watch Gallery 4)
+   oculto: [GB] Pulse 12.5% (MOTHER 3)
+   oculto: Square 1 (Magical Quest Starring Mickey & Minnie (GBA))
+
+SE QUEDA: Type 4 @0xd41e0 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd41ec (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd41f8 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd4204 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd4210 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd421c (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd4228 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd46b4 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd46c0 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd46cc (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd46d8 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd46e4 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd46f0 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd46fc (Game & Watch Gallery 4)
+
+SE QUEDA: Marimba (Super Mario 64)
+   oculto: Celesta (Super Mario 64)
+   oculto: Kalimba (Super Mario 64)
+   oculto: Dulcimer (Super Mario 64)
+   oculto: Xylophone (Super Mario 64)
+   oculto: Vibraphone (Super Mario 64)
+   oculto: Tinkle Bell (Super Mario 64)
+   oculto: Glockenspiel (Super Mario 64)
+   oculto: Tubular Bells (Super Mario 64)
+   oculto: FX 3 (crystal) (Super Mario 64)
+   oculto: Electric Piano 1 (Super Mario 64)
+   oculto: Electric Piano 2 (Super Mario 64)
+   oculto: FX 5 (Brightness) (Super Mario 64)
+   oculto: Electric Piano 2 (Nintendo 64)
+
+SE QUEDA: GB Square 4 (Pokémon Emerald)
+   oculto: Type 1 @0xfb4dc8 (Mario & Luigi - Superstar Saga)
+   oculto: Type 2 @0xfb4e34 (Mario & Luigi - Superstar Saga)
+   oculto: Type 1 @0xfb4e40 (Mario & Luigi - Superstar Saga)
+   oculto: Type 2 @0xfb4e4c (Mario & Luigi - Superstar Saga)
+   oculto: Type 1 @0xfb4e94 (Mario & Luigi - Superstar Saga)
+   oculto: Type 2 @0xfb4eac (Mario & Luigi - Superstar Saga)
+   oculto: Type 1 @0xd4258 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd42a0 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd42ac (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd42e8 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd439c (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd44b0 (Game & Watch Gallery 4)
+
+SE QUEDA: Koto (Game Gear)
+   oculto: Bright (Game Gear)
+   oculto: Celesta (Game Gear)
+   oculto: Guitar 2 (Game Gear)
+   oculto: Music Box (Game Gear)
+   oculto: Vibraphone (Game Gear)
+   oculto: Electric Piano 2 (Game Gear)
+   oculto: Harpsichord (Game Gear)
+   oculto: Piano 3 (Game Gear)
+   oculto: Tubular Bells (Game Gear)
+   oculto: Piano 2 (Game Gear)
+   oculto: Fantasia (Game Gear)
+   oculto: Glockenspiel (Game Gear)
+
+SE QUEDA: Alto Sax (Super Mario 64)
+   oculto: Tenor Sax (Super Mario 64)
+   oculto: Soprano Sax (Super Mario 64)
+   oculto: Baritone Sax (Super Mario 64)
+   oculto: Brass Section (Super Mario 64)
+   oculto: Synth Brass 1 (Super Mario 64)
+   oculto: Synth Brass 2 (Super Mario 64)
+   oculto: Muted Trumpet (Super Mario 64)
+   oculto: Overdrive Guitar (Super Mario 64)
+   oculto: Lead 2 (Sawtooth) (Super Mario 64)
+   oculto: Pad 3 (polysynth) (Super Mario 64)
+   oculto: Brass Section (Nintendo 64)
+
+SE QUEDA: SITAR 5 (Nintendo Entertainment System)
+   oculto: SITAR 4 (Nintendo Entertainment System)
+   oculto: SITAR 3 (Nintendo Entertainment System)
+   oculto: SITAR 2 (Nintendo Entertainment System)
+   oculto: SITAR 1 (Nintendo Entertainment System)
+   oculto: GUITAR 8 (Nintendo Entertainment System)
+   oculto: GUITAR 7 (Nintendo Entertainment System)
+   oculto: GUITAR 6 (Nintendo Entertainment System)
+   oculto: GUITAR 5 (Nintendo Entertainment System)
+   oculto: GUITAR 4 (Nintendo Entertainment System)
+   oculto: CLAVINET (Nintendo Entertainment System)
+   oculto: HARPSICHORD (Nintendo Entertainment System)
+
+SE QUEDA: FLUTE 8 (Nintendo Entertainment System)
+   oculto: FLUTE 7 (Nintendo Entertainment System)
+   oculto: FLUTE 6 (Nintendo Entertainment System)
+   oculto: FLUTE 5 (Nintendo Entertainment System)
+   oculto: FLUTE 4 (Nintendo Entertainment System)
+   oculto: FLUTE 3 (Nintendo Entertainment System)
+   oculto: FLUTE 2 (Nintendo Entertainment System)
+   oculto: FLUTE 1 (Nintendo Entertainment System)
+   oculto: CLARINET 4 (Nintendo Entertainment System)
+   oculto: CLARINET 3 (Nintendo Entertainment System)
+   oculto: CLARINET 2 (Nintendo Entertainment System)
+   oculto: CLARINET 1 (Nintendo Entertainment System)
+
+SE QUEDA: Type 0 @0xeecd0 (Rayman 3)
+   oculto: Type 0 @0xeecdc (Rayman 3)
+   oculto: Type 0 @0xeece8 (Rayman 3)
+   oculto: Type 0 @0xeecf4 (Rayman 3)
+   oculto: Type 0 @0xeed00 (Rayman 3)
+   oculto: Type 0 @0xeed0c (Rayman 3)
+   oculto: Type 0 @0xeed18 (Rayman 3)
+   oculto: Type 0 @0xeed24 (Rayman 3)
+   oculto: Type 0 @0xeed30 (Rayman 3)
+   oculto: Type 0 @0xeed3c (Rayman 3)
+   oculto: Type 0 @0xeed48 (Rayman 3)
+   oculto: Type 0 @0xeed54 (Rayman 3)
+
+SE QUEDA: Type 0 @0xeed60 (Rayman 3)
+   oculto: Type 0 @0xeed6c (Rayman 3)
+   oculto: Type 0 @0xeed78 (Rayman 3)
+   oculto: Type 0 @0xeed84 (Rayman 3)
+   oculto: Type 0 @0xeed90 (Rayman 3)
+   oculto: Type 0 @0xeed9c (Rayman 3)
+   oculto: Type 0 @0xeeda8 (Rayman 3)
+   oculto: Type 0 @0xeedb4 (Rayman 3)
+   oculto: Type 0 @0xeedc0 (Rayman 3)
+   oculto: Type 0 @0xeedcc (Rayman 3)
+   oculto: Type 0 @0xeedd8 (Rayman 3)
+   oculto: Type 0 @0xeede4 (Rayman 3)
+
+SE QUEDA: Oboe (Minecraft)
+   oculto: Viola (Minecraft)
+   oculto: Cello (Minecraft)
+   oculto: Violin (Minecraft)
+   oculto: Alto Sax (Minecraft)
+   oculto: Clarinet (Minecraft)
+   oculto: Tenor Sax (Minecraft)
+   oculto: Contrabass (Minecraft)
+   oculto: Soprano Sax (Minecraft)
+   oculto: Baritone Sax (Minecraft)
+   oculto: English Horn (Minecraft)
+
+SE QUEDA: Viola (Scratch)
+   oculto: Cello (Scratch)
+   oculto: Violin (Scratch)
+   oculto: Fiddle (Scratch)
+   oculto: Contrabass (Scratch)
+   oculto: SynthStrings 1 (Scratch)
+   oculto: SynthStrings 2 (Scratch)
+   oculto: Tremolo Strings (Scratch)
+   oculto: String Ensemble 1 (Scratch)
+   oculto: String Ensemble 2 (Scratch)
+   oculto: Orchestral Strings (Scratch)
+
+SE QUEDA: Rock Rhythm (SGM)
+   oculto: Dist Rtm GTR (SGM)
+   oculto: Rock Rhythm2 (SGM)
+   oculto: Rock Rhythm (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Rock Rhythm2 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Dist Rtm GTR (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Distortion Guitar (SGM)
+   oculto: Distortion Guitar (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Dist.Fast : (SGM)
+   oculto: Dist.Fast : (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: BRUSH (SGM)
+   oculto: GS BRUSH (SGM)
+   oculto: BRUSH (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: GS BRUSH (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: BRUSH (Touhou Series)
+   oculto: JAZZ (SGM)
+   oculto: GS JAZZ (SGM)
+   oculto: JAZZ (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: GS JAZZ (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: JAZZ (Touhou Series)
+
+SE QUEDA: Fiddle Percussion (Final Fantasy VII)
+   oculto: LD Percussion (Final Fantasy VII)
+   oculto: Rhythm Percussion (Final Fantasy VII)
+   oculto: Utai Percussion (Final Fantasy VII)
+   oculto: Dokubo Percussion (Final Fantasy VII)
+   oculto: Sid2 Percussion (Final Fantasy VII)
+   oculto: Cinco Percussion (Final Fantasy VII)
+   oculto: Ketc Percussion (Final Fantasy VII)
+   oculto: Costa Percussion (Final Fantasy VII)
+
+SE QUEDA: Flute (Minecraft)
+   oculto: Bassoon (Minecraft)
+   oculto: Piccolo (Minecraft)
+   oculto: Whistle (Minecraft)
+   oculto: Ocarina (Minecraft)
+   oculto: Recorder (Minecraft)
+   oculto: Pan Flute (Minecraft)
+   oculto: Shakuhachi (Minecraft)
+   oculto: Blown Bottle (Minecraft)
+
+SE QUEDA: Choir Aahs (Super Mario 64)
+   oculto: Pad 2 (warm) (Super Mario 64)
+   oculto: Pad 7 (halo) (Super Mario 64)
+   oculto: Pad 5 (bowed) (Super Mario 64)
+   oculto: Pad 4 (choir) (Super Mario 64)
+   oculto: FX 7 (echoes) (Super Mario 64)
+   oculto: Lead 6 (voice) (Super Mario 64)
+   oculto: Pad 6 (metallic) (Super Mario 64)
+   oculto: FX 7 (echoes) (Nintendo 64)
+
+SE QUEDA: ORGAN 4 (Nintendo Entertainment System)
+   oculto: ORGAN 3 (Nintendo Entertainment System)
+   oculto: ORGAN 2 (Nintendo Entertainment System)
+   oculto: ORGAN 1 (Nintendo Entertainment System)
+   oculto: SQUARE WAVE (Nintendo Entertainment System)
+   oculto: SQUARE WAVE 6 (Nintendo Entertainment System)
+   oculto: SQUARE WAVE 5 (Nintendo Entertainment System)
+   oculto: SQUARE WAVE 4 (Nintendo Entertainment System)
+   oculto: SQUARE WAVE 3 (Nintendo Entertainment System)
+
+SE QUEDA: Type 0 @0xeee5c (Rayman 3)
+   oculto: Type 0 @0xeee68 (Rayman 3)
+   oculto: Type 0 @0xeee74 (Rayman 3)
+   oculto: Type 0 @0xeee80 (Rayman 3)
+   oculto: Type 0 @0xeee8c (Rayman 3)
+   oculto: Type 0 @0xeee98 (Rayman 3)
+   oculto: Type 0 @0xeeea4 (Rayman 3)
+   oculto: Type 0 @0xeeeb0 (Rayman 3)
+   oculto: Type 0 @0xeeebc (Rayman 3)
+
+SE QUEDA: Strings 6 (Sega Genesis)
+   oculto: Strings 9 (Sega Genesis)
+   oculto: Strings 8 (Sega Genesis)
+   oculto: Strings 7 (Sega Genesis)
+   oculto: Strings 5 (Sega Genesis)
+   oculto: Strings 4 (Sega Genesis)
+   oculto: Strings 3 (Sega Genesis)
+   oculto: Strings 2 (Sega Genesis)
+   oculto: Strings 1 (Sega Genesis)
+
+SE QUEDA: String Slap (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: A.Bs Slap Nz (1) (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: A.Bs Slap Nz (2) (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: A.Bs Slap Nz (3) (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: String Slap (SGM)
+   oculto: A.Bs Slap Nz (3) (SGM)
+   oculto: A.Bs Slap Nz (2) (SGM)
+   oculto: A.Bs Slap Nz (1) (SGM)
+
+SE QUEDA: GS STANDARD 1 (SGM)
+   oculto: --SGM drum kits-- (SGM)
+   oculto: STANDARD 1 (SGM)
+   oculto: GS STANDARD 1 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: --SGM drum kits-- (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: STANDARD 1 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: STANDARD 1 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: STANDARD 1 (Touhou Series)
+
+SE QUEDA: Bass (DOOM (SNES))
+   oculto: Bass (DOOM (SNES))
+   oculto: Bass (DOOM (SNES))
+   oculto: Bass (DOOM (SNES))
+   oculto: Bass (DOOM (SNES))
+   oculto: Bass (DOOM (SNES))
+   oculto: Bass (DOOM (SNES))
+   oculto: Bass (DOOM (SNES))
+
+SE QUEDA: Type 2 @0xfb4eb8 (Mario & Luigi - Superstar Saga)
+   oculto: Type 1 @0xd4078 (Game & Watch Gallery 4)
+   oculto: Type 2 @0xd409c (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd4834 (Game & Watch Gallery 4)
+   oculto: Type 2 @0xd4864 (Game & Watch Gallery 4)
+   oculto: Square 2 (Magical Quest Starring Mickey & Minnie (GBA))
+   oculto: Square 4 (Magical Quest Starring Mickey & Minnie (GBA))
+   oculto: [GB] Pulse 25% (MOTHER 3)
+
+SE QUEDA: Oboe (Game Gear)
+   oculto: Bassoon (Game Gear)
+   oculto: Alto Sax (Game Gear)
+   oculto: Tenor Sax (Game Gear)
+   oculto: Baritone Sax (Game Gear)
+   oculto: Muted Trumpet (Game Gear)
+   oculto: Horns (Game Gear)
+   oculto: Trombone (Game Gear)
+
+SE QUEDA: Type 1 @0x107334 (MOTHER 1+2)
+   oculto: Type 1 @0x10734c (MOTHER 1+2)
+   oculto: Type 2 @0x107364 (MOTHER 1+2)
+   oculto: Type 2 @0x10737c (MOTHER 1+2)
+   oculto: Type 1 @0x107a48 (MOTHER 1+2)
+   oculto: Type 2 @0x107a78 (MOTHER 1+2)
+   oculto: Type 2 @0x109ef0 (MOTHER 1+2)
+   oculto: Type 1 @0x109efc (MOTHER 1+2)
+
+SE QUEDA: Honky-Tonk (Scratch)
+   oculto: Taiko Drum (Scratch)
+   oculto: Synth Drum (Scratch)
+   oculto: Melodic Tom (Scratch)
+   oculto: Acoustic Grand (Scratch)
+   oculto: Electric Grand (Scratch)
+   oculto: Reverse Cymbal (Scratch)
+   oculto: Bright Acoustic (Scratch)
+
+SE QUEDA: Koto (Scratch)
+   oculto: Sitar (Scratch)
+   oculto: Banjo (Scratch)
+   oculto: Clavinet (Scratch)
+   oculto: Shamisen (Scratch)
+   oculto: Harpsichord (Scratch)
+   oculto: Nylon String Guitar (Scratch)
+   oculto: Steel String Guitar (Scratch)
+
+SE QUEDA: Agogo (Scratch)
+   oculto: Celesta (Scratch)
+   oculto: Kalimba (Scratch)
+   oculto: Dulcimer (Scratch)
+   oculto: Music Box (Scratch)
+   oculto: Tinkle Bell (Scratch)
+   oculto: Glockenspiel (Scratch)
+   oculto: Tubular Bells (Scratch)
+
+SE QUEDA: Accordion (Scratch)
+   oculto: Harmonica (Scratch)
+   oculto: Rock Organ (Scratch)
+   oculto: Reed Organ (Scratch)
+   oculto: Church Organ (Scratch)
+   oculto: Drawbar Organ (Scratch)
+   oculto: Tango Accordion (Scratch)
+   oculto: Percussive Organ (Scratch)
+
+SE QUEDA: Slap Bass 1 (Scratch)
+   oculto: Slap Bass 2 (Scratch)
+   oculto: Synth Bass 1 (Scratch)
+   oculto: Synth Bass 2 (Scratch)
+   oculto: Acoustic Bass (Scratch)
+   oculto: Fretless Bass (Scratch)
+   oculto: Electric Bass (finge (Scratch)
+   oculto: Electric Bass (pick) (Scratch)
+
+SE QUEDA: Tuba (Scratch)
+   oculto: Trumpet (Scratch)
+   oculto: Trombone (Scratch)
+   oculto: French Horn (Scratch)
+   oculto: SynthBrass 1 (Scratch)
+   oculto: SynthBrass 2 (Scratch)
+   oculto: Muted Trumpet (Scratch)
+   oculto: Brass Section (Scratch)
+
+SE QUEDA: Lead 4 (chiff) (Scratch)
+   oculto: Lead 6 (voice) (Scratch)
+   oculto: Lead 1 (square) (Scratch)
+   oculto: Lead 7 (fifths) (Scratch)
+   oculto: Lead 5 (charang) (Scratch)
+   oculto: Lead 2 (sawtooth) (Scratch)
+   oculto: Lead 3 (calliope) (Scratch)
+   oculto: Lead 8 (bass+lead) (Scratch)
+
+SE QUEDA: Clavinet (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Honky-Tonk (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Harpsichord (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Acoustic Grand (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Bright Acoustic (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Electric Bright (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Electric Piano 1 (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Electric Piano 2 (pspkvm_soundfont_by_XXtherobloxx21)
+
+SE QUEDA: Celesta (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Marimba (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Dulcimer (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Music Box (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Xylophone (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Vibraphone (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Glockenspiel (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Tubular Bells (pspkvm_soundfont_by_XXtherobloxx21)
+
+SE QUEDA: Drawbar Organ (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Accordian (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Harmonica (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Rock Organ (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Reed Organ (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Church Organ (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Tango Accordian (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Percussive Organ (pspkvm_soundfont_by_XXtherobloxx21)
+
+SE QUEDA: Overdrive Guitar (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Guitar Harmonics (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Distortion Guitar (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Acoustic Guitar (nyl (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Acoustic Guitar (ste (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Electric Guitar (jaz (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Electric Guitar (cle (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Electric Guitar (mut (pspkvm_soundfont_by_XXtherobloxx21)
+
+SE QUEDA: Slap Bass 1 (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Slap Bass 2 (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Synth Bass 1 (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Synth Bass 2 (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Acoustic Bass (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Fretless Bass (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Electric Bass (finge (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Electric Bass (pick) (pspkvm_soundfont_by_XXtherobloxx21)
+
+SE QUEDA: Viola (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Cello (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Violin (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Timpani (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Contrabass (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Tremolo Strings (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Orchestral Harp (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Pizzicato Strings (pspkvm_soundfont_by_XXtherobloxx21)
+
+SE QUEDA: Choir Aahs (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Voice Oohs (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Synth Voice (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Orchestra Hit (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Synth Strings 1 (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Synth Strings 2 (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: String Ensemble 1 (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: String Ensemble 2 (pspkvm_soundfont_by_XXtherobloxx21)
+
+SE QUEDA: Tuba (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Trumpet (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Trombone (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: French Horn (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Muted Trumpet (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Brass Section (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Synth Brass 1 (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Synth Brass 2 (pspkvm_soundfont_by_XXtherobloxx21)
+
+SE QUEDA: Oboe (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Bassoon (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Alto Sax (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Clarinet (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Tenor Sax (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Soprano Sax (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Baritone Sax (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: English Horn (pspkvm_soundfont_by_XXtherobloxx21)
+
+SE QUEDA: Flute (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Piccolo (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Whistle (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Ocarina (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Recorder (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Pan Flute (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Shakuhachi (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Blown Bottle (pspkvm_soundfont_by_XXtherobloxx21)
+
+SE QUEDA: Lead 4 (chiff) (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Lead 6 (voice) (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Lead 1 (square) (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Lead 7 (fifths) (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Lead 5 (charang) (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Lead 2 (sawtooth) (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Lead 3 (calliope) (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Lead 8 (bass+lead) (pspkvm_soundfont_by_XXtherobloxx21)
+
+SE QUEDA: Pad 2 (warm) (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Pad 7 (halo) (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Pad 4 (choir) (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Pad 5 (bowed) (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Pad 8 (sweep) (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Pad 1 (new age) (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Pad 6 (metallic) (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Pad 3 (polysynth) (pspkvm_soundfont_by_XXtherobloxx21)
+
+SE QUEDA: FX 1 (rain) (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: FX 7 (echoes) (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: FX 8 (sci-fi) (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: FX 3 (crystal) (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: FX 6 (goblins) (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: FX 2 (soundtrack) (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: FX 4 (atmosphere) (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: FX 5 (brightness) (pspkvm_soundfont_by_XXtherobloxx21)
+
+SE QUEDA: Koto (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Sitar (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Banjo (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Fiddle (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Shenai (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Kalimba (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Bagpipe (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Shamisen (pspkvm_soundfont_by_XXtherobloxx21)
+
+SE QUEDA: Agogo (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Woodblock (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Taiko Drum (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Synth Drum (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Tinkle Bell (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Steel Drums (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Melodic Tom (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Reverse Cymbal (pspkvm_soundfont_by_XXtherobloxx21)
+
+SE QUEDA: Gunshot (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Seashore (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Applause (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Bird Tweet (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Helicopter (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Breath Noise (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Telephone Ring (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Guitar Fret Noise (pspkvm_soundfont_by_XXtherobloxx21)
+
+SE QUEDA: Warm Pad (Live HQ Natural SoundFont GM)
+   oculto: Silky Pad (SGM)
+   oculto: Warm Pad (SGM)
+   oculto: Dream Pad (SGM)
+   oculto: Silky Pad (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Warm Pad (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Dream Pad (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Pan Flute (Game Gear)
+   oculto: Bagpipe (Game Gear)
+   oculto: Shehnai (Game Gear)
+   oculto: Flute (Game Gear)
+   oculto: Recorder (Game Gear)
+   oculto: Organ 1 (Game Gear)
+   oculto: Reed Organ (Game Gear)
+
+SE QUEDA: LA Harpsi 1 (Bill90's SoundFont)
+   oculto: LA Harpsi 2 (Bill90's SoundFont)
+   oculto: LA Harpsi 3 (Bill90's SoundFont)
+   oculto: Harpsi.o (Windows Default SoundFont)
+   oculto: Coupled Hps. (Windows Default SoundFont)
+   oculto: Harpsichord (Windows Default SoundFont)
+   oculto: Harpsichord (Windows Default SoundFont)
+
+SE QUEDA: Slap Bass 1 (Minecraft)
+   oculto: Slap Bass 2 (Minecraft)
+   oculto: Synth Bass 1 (Minecraft)
+   oculto: Synth Bass 2 (Minecraft)
+   oculto: Fretless Bass (Minecraft)
+   oculto: E. Bass (pick) (Minecraft)
+   oculto: E. Bass (finger) (Minecraft)
+
+SE QUEDA: Type 0 @0xeee08 (Rayman 3)
+   oculto: Type 0 @0xeee14 (Rayman 3)
+   oculto: Type 0 @0xeee20 (Rayman 3)
+   oculto: Type 0 @0xeee2c (Rayman 3)
+   oculto: Type 0 @0xeee38 (Rayman 3)
+   oculto: Type 0 @0xeee44 (Rayman 3)
+   oculto: Type 0 @0xeee50 (Rayman 3)
+
+SE QUEDA: Viola (Super Mario 64)
+   oculto: Violin (Super Mario 64)
+   oculto: Strings 1 (Super Mario 64)
+   oculto: Strings 2 (Super Mario 64)
+   oculto: Synth Strings 1 (Super Mario 64)
+   oculto: Synth Strings 2 (Super Mario 64)
+   oculto: Tremolo Strings (Super Mario 64)
+
+SE QUEDA: Hollow Mini (Bill90's SoundFont)
+   oculto: Hollow Mini (SGM)
+   oculto: Hollow Mini (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Ocarina (SGM)
+   oculto: Ocarina (Bill90's SoundFont)
+   oculto: Ocarina (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: SequencedSaw (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: SequencedSaw (1) (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: SequencedSaw (2) (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: SequencedSaw (SGM)
+   oculto: SequencedSaw (2) (SGM)
+   oculto: SequencedSaw (1) (SGM)
+
+SE QUEDA: GS STANDARD 2 (SGM)
+   oculto: DRUMKIT (Undertale 'MEGALOVANIA')
+   oculto: STANDARD 2 (SGM)
+   oculto: GS STANDARD 2 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: STANDARD 2 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: STANDARD 2 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: ROOM (Touhou Series)
+   oculto: ROOM (SGM)
+   oculto: GS ROOM (SGM)
+   oculto: ROOM (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: ROOM (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: GS ROOM (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Type 1 @0xd424c (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd4294 (Game & Watch Gallery 4)
+   oculto: Type 2 @0xd430c (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd436c (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd4378 (Game & Watch Gallery 4)
+   oculto: Type 2 @0xd4630 (Game & Watch Gallery 4)
+
+SE QUEDA: A. Bass (Minecraft)
+   oculto: Kalimba (Minecraft)
+   oculto: D. Organ (Minecraft)
+   oculto: P. Organ (Minecraft)
+   oculto: S. Brass 1 (Minecraft)
+   oculto: S. Brass 2 (Minecraft)
+
+SE QUEDA: BASS 8 (Nintendo Entertainment System)
+   oculto: BASS 7 (Nintendo Entertainment System)
+   oculto: BASS 4 (Nintendo Entertainment System)
+   oculto: BASS 3 (Nintendo Entertainment System)
+   oculto: BASS 2 (Nintendo Entertainment System)
+   oculto: BASS 1 (Nintendo Entertainment System)
+
+SE QUEDA: Type 0 @0xeeec8 (Rayman 3)
+   oculto: Type 0 @0xeeed4 (Rayman 3)
+   oculto: Type 0 @0xeeee0 (Rayman 3)
+   oculto: Type 0 @0xeeeec (Rayman 3)
+   oculto: Type 0 @0xeeef8 (Rayman 3)
+   oculto: Type 0 @0xeef04 (Rayman 3)
+
+SE QUEDA: Type 0 @0xeef7c (Rayman 3)
+   oculto: Type 0 @0xeef88 (Rayman 3)
+   oculto: Type 0 @0xeef94 (Rayman 3)
+   oculto: Type 0 @0xeefa0 (Rayman 3)
+   oculto: Type 0 @0xeefac (Rayman 3)
+   oculto: Type 0 @0xeefb8 (Rayman 3)
+
+SE QUEDA: Guitar Harmonics (Scratch)
+   oculto: Overdriven Guitar (Scratch)
+   oculto: Distortion Guitar (Scratch)
+   oculto: Electric Jazz Guitar (Scratch)
+   oculto: Electric Clean Guita (Scratch)
+   oculto: Electric Muted Guita (Scratch)
+
+SE QUEDA: Flute 6 (Sega Genesis)
+   oculto: Flute 5 (Sega Genesis)
+   oculto: Flute 4 (Sega Genesis)
+   oculto: Flute 3 (Sega Genesis)
+   oculto: Flute 2 (Sega Genesis)
+   oculto: Flute 1 (Sega Genesis)
+
+SE QUEDA: Rotary Org.S (SGM)
+   oculto: Drawbar Organ (Live HQ Natural SoundFont GM)
+   oculto: Organ 1 (SGM)
+   oculto: Rotary Org.S (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Organ 1 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: GS STANDARD 3 (SGM)
+   oculto: STANDARD 3 (SGM)
+   oculto: GS STANDARD 3 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: STANDARD 3 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: STANDARD 3 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: DANCE (Touhou Series)
+   oculto: DANCE (SGM)
+   oculto: GS CR-78 (SGM)
+   oculto: DANCE (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: GS CR-78 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: TR-909 (SGM)
+   oculto: GS TR-909 (SGM)
+   oculto: TR-909 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: GS TR-909 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: TR-909 (Touhou Series)
+
+SE QUEDA: ORCHESTRA (SGM)
+   oculto: GS ORCHESTRA (SGM)
+   oculto: ORCHESTRA (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: GS ORCHESTRA (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: ORCHESTRA (Touhou Series)
+
+SE QUEDA: ETHNIC (SGM)
+   oculto: GS ETHNIC (SGM)
+   oculto: ETHNIC (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: GS ETHNIC (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: ETHNIC (Touhou Series)
+
+SE QUEDA: KICK & SNARE (SGM)
+   oculto: GS KICK & SNARE (SGM)
+   oculto: KICK & SNARE (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: GS KICK & SNARE (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: KICK & SNARE (Touhou Series)
+
+SE QUEDA: SFX (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: GS SFX (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: SFX (SGM)
+   oculto: GS SFX (SGM)
+   oculto: SFX (Touhou Series)
+
+SE QUEDA: Type 2 @0xfb4ed0 (Mario & Luigi - Superstar Saga)
+   oculto: Type 2 @0xd4264 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd42f4 (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd4354 (Game & Watch Gallery 4)
+   oculto: Type 2 @0xd4624 (Game & Watch Gallery 4)
+
+SE QUEDA: JD_RockKit4 (JD Rock Kit)
+   oculto: JD_RockKit3 (JD Rock Kit)
+   oculto: JD_RockKit1Hcut (JD Rock Kit)
+   oculto: JD_RockKit1 (JD Rock Kit)
+   oculto: JD_RockKit 1 (JD Rock Kit)
+
+SE QUEDA: LA Organ2 (Bill90's SoundFont)
+   oculto: LA Organ3 (Bill90's SoundFont)
+   oculto: LA Organ1 (Bill90's SoundFont)
+   oculto: Detuned Or.2 (Windows Default SoundFont)
+   oculto: Organ 2 (Windows Default SoundFont)
+
+SE QUEDA: Type 1 @0x107328 (MOTHER 1+2)
+   oculto: Type 2 @0x107358 (MOTHER 1+2)
+   oculto: Type 1 @0x107988 (MOTHER 1+2)
+   oculto: Type 1 @0x107a3c (MOTHER 1+2)
+   oculto: Type 2 @0x107a6c (MOTHER 1+2)
+
+SE QUEDA: Marimba (Minecraft)
+   oculto: Dulcimer (Minecraft)
+   oculto: Music Box (Minecraft)
+   oculto: Vibraphone (Minecraft)
+   oculto: Glockenspiel (Minecraft)
+
+SE QUEDA: Honky-Tonk (Super Mario 64)
+   oculto: Grand Piano (Super Mario 64)
+   oculto: Electric Grand (Super Mario 64)
+   oculto: Bright Acoustic Pian (Super Mario 64)
+   oculto: Electric Piano (Nintendo 64)
+
+SE QUEDA: Drum Kit 6 (Pokémon Emerald)
+   oculto: Drum Kit 13 (Pokémon Emerald)
+   oculto: Drum Kit 7 (Pokémon Emerald)
+   oculto: Drum Kit (Pokémon Emerald)
+   oculto: Drum Kit 8 (Hi-Hat) (Pokémon Emerald)
+
+SE QUEDA: Type 0 @0xeef10 (Rayman 3)
+   oculto: Type 0 @0xeef1c (Rayman 3)
+   oculto: Type 0 @0xeef28 (Rayman 3)
+   oculto: Type 0 @0xeef34 (Rayman 3)
+   oculto: Type 0 @0xeef40 (Rayman 3)
+
+SE QUEDA: Sweep Pad 5 (Sega Genesis)
+   oculto: Sweep Pad 4 (Sega Genesis)
+   oculto: Sweep Pad 3 (Sega Genesis)
+   oculto: Sweep Pad 2 (Sega Genesis)
+   oculto: Sweep Pad 1 (Sega Genesis)
+
+SE QUEDA: Choir (Sega Genesis)
+   oculto: Choir 3 (Sega Genesis)
+   oculto: Choir 2 (Sega Genesis)
+   oculto: Warm Pad (Sega Genesis)
+   oculto: Choir Pad (Sega Genesis)
+
+SE QUEDA: Chimes 5 (Sega Genesis)
+   oculto: Chimes 4 (Sega Genesis)
+   oculto: Chimes 3 (Sega Genesis)
+   oculto: Chimes 2 (Sega Genesis)
+   oculto: Chimes 1 (Sega Genesis)
+
+SE QUEDA: Slap Bass (Super Mario 64)
+   oculto: Slap Bass 2 (Super Mario 64)
+   oculto: Fretless Bass (Super Mario 64)
+   oculto: Electric Bass (F) (Super Mario 64)
+   oculto: Electric Bass (P) (Super Mario 64)
+
+SE QUEDA: Percussive Organ (Live HQ Natural SoundFont GM)
+   oculto: Organ 2 (SGM)
+   oculto: Organ 2 (Bill90's SoundFont)
+   oculto: Organ 2 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Melodic Tom (Live HQ Natural SoundFont GM)
+   oculto: Melodic Tom (Touhou Series)
+   oculto: Melodic Tom (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Melodic Tom (SGM)
+
+SE QUEDA: Breath Noise FX (Live HQ Natural SoundFont GM)
+   oculto: Breath Noise (SGM)
+   oculto: Breath Noise (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Breath Noise (Bill90's SoundFont)
+
+SE QUEDA: Klassical (Proteus 2000 Bank 0)
+   oculto: StereoGrand1 (Proteus 2000 Bank 0)
+   oculto: Dynamic Grand (Proteus 2000 Bank 0)
+   oculto: Ballad Grand (Proteus 2000 Bank 0)
+
+SE QUEDA: Sine Wave (Proteus2 Instruments)
+   oculto: Oct 1 Sine (Proteus1_Instruments)
+   oculto: Oct 1 Sine (Proteus2 Instruments)
+   oculto: Oct 1 Sine (Proteus3_Instruments)
+
+SE QUEDA: Ramp (Proteus2 Instruments)
+   oculto: Sawtooth (Proteus2 Instruments)
+   oculto: Ramp (Proteus3_Instruments)
+   oculto: Sawtooth (Proteus3_Instruments)
+
+SE QUEDA: Hard FM EP (SGM)
+   oculto: E.Piano2 (SGM)
+   oculto: Hard FM EP (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: E.Piano2 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Acid Bass (SGM)
+   oculto: Synth Bass 1 (SGM)
+   oculto: Acid Bass (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Synth Bass 1 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Fiddle (SGM)
+   oculto: Violin (SGM)
+   oculto: Violin (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Fiddle (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: JP Strings (SGM)
+   oculto: Synth Strings 1 (SGM)
+   oculto: JP Strings (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Synth Strings 1 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Bottle Blow (Bill90's SoundFont)
+   oculto: Bottle Blow (SGM)
+   oculto: Bottle Blow (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Bottle Blow (Touhou Series)
+
+SE QUEDA: Shakuhachi (Bill90's SoundFont)
+   oculto: Shakuhachi (SGM)
+   oculto: Shakuhachi (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Shakuhachi (Touhou Series)
+
+SE QUEDA: Whistle (SGM)
+   oculto: Whistle (Bill90's SoundFont)
+   oculto: Whistle (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Whistle (Touhou Series)
+
+SE QUEDA: MG Square (SGM)
+   oculto: OB Square (SGM)
+   oculto: MG Square (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: OB Square (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Impact Hit (Bill90's SoundFont)
+   oculto: Euro Hit (Kirby Series)
+   oculto: Impact Hit (SGM)
+   oculto: Impact Hit (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: 808 Tom (SGM)
+   oculto: 808 Tom (Bill90's SoundFont)
+   oculto: 808 Tom(GM2) (Bill90's SoundFont)
+   oculto: 808 Tom (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: JP-8 Square (SGM)
+   oculto: P5 Square (SGM)
+   oculto: JP-8 Square (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: P5 Square (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: HIP HOP (SGM)
+   oculto: GS HIP HOP (SGM)
+   oculto: HIP HOP (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: GS HIP HOP (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: JUNGLE (SGM)
+   oculto: GS JUNGLE (SGM)
+   oculto: JUNGLE (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: GS JUNGLE (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: TECHNO (SGM)
+   oculto: GS TECHNO (SGM)
+   oculto: TECHNO (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: GS TECHNO (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: HOUSE (SGM)
+   oculto: GS HOUSE (SGM)
+   oculto: HOUSE (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: GS HOUSE (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: ELECTRONIC (SGM)
+   oculto: GS ELECTRONIC (SGM)
+   oculto: ELECTRONIC (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: GS ELECTRONIC (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: TR-808 (SGM)
+   oculto: GS TR-808 (SGM)
+   oculto: TR-808 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: GS TR-808 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: CR-78 (SGM)
+   oculto: GS DANCE (SGM)
+   oculto: CR-78 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: GS DANCE (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: TR-707 (SGM)
+   oculto: GS TR-707 (SGM)
+   oculto: TR-707 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: GS TR-707 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Solo Vox (BeepBox)
+   oculto: Solo Vox (JummBox)
+   oculto: Vox Synth Lead (BeepBox)
+   oculto: Vox Synth Lead (JummBox)
+
+SE QUEDA: Wave 66 (Cave Story)
+   oculto: Saw (Bill90's SoundFont)
+   oculto: Saw (Windows Default SoundFont)
+   oculto: Saw Wave (Family Computer)
+
+SE QUEDA: Choir (Crash Bandicoot)
+   oculto: GlassPad (Crash Bandicoot)
+   oculto: Chromatic1 (Crash Bandicoot)
+   oculto: AtmosphereFX (Crash Bandicoot)
+
+SE QUEDA: VB (DOOM (SNES))
+   oculto: VB (DOOM (SNES))
+   oculto: VB (DOOM (SNES))
+   oculto: VB (DOOM (SNES))
+
+SE QUEDA: Type 3 @0xd40b4 (Game & Watch Gallery 4)
+   oculto: Type 3 @0xd415c (Game & Watch Gallery 4)
+   oculto: Type 3 @0xd487c (Game & Watch Gallery 4)
+   oculto: Type 3 @0xd4924 (Game & Watch Gallery 4)
+
+SE QUEDA: Type 4 @0x109938 (MOTHER 1+2)
+   oculto: Type 4 @0xfb4e1c (Mario & Luigi - Superstar Saga)
+   oculto: Type 4 @0xd41d4 (Game & Watch Gallery 4)
+   oculto: Type 4 @0xd46a8 (Game & Watch Gallery 4)
+
+SE QUEDA: Sitar (Game Gear)
+   oculto: Star Theme (Game Gear)
+   oculto: Harmonica (Game Gear)
+   oculto: Bandoneon (Game Gear)
+
+SE QUEDA: Cello (Game Gear)
+   oculto: Contrabass (Game Gear)
+   oculto: Viola (Game Gear)
+   oculto: Fiddle (Game Gear)
+
+SE QUEDA: LA E.Piano1 (Bill90's SoundFont)
+   oculto: LA E.Piano2 (Bill90's SoundFont)
+   oculto: E.Piano 2v (Windows Default SoundFont)
+   oculto: E.Piano 2 (Windows Default SoundFont)
+
+SE QUEDA: LA Pipe Org.2 (Bill90's SoundFont)
+   oculto: LA Pipe Org.1 (Bill90's SoundFont)
+   oculto: Church Org.2 (Windows Default SoundFont)
+   oculto: Church Org.1 (Windows Default SoundFont)
+
+SE QUEDA: Type 1 @0x107340 (MOTHER 1+2)
+   oculto: Type 2 @0x107370 (MOTHER 1+2)
+   oculto: Type 1 @0x107a54 (MOTHER 1+2)
+   oculto: Type 2 @0x107a84 (MOTHER 1+2)
+
+SE QUEDA: Type 1 @0x1073d0 (MOTHER 1+2)
+   oculto: Type 1 @0x10791c (MOTHER 1+2)
+   oculto: Type 1 @0x10a9dc (MOTHER 1+2)
+   oculto: Type 1 @0x10abec (MOTHER 1+2)
+
+SE QUEDA: Guitar H. (Minecraft)
+   oculto: A. Guitar (nylon) (Minecraft)
+   oculto: A. Guitar (steel) (Minecraft)
+   oculto: A. Guitar (clean) (Minecraft)
+
+SE QUEDA: Tuba (Super Mario 64)
+   oculto: Trombone (Super Mario 64)
+   oculto: French Horn (Super Mario 64)
+   oculto: French Horn (Nintendo 64)
+
+SE QUEDA: Type 0 @0xeefc4 (Rayman 3)
+   oculto: Type 0 @0xeefd0 (Rayman 3)
+   oculto: Type 0 @0xeefdc (Rayman 3)
+   oculto: Type 0 @0xeefe8 (Rayman 3)
+
+SE QUEDA: Marimba (Scratch)
+   oculto: Timpani (Scratch)
+   oculto: Woodblock (Scratch)
+   oculto: Orchestra Hit (Scratch)
+
+SE QUEDA: Alto Sax (Scratch)
+   oculto: Tenor Sax (Scratch)
+   oculto: Soprano Sax (Scratch)
+   oculto: Baritone Sax (Scratch)
+
+SE QUEDA: Oboe (Scratch)
+   oculto: Bassoon (Scratch)
+   oculto: Bagpipe (Scratch)
+   oculto: English Horn (Scratch)
+
+SE QUEDA: Flute (Scratch)
+   oculto: Piccolo (Scratch)
+   oculto: Whistle (Scratch)
+   oculto: Ocarina (Scratch)
+
+SE QUEDA: Recorder (Scratch)
+   oculto: Pan Flute (Scratch)
+   oculto: Shakuhachi (Scratch)
+   oculto: Blown Bottle (Scratch)
+
+SE QUEDA: Trombone (Sega Genesis)
+   oculto: French Horn (Sega Genesis)
+   oculto: Synth Brass 2 (Sega Genesis)
+   oculto: Synth Brass 1 (Sega Genesis)
+
+SE QUEDA: piano 4 (Sega Genesis)
+   oculto: Piano 3 (Sega Genesis)
+   oculto: Piano 2 (Sega Genesis)
+   oculto: Piano 1 (Sega Genesis)
+
+SE QUEDA: Ocarina (Super Mario 64)
+   oculto: Pan Flute (Super Mario 64)
+   oculto: Skakuhachi (Super Mario 64)
+   oculto: Blown Bottle (Super Mario 64)
+
+SE QUEDA: Banjo (The Legend of Zelda - Majoras Mask)
+   oculto: Banjo (The Legend of Zelda - Ocarina of Time)
+   oculto: Banjo (Super Mario 64)
+   oculto: Shamisen (Super Mario 64)
+
+SE QUEDA: Flute (Super Mario 64)
+   oculto: Piccolo (Super Mario 64)
+   oculto: Recorder (Super Mario 64)
+   oculto: Clarinet (Super Mario 64)
+
+SE QUEDA: Game Over Lead 1 (Super Mario Bros.)
+   oculto: Game Over Lead 2 (Super Mario Bros.)
+   oculto: Game Over Lead 3 (Super Mario Bros.)
+   oculto: Game Over Lead 4 (Super Mario Bros.)
+
+SE QUEDA: Piano (The Legend of Zelda - Majoras Mask)
+   oculto: Piano (The Legend of Zelda - Ocarina of Time)
+   oculto: Piano ALT (The Legend of Zelda - Majoras Mask)
+   oculto: Piano ALT (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Brush (Windows Default SoundFont)
+   oculto: Room (Windows Default SoundFont)
+   oculto: Jazz (Windows Default SoundFont)
+   oculto: Standard (Windows Default SoundFont)
+
+SE QUEDA: PUNCH FX (Live HQ Natural SoundFont GM)
+   oculto: Punch (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Punch (SGM)
+
+SE QUEDA: Pop Celesta (Live HQ Natural SoundFont GM)
+   oculto: Pop Celesta (SGM)
+   oculto: Pop Celesta (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Taiko (Live HQ Natural SoundFont GM)
+   oculto: Taiko (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Taiko (SGM)
+
+SE QUEDA: Rock Organ (Live HQ Natural SoundFont GM)
+   oculto: Organ 3 (SGM)
+   oculto: Organ 3 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Pizzicato Strings (Live HQ Natural SoundFont GM)
+   oculto: Pizzicato Strings (SGM)
+   oculto: Pizzicato Strings (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Tubular Bells (SGM)
+   oculto: Tubular Bells (Live HQ Natural SoundFont GM)
+   oculto: Tubular Bells (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Koto (Live HQ Natural SoundFont GM)
+   oculto: Koto (SGM)
+   oculto: Koto (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Pan Flute (Live HQ Natural SoundFont GM)
+   oculto: ClavinovaPanFlu (just t4)
+   oculto: ClavinovaPanFlu (Touhou Series)
+
+SE QUEDA: Classic EP 2 (Proteus 2000 Bank 0)
+   oculto: Hard Tined (Proteus 2000 Bank 1)
+   oculto: Dyno Piano (Proteus 2000 Bank 1)
+
+SE QUEDA: Chi-Town (Proteus 2000 Bank 4)
+   oculto: Harmonika (Proteus 2000 Bank 4)
+   oculto: Harmonica (Proteus 2000 Bank 4)
+
+SE QUEDA: Kit 06 (Proteus 2000 Bank 7b)
+   oculto: Kit 20 (Proteus 2000 Bank 7b)
+   oculto: Booster (Proteus 2000 Bank 7b)
+
+SE QUEDA: Grand Piano (Proteus1_Presets)
+   oculto: Piano (Proteus1_Instruments)
+   oculto: E-mu Systems 1997 (Proteus1_Instruments)
+
+SE QUEDA: Dark TrumpS (Proteus1_Instruments)
+   oculto: Solo Trumpet (Proteus1_Presets)
+   oculto: Trumpet Sft (Proteus1_Instruments)
+
+SE QUEDA: Synth Pad (Proteus1_Instruments)
+   oculto: Lng Env Pad (Proteus1_Instruments)
+   oculto: Med Env Pad (Proteus1_Instruments)
+
+SE QUEDA: Oct 2 All (Proteus1_Instruments)
+   oculto: Oct 2 All (Proteus2 Instruments)
+   oculto: Oct 2 All (Proteus3_Instruments)
+
+SE QUEDA: Oct 3 All (Proteus1_Instruments)
+   oculto: Oct 3 All (Proteus2 Instruments)
+   oculto: Oct 3 All (Proteus3_Instruments)
+
+SE QUEDA: Oct 4 All (Proteus1_Instruments)
+   oculto: Oct 4 All (Proteus2 Instruments)
+   oculto: Oct 4 All (Proteus3_Instruments)
+
+SE QUEDA: Oct 5 All (Proteus1_Instruments)
+   oculto: Oct 5 All (Proteus2 Instruments)
+   oculto: Oct 5 All (Proteus3_Instruments)
+
+SE QUEDA: Oct 6 All (Proteus1_Instruments)
+   oculto: Oct 6 All (Proteus2 Instruments)
+   oculto: Oct 6 All (Proteus3_Instruments)
+
+SE QUEDA: Oct 7 All (Proteus1_Instruments)
+   oculto: Oct 7 All (Proteus2 Instruments)
+   oculto: Oct 7 All (Proteus3_Instruments)
+
+SE QUEDA: Oct 2 Odd (Proteus1_Instruments)
+   oculto: Oct 2 Odd (Proteus2 Instruments)
+   oculto: Oct 2 Odd (Proteus3_Instruments)
+
+SE QUEDA: Oct 3 Odd (Proteus1_Instruments)
+   oculto: Oct 3 Odd (Proteus2 Instruments)
+   oculto: Oct 3 Odd (Proteus3_Instruments)
+
+SE QUEDA: Oct 4 Odd (Proteus1_Instruments)
+   oculto: Oct 4 Odd (Proteus2 Instruments)
+   oculto: Oct 4 Odd (Proteus3_Instruments)
+
+SE QUEDA: Oct 5 Odd (Proteus1_Instruments)
+   oculto: Oct 5 Odd (Proteus2 Instruments)
+   oculto: Oct 5 Odd (Proteus3_Instruments)
+
+SE QUEDA: Oct 6 Odd (Proteus1_Instruments)
+   oculto: Oct 6 Odd (Proteus2 Instruments)
+   oculto: Oct 6 Odd (Proteus3_Instruments)
+
+SE QUEDA: Oct 7 Odd (Proteus1_Instruments)
+   oculto: Oct 7 Odd (Proteus2 Instruments)
+   oculto: Oct 7 Odd (Proteus3_Instruments)
+
+SE QUEDA: Oct 3 Even (Proteus1_Instruments)
+   oculto: Oct 3 Even (Proteus2 Instruments)
+   oculto: Oct 3 Even (Proteus3_Instruments)
+
+SE QUEDA: Oct 4 Even (Proteus1_Instruments)
+   oculto: Oct 4 Even (Proteus2 Instruments)
+   oculto: Oct 4 Even (Proteus3_Instruments)
+
+SE QUEDA: Oct 5 Even (Proteus1_Instruments)
+   oculto: Oct 5 Even (Proteus2 Instruments)
+   oculto: Oct 5 Even (Proteus3_Instruments)
+
+SE QUEDA: Oct 6 Even (Proteus1_Instruments)
+   oculto: Oct 6 Even (Proteus2 Instruments)
+   oculto: Oct 6 Even (Proteus3_Instruments)
+
+SE QUEDA: Oct 7 Even (Proteus1_Instruments)
+   oculto: Oct 7 Even (Proteus2 Instruments)
+   oculto: Oct 7 Even (Proteus3_Instruments)
+
+SE QUEDA: Low Odds (Proteus1_Instruments)
+   oculto: Low Odds (Proteus2 Instruments)
+   oculto: Low Odds (Proteus3_Instruments)
+
+SE QUEDA: Low Evens (Proteus1_Instruments)
+   oculto: Low Evens (Proteus2 Instruments)
+   oculto: Low Evens (Proteus3_Instruments)
+
+SE QUEDA: FourOctaves (Proteus1_Instruments)
+   oculto: FourOctaves (Proteus2 Instruments)
+   oculto: FourOctaves (Proteus3_Instruments)
+
+SE QUEDA: Fr.Horn Solo (Bill90's SoundFont)
+   oculto: French Horn ff (Proteus2 Instruments)
+   oculto: French Horn 2 (Proteus2 Presets)
+
+SE QUEDA: All Perc 2 (Proteus3_Instruments)
+   oculto: All Perc 1 (Proteus3_Instruments)
+   oculto: Percussion 1 (Proteus3_Presets)
+
+SE QUEDA: Marimba (SGM)
+   oculto: Marimba (Bill90's SoundFont)
+   oculto: Marimba (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Dulcimer (SGM)
+   oculto: Dulcimer (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Dulcimer (Bill90's SoundFont)
+
+SE QUEDA: Gt.Harmonics (SGM)
+   oculto: Gt.Harmonics (Bill90's SoundFont)
+   oculto: Gt.Harmonics (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Slap Bass 2 (SGM)
+   oculto: Slap Bass 2 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Slap Bass 2 (Touhou Series)
+
+SE QUEDA: Synth Vox (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Synth Vox (SGM)
+   oculto: SynVox (Bill90's SoundFont)
+
+SE QUEDA: Soprano Sax (SGM)
+   oculto: Soprano Sax (Bill90's SoundFont)
+   oculto: Soprano Sax (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Oboe (SGM)
+   oculto: Oboe (Bill90's SoundFont)
+   oculto: Oboe (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Clarinet (Bill90's SoundFont)
+   oculto: Clarinet (SGM)
+   oculto: Clarinet (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Piccolo (SGM)
+   oculto: Piccolo (Bill90's SoundFont)
+   oculto: Piccolo (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Flute (SGM)
+   oculto: Flute (Bill90's SoundFont)
+   oculto: Flute (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Recorder (SGM)
+   oculto: Recorder (Bill90's SoundFont)
+   oculto: Recorder (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Pan Flute (Bill90's SoundFont)
+   oculto: Pan Flute (SGM)
+   oculto: Pan Flute (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Space Voice (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Space Voice (SGM)
+   oculto: Space Voice (Final Fantasy VII)
+
+SE QUEDA: Ice Rain (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Ice Rain (SGM)
+   oculto: Ice Rain (Touhou Series)
+
+SE QUEDA: Kalimba (SGM)
+   oculto: Kalimba (Bill90's SoundFont)
+   oculto: Kalimba (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Synth Drum (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Synth Drum (SGM)
+   oculto: Synth Drum (Touhou Series)
+
+SE QUEDA: Flute 2 (SGM)
+   oculto: Flute 2 (Bill90's SoundFont)
+   oculto: Flute 2 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Pure PanLead (Bill90's SoundFont)
+   oculto: Pure PanLead (SGM)
+   oculto: Pure PanLead (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Euro Hit (Bill90's SoundFont)
+   oculto: Euro Hit (SGM)
+   oculto: Euro Hit (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: CC Solo (SGM)
+   oculto: CC Solo (Bill90's SoundFont)
+   oculto: CC Solo (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Sine Perc. (Bill90's SoundFont)
+   oculto: Sine Perc. (SGM)
+   oculto: Sine Perc. (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: MC-500 Beep (Bill90's SoundFont)
+   oculto: MC-500 Beep (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: MC-500 Beep (SGM)
+
+SE QUEDA: Barafon (SGM)
+   oculto: Barafon (Bill90's SoundFont)
+   oculto: Barafon (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: NES Pulse (JummBox)
+   oculto: Square Wave (BeepBox)
+   oculto: Square Wave (JummBox)
+
+SE QUEDA: SynthBrass1 (Crash Bandicoot)
+   oculto: SawToothLead (Crash Bandicoot)
+   oculto: PolySynthesizerPad (Crash Bandicoot)
+
+SE QUEDA: Piccolo (Crash Bandicoot)
+   oculto: Ocarina (Crash Bandicoot)
+   oculto: Recorder (Crash Bandicoot)
+
+SE QUEDA: voices (DOOM (SNES))
+   oculto: voices (DOOM (SNES))
+   oculto: voices (DOOM (SNES))
+
+SE QUEDA: violin (DOOM (SNES))
+   oculto: violin (DOOM (SNES))
+   oculto: violin (DOOM (SNES))
+
+SE QUEDA: fx1_081 (Donkey Kong Country SFX 1)
+   oculto: fx1_088 (Donkey Kong Country SFX 1)
+   oculto: fx1_094 (Donkey Kong Country SFX 1)
+
+SE QUEDA: Sawtooth (EarthBound)
+   oculto: Welcome Home Saw (EarthBound)
+   oculto: Sawtooth X2 (Mega Man X2)
+
+SE QUEDA: Square (Megalo Strike Back)
+   oculto: Square Lead (Undertale 'MEGALOVANIA')
+   oculto: Square (EarthBound)
+
+SE QUEDA: Hi Hat 1 (Megalo Strike Back)
+   oculto: Hi Hat 1 (EarthBound)
+   oculto: Closed Hi-Hat (Terranigma)
+
+SE QUEDA: SMK Organ 2 (Super Mario Kart)
+   oculto: Enjoy Organ (EarthBound)
+   oculto: Summers Organ (EarthBound)
+
+SE QUEDA: Trumpet (Vibrato) (Final Fantasy IV)
+   oculto: Trumpet (NoRev) (Final Fantasy IV)
+   oculto: Trumpet (No Vib) (Final Fantasy IV)
+
+SE QUEDA: Acoustic Grand Piano (Final Fantasy VII)
+   oculto: Honky-Tonk (Final Fantasy VII)
+   oculto: Piano (Final Fantasy VII)
+
+SE QUEDA: Standard Percussion (Final Fantasy VIII Demo)
+   oculto: Victory Percussion (Final Fantasy VIII Demo)
+   oculto: Satellite Percussion (Final Fantasy VIII Demo)
+
+SE QUEDA: Type 3 @0xd40c0 (Game & Watch Gallery 4)
+   oculto: Type 3 @0xd4888 (Game & Watch Gallery 4)
+   oculto: Sine 2 (Magical Quest Starring Mickey & Minnie (GBA))
+
+SE QUEDA: Type 3 @0xd40cc (Game & Watch Gallery 4)
+   oculto: Type 3 @0xd4894 (Game & Watch Gallery 4)
+   oculto: Type 11 @0xd4348 (Game & Watch Gallery 4)
+
+SE QUEDA: Type 3 @0xd40d8 (Game & Watch Gallery 4)
+   oculto: Type 3 @0xd48a0 (Game & Watch Gallery 4)
+   oculto: Sine 3 (Magical Quest Starring Mickey & Minnie (GBA))
+
+SE QUEDA: Type 3 @0xd4120 (Game & Watch Gallery 4)
+   oculto: Type 3 @0xd48e8 (Game & Watch Gallery 4)
+   oculto: Type 3 @0xd4990 (Game & Watch Gallery 4)
+
+SE QUEDA: Type 1 @0xd42dc (Game & Watch Gallery 4)
+   oculto: Type 1 @0xd4414 (Game & Watch Gallery 4)
+   oculto: Type 2 @0xd4564 (Game & Watch Gallery 4)
+
+SE QUEDA: Type 0 @0xd4318 (Game & Watch Gallery 4)
+   oculto: Type 0 @0xd4804 (Game & Watch Gallery 4)
+   oculto: Type 0 @0xd493c (Game & Watch Gallery 4)
+
+SE QUEDA: Type 0 @0xd4330 (Game & Watch Gallery 4)
+   oculto: Type 0 @0xd4810 (Game & Watch Gallery 4)
+   oculto: Type 0 @0xd4954 (Game & Watch Gallery 4)
+
+SE QUEDA: GB Saw 2 (Pokémon Emerald)
+   oculto: Type 1 @0xd43d8 (Game & Watch Gallery 4)
+   oculto: Type 2 @0xd43e4 (Game & Watch Gallery 4)
+
+SE QUEDA: Piano (Game Boy Advance)
+   oculto: Bright Piano (Game Boy Advance)
+   oculto: Electric Piano (Game Boy Advance)
+
+SE QUEDA: Halo Pad (Game Boy Advance)
+   oculto: Echo Drops (Game Boy Advance)
+   oculto: Choir Aahs (Game Boy Advance)
+
+SE QUEDA: Marimba (Game Gear)
+   oculto: Xylophone (Game Gear)
+   oculto: Agogo (Game Gear)
+
+SE QUEDA: Clarinet (Game Gear)
+   oculto: English Horn (Game Gear)
+   oculto: Trumpet (Game Gear)
+
+SE QUEDA: St.Gamelan (Bill90's SoundFont)
+   oculto: Analog Bells (Bill90's SoundFont)
+   oculto: Gamelan Gong (Bill90's SoundFont)
+
+SE QUEDA: Pink Noise (Bill90's SoundFont)
+   oculto: White Noise (Bill90's SoundFont)
+   oculto: White Noise (Bill90's SoundFont)
+
+SE QUEDA: Rock Rhythm (Bill90's SoundFont)
+   oculto: Feedback Gt.2 (Bill90's SoundFont)
+   oculto: Feedback Gt. (Bill90's SoundFont)
+
+SE QUEDA: TB303 Bass (Bill90's SoundFont)
+   oculto: Synth Bass 3 (Bill90's SoundFont)
+   oculto: Synth Bass 3 (Windows Default SoundFont)
+
+SE QUEDA: DistortionGt (Windows Default SoundFont)
+   oculto: Feedback Gt. (Windows Default SoundFont)
+   oculto: Dist Lead (Bill90's SoundFont)
+
+SE QUEDA: Doctor Solo (Bill90's SoundFont)
+   oculto: LA Doctor Solo (Bill90's SoundFont)
+   oculto: Doctor Solo (Windows Default SoundFont)
+
+SE QUEDA: Harp (Bill90's SoundFont)
+   oculto: LA Harp1 (Bill90's SoundFont)
+   oculto: Harp (Windows Default SoundFont)
+
+SE QUEDA: VeloStrings (Bill90's SoundFont)
+   oculto: St.Strings (Bill90's SoundFont)
+   oculto: Strings (Touhou Series)
+
+SE QUEDA: LA E.Piano3 (Bill90's SoundFont)
+   oculto: LA E.Piano4 (Bill90's SoundFont)
+   oculto: LA Acou Piano 3 (Bill90's SoundFont)
+
+SE QUEDA: LA Syn Brass3 (Bill90's SoundFont)
+   oculto: LA Syn Brass1 (Bill90's SoundFont)
+   oculto: Synth Brass1 (Windows Default SoundFont)
+
+SE QUEDA: Strings Ensembles 4 (Mario & Luigi - Partners in Time)
+   oculto: Strings 3 (Mario & Luigi - Partners in Time)
+   oculto: Strings Ensembles (Mario & Luigi - Partners in Time)
+
+SE QUEDA: Strings 2 (Mario & Luigi - Partners in Time)
+   oculto: Strings Ensemblez 3 (Mario & Luigi - Partners in Time)
+   oculto: Synth Strings Pad 2 (Mario & Luigi - Partners in Time)
+
+SE QUEDA: Strings Ensembles 9 (Mario & Luigi - Partners in Time)
+   oculto: Strings Ensemble (Mario & Luigi - Partners in Time)
+   oculto: Strings Ensembles 5 (Mario & Luigi - Partners in Time)
+
+SE QUEDA: Type 1 @0xfb4dbc (Mario & Luigi - Superstar Saga)
+   oculto: Type 1 @0xfb4e28 (Mario & Luigi - Superstar Saga)
+   oculto: Type 2 @0xfb4edc (Mario & Luigi - Superstar Saga)
+
+SE QUEDA: Mallet (Mario Party 2)
+   oculto: Glockenspiel (Mario Party 2)
+   oculto: Mallet (longer) (Mario Party 2)
+
+SE QUEDA: Reed Organ (Mario Party 2)
+   oculto: Accordion (Mario Party 2)
+   oculto: Accordion (Alt.) (Mario Party 2)
+
+SE QUEDA: Choir Aahs (Mario Party DS)
+   oculto: Synth Voice (Mario Party DS)
+   oculto: French Horns (Mario Party DS)
+
+SE QUEDA: Jazz Drums (Mario vs. Donkey Kong - Mini-Land Mayhem!)
+   oculto: Drums (Mario vs. Donkey Kong - Mini-Land Mayhem!)
+   oculto: Power Drums (Mario vs. Donkey Kong 2 - March of the Minis)
+
+SE QUEDA: Steel Guitar (Mega Man 2 - The Power Fighters)
+   oculto: Steel Guitar (Mega Man 2 - The Power Fighters)
+   oculto: Guitar Bass 1 (Mega Man 2 - The Power Fighters)
+
+SE QUEDA: Synth Lead 2 (Mega Man Star Force 3)
+   oculto: Synth Lead 5 (Mega Man Star Force 3)
+   oculto: Synth Lead 2 (Mega Man Star Force 3)
+
+SE QUEDA: Celesta (Minecraft)
+   oculto: T. Bells (Minecraft)
+   oculto: Tinkle Bell (Minecraft)
+
+SE QUEDA: Mellow Steinway (Nice Steinway)
+   oculto: Steinway Grand (Nice Steinway)
+   oculto: Dark Steinway (Nice Steinway)
+
+SE QUEDA: XG Percussion (Nintendo 64)
+   oculto: Standard (Nintendo 64)
+   oculto: Room (Nintendo 64)
+
+SE QUEDA: Sawtooth (Pokémon Platinum)
+   oculto: Sawtooth (Pokémon Black 2 and White 2)
+   oculto: Sawtooth (Pokémon HeartGold and SoulSilver)
+
+SE QUEDA: Timpani (Pokémon Platinum)
+   oculto: Timpani 2 (Pokémon HeartGold and SoulSilver)
+   oculto: Epic Timpani (Pokémon Black 2 and White 2)
+
+SE QUEDA: Reverse Cymbal (Pokémon Platinum)
+   oculto: Reverse Cymbal? (Pokémon Black 2 and White 2)
+   oculto: Reverse Cymbal? (Pokémon HeartGold and SoulSilver)
+
+SE QUEDA: Bright Piano 2 (Pokémon Emerald)
+   oculto: Bright Piano (Pokémon Emerald)
+   oculto: Bright Piano 3 (Pokémon Emerald)
+
+SE QUEDA: Koto 2 (Pokémon Emerald)
+   oculto: Koto 3 (Pokémon Emerald)
+   oculto: Koto (Pokémon Emerald)
+
+SE QUEDA: Synth Bass 2 (Pokémon Emerald)
+   oculto: Synth Bass (Pokémon Emerald)
+   oculto: Synth Bass 5 (Pokémon Emerald)
+
+SE QUEDA: Brush (Roland SC-55)
+   oculto: Jazz (Roland SC-55)
+   oculto: Standard (Roland SC-55)
+
+SE QUEDA: Choir Aahs (Scratch)
+   oculto: Voice Oohs (Scratch)
+   oculto: Synth Voice (Scratch)
+
+SE QUEDA: Organ 4 (Sega Genesis)
+   oculto: Organ 3 (Sega Genesis)
+   oculto: Organ 1 (Sega Genesis)
+
+SE QUEDA: Clarinet 4 (Sega Genesis)
+   oculto: Clarinet 3 (Sega Genesis)
+   oculto: Clarinet 1 (Sega Genesis)
+
+SE QUEDA: Clean Guitar (Sega Genesis)
+   oculto: Dist. Guitar 2 (Sega Genesis)
+   oculto: Dist. Guitar 1 (Sega Genesis)
+
+SE QUEDA: Lead 4 (Sega Genesis)
+   oculto: Lead 3 (Sega Genesis)
+   oculto: Lead 1 (Sega Genesis)
+
+SE QUEDA: Tuba (Sega Genesis)
+   oculto: Trumpet (Sega Genesis)
+   oculto: Mute Trumpet (Sega Genesis)
+
+SE QUEDA: Vibes 6 (Sega Genesis)
+   oculto: Vibes 5 (Sega Genesis)
+   oculto: Vibes 4 (Sega Genesis)
+
+SE QUEDA: SK SPZ1 Strings (Sonic Series)
+   oculto: S3 MGZ2 Trumpet (Sonic Series)
+   oculto: SK FBZ2 Strings1 (Sonic Series)
+
+SE QUEDA: Electric Guitar (C) (Super Mario 64)
+   oculto: Electric Guitar (J) (Super Mario 64)
+   oculto: Electric Guitar (M) (Super Mario 64)
+
+SE QUEDA: Reed Organ (Super Mario 64)
+   oculto: Drawback Organ (Super Mario 64)
+   oculto: Percussive Organ (Super Mario 64)
+
+SE QUEDA: Voice Oohs (Super Mario 64)
+   oculto: Synth Voice (Super Mario 64)
+   oculto: Lead 3 (Callope) (Super Mario 64)
+
+SE QUEDA: Trumpet (Super Mario 64)
+   oculto: Trumpet (The Legend of Zelda - Majoras Mask)
+   oculto: Trumpet (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Acoustic Guitar (N) (Super Mario 64)
+   oculto: FX 4 (Atmosphere) (Super Mario 64)
+   oculto: Acoustic Guitar (S) (Super Mario 64)
+
+SE QUEDA: Oboe (Super Mario 64)
+   oculto: Bassoon (Super Mario 64)
+   oculto: English Horn (Super Mario 64)
+
+SE QUEDA: SMK Piano (Super Mario Kart)
+   oculto: Z3 Piano (The Legend of Zelda - A Link to the Past)
+   oculto: Rhodes Piano (Super Nintendo Entertainment System)
+
+SE QUEDA: Bassoon ALT (The Legend of Zelda - Majoras Mask)
+   oculto: Bassoon (The Legend of Zelda - Majoras Mask)
+   oculto: Bassoon (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Instr bnk0 num4 (The Misadventures of Tron Bonne 'Red Head Servbot to the Rescue!')
+   oculto: Instr bnk0 num8 (The Misadventures of Tron Bonne 'Red Head Servbot to the Rescue!')
+   oculto: Instr bnk0 num9 (The Misadventures of Tron Bonne 'Red Head Servbot to the Rescue!')
+
+SE QUEDA: Carillon (Windows Default SoundFont)
+   oculto: Church Bell (Windows Default SoundFont)
+   oculto: Tubular-bell (Windows Default SoundFont)
+
+SE QUEDA: Organ 1 (Windows Default SoundFont)
+   oculto: Organ 4 (Windows Default SoundFont)
+   oculto: Organ 5 (Windows Default SoundFont)
+
+SE QUEDA: Nylon Gt.2 (Windows Default SoundFont)
+   oculto: Nylon Gt.o (Windows Default SoundFont)
+   oculto: Nylon-str.Gt (Windows Default SoundFont)
+
+SE QUEDA: Viola (Live HQ Natural SoundFont GM)
+   oculto: Viola (Touhou Series)
+
+SE QUEDA: Vibraphone (Live HQ Natural SoundFont GM)
+   oculto: VivesPS06 (Touhou Series)
+
+SE QUEDA: Halo Pad (Live HQ Natural SoundFont GM)
+   oculto: Halo Pad (Touhou Series)
+
+SE QUEDA: Agogo (Live HQ Natural SoundFont GM)
+   oculto: Agogo (Touhou Series)
+
+SE QUEDA: tyros 4 choir (just t4)
+   oculto: Choir Aahs (Live HQ Natural SoundFont GM)
+
+SE QUEDA: Violin (Live HQ Natural SoundFont GM)
+   oculto: Fiddle (Live HQ Natural SoundFont GM)
+
+SE QUEDA: Romantic Trumpet (Live HQ Natural SoundFont GM)
+   oculto: Romantic Tp (Touhou Series)
+
+SE QUEDA: Standard Drum Kit (Live HQ Natural SoundFont GM)
+   oculto: Standard Drum Kit (Live HQ Natural SoundFont GM)
+
+SE QUEDA: Dulcimer (Live HQ Natural SoundFont GM)
+   oculto: dulcimer (just t4)
+
+SE QUEDA: DynoWahClav (Proteus 2000 Bank 1)
+   oculto: Clavinet 3 (Proteus 2000 Bank 0)
+
+SE QUEDA: Yo My Dynos (Proteus 2000 Bank 0)
+   oculto: Med Dyno (Proteus 2000 Bank 0)
+
+SE QUEDA: Kit 18 (Proteus 2000 Bank 0)
+   oculto: Swing Hop 1 (Proteus 2000 Bank 7b)
+
+SE QUEDA: Melosoul EP (Proteus 2000 Bank 0)
+   oculto: Tine EP (Proteus 2000 Bank 1)
+
+SE QUEDA: ClubVinyl (Proteus 2000 Bank 7b)
+   oculto: Kit 1 (Proteus 2000 Bank 0)
+
+SE QUEDA: Plex (Proteus 2000 Bank 1)
+   oculto: Juno (Proteus 2000 Bank 2)
+
+SE QUEDA: Face Bass (Proteus 2000 Bank 1)
+   oculto: SE One (Proteus 2000 Bank 2)
+
+SE QUEDA: Big Basic (Proteus 2000 Bank 1)
+   oculto: Big Basic 2 (Proteus 2000 Bank 1)
+
+SE QUEDA: Finger&Harmz (Proteus 2000 Bank 1)
+   oculto: Fing&Harms 1 (Proteus 2000 Bank 1)
+
+SE QUEDA: Mutant Pick (Proteus 2000 Bank 3)
+   oculto: El Mute 1 (Proteus 2000 Bank 3)
+
+SE QUEDA: El. Guitar (Proteus1_Instruments)
+   oculto: Electric 1 (Proteus 2000 Bank 3)
+
+SE QUEDA: Pantastic (Proteus 2000 Bank 3)
+   oculto: Mutes (Proteus 2000 Bank 3)
+
+SE QUEDA: Nylonistic (Proteus 2000 Bank 3)
+   oculto: Nylon (Proteus 2000 Bank 3)
+
+SE QUEDA: Shiner (Proteus 2000 Bank 4)
+   oculto: Shimmy (Proteus 2000 Bank 4)
+
+SE QUEDA: Oboe 2 (Proteus 2000 Bank 4)
+   oculto: Oboe 1 (Proteus 2000 Bank 4)
+
+SE QUEDA: Cuts & Hats (Proteus 2000 Bank 6)
+   oculto: Scratches 1 (Proteus 2000 Bank 6)
+
+SE QUEDA: Kit 03 (Proteus 2000 Bank 7a)
+   oculto: Kit 09 (Proteus 2000 Bank 7b)
+
+SE QUEDA: Velo Vibes (Proteus 2000 Bank 7a)
+   oculto: Soft Vibes (Proteus 2000 Bank 7a)
+
+SE QUEDA: PerkyThings2 (Proteus 2000 Bank 7a)
+   oculto: Stuff 2 (Proteus 2000 Bank 7a)
+
+SE QUEDA: Kit 10 (Proteus 2000 Bank 7b)
+   oculto: Speed Garage (Proteus 2000 Bank 7b)
+
+SE QUEDA: CookUsAHit (Proteus 2000 Bank 7b)
+   oculto: Kit 15 (Proteus 2000 Bank 7b)
+
+SE QUEDA: Voices (Proteus1_Instruments)
+   oculto: Slow Voices (Proteus1_Instruments)
+
+SE QUEDA: Trombone 1 (Proteus1_Instruments)
+   oculto: Trombone (Proteus3_Instruments)
+
+SE QUEDA: Brass 3 (Proteus1_Instruments)
+   oculto: Brass 1 (Proteus1_Instruments)
+
+SE QUEDA: Vibraphone (Proteus1_Instruments)
+   oculto: Tremolo Vibe (Proteus1_Presets)
+
+SE QUEDA: All Perc. B (Proteus1_Instruments)
+   oculto: All Perc.UB (Proteus1_Instruments)
+
+SE QUEDA: Rock Drums (Proteus1_Presets)
+   oculto: Standard 1 (Proteus1_Instruments)
+
+SE QUEDA: Latin Perc. (Proteus1_Presets)
+   oculto: Latin Perc. (Proteus1_Instruments)
+
+SE QUEDA: Perc FX 1 (Proteus1_Instruments)
+   oculto: Special FX 1 (Proteus1_Presets)
+
+SE QUEDA: Synth Cyc 1 (Proteus1_Instruments)
+   oculto: Synth Cyc 1 (Proteus3_Instruments)
+
+SE QUEDA: Synth Cyc 2 (Proteus1_Instruments)
+   oculto: Synth Cyc 2 (Proteus3_Instruments)
+
+SE QUEDA: Synth Cyc 3 (Proteus1_Instruments)
+   oculto: Synth Cyc 3 (Proteus3_Instruments)
+
+SE QUEDA: Synth Cyc 4 (Proteus1_Instruments)
+   oculto: Synth Cyc 4 (Proteus3_Instruments)
+
+SE QUEDA: Fund Gone 1 (Proteus1_Instruments)
+   oculto: Fund Gone 1 (Proteus3_Instruments)
+
+SE QUEDA: Fund Gone 2 (Proteus1_Instruments)
+   oculto: Fund Gone 2 (Proteus3_Instruments)
+
+SE QUEDA: Bite Cyc (Proteus1_Instruments)
+   oculto: Bite Cyc (Proteus3_Instruments)
+
+SE QUEDA: Buzzy Cyc 1 (Proteus1_Instruments)
+   oculto: Buzzy Cyc 1 (Proteus3_Instruments)
+
+SE QUEDA: Metlphone 1 (Proteus1_Instruments)
+   oculto: Metlphone 1 (Proteus3_Instruments)
+
+SE QUEDA: Metlphone 2 (Proteus1_Instruments)
+   oculto: Metlphone 2 (Proteus3_Instruments)
+
+SE QUEDA: Metlphone 3 (Proteus1_Instruments)
+   oculto: Metlphone 3 (Proteus3_Instruments)
+
+SE QUEDA: Metlphone 4 (Proteus1_Instruments)
+   oculto: Metlphone 4 (Proteus3_Instruments)
+
+SE QUEDA: Duck Cyc 1 (Proteus1_Instruments)
+   oculto: Duck Cyc 1 (Proteus3_Instruments)
+
+SE QUEDA: Duck Cyc 2 (Proteus1_Instruments)
+   oculto: Duck Cyc 2 (Proteus3_Instruments)
+
+SE QUEDA: Duck Cyc 3 (Proteus1_Instruments)
+   oculto: Duck Cyc 3 (Proteus3_Instruments)
+
+SE QUEDA: Wind Cyc 1 (Proteus1_Instruments)
+   oculto: Wind Cyc 1 (Proteus3_Instruments)
+
+SE QUEDA: Wind Cyc 2 (Proteus1_Instruments)
+   oculto: Wind Cyc 2 (Proteus3_Instruments)
+
+SE QUEDA: Wind Cyc 3 (Proteus1_Instruments)
+   oculto: Wind Cyc 3 (Proteus3_Instruments)
+
+SE QUEDA: Wind Cyc 4 (Proteus1_Instruments)
+   oculto: Wind Cyc 4 (Proteus3_Instruments)
+
+SE QUEDA: Organ Cyc 1 (Proteus1_Instruments)
+   oculto: Organ Cyc 1 (Proteus3_Instruments)
+
+SE QUEDA: Organ Cyc 2 (Proteus1_Instruments)
+   oculto: Organ Cyc 2 (Proteus3_Instruments)
+
+SE QUEDA: Noise (Proteus1_Instruments)
+   oculto: Noise (Proteus3_Instruments)
+
+SE QUEDA: Arco Basses (Proteus2 Instruments)
+   oculto: E-mu Sytems 1997 (Proteus2 Instruments)
+
+SE QUEDA: Arco Celli (Proteus2 Instruments)
+   oculto: Arco Celli (Proteus2 Presets)
+
+SE QUEDA: Dark Violas (Proteus2 Instruments)
+   oculto: Arco Violas (Proteus2 Instruments)
+
+SE QUEDA: Dark Violins (Proteus2 Instruments)
+   oculto: Arco Violins (Proteus2 Instruments)
+
+SE QUEDA: Pizz Celli (Proteus2 Instruments)
+   oculto: Pizz Celli (Proteus2 Presets)
+
+SE QUEDA: Pizzicombo (Proteus2 Instruments)
+   oculto: Pizzicato 1 (Proteus2 Presets)
+
+SE QUEDA: Bs Clarinet (Bill90's SoundFont)
+   oculto: B.Clar/Clar (Proteus2 Instruments)
+
+SE QUEDA: French Horn mf (Proteus2 Instruments)
+   oculto: French Horn 1 (Proteus2 Presets)
+
+SE QUEDA: Harp (Proteus2 Presets)
+   oculto: Harp (Proteus2 Instruments)
+
+SE QUEDA: TempleBlock (Proteus2 Instruments)
+   oculto: Temple Block (Proteus2 Presets)
+
+SE QUEDA: Percussion 1 (Proteus2 Presets)
+   oculto: Percussion 2 (Proteus2 Instruments)
+
+SE QUEDA: Oct 2 Even (Proteus2 Instruments)
+   oculto: Oct 2 Even (Proteus3_Instruments)
+
+SE QUEDA: Triangle (Proteus2 Instruments)
+   oculto: Triangle (Proteus3_Instruments)
+
+SE QUEDA: Square (Proteus2 Instruments)
+   oculto: Square (Proteus3_Instruments)
+
+SE QUEDA: SawOddGone (Proteus2 Instruments)
+   oculto: SawOddGone (Proteus3_Instruments)
+
+SE QUEDA: RampEveOnly (Proteus2 Instruments)
+   oculto: RampEveOnly (Proteus3_Instruments)
+
+SE QUEDA: Vio Essence (Proteus2 Instruments)
+   oculto: Vio Essence (Proteus3_Instruments)
+
+SE QUEDA: Buzzoon (Proteus2 Instruments)
+   oculto: Buzzoon (Proteus3_Instruments)
+
+SE QUEDA: Brassy Wave (Proteus2 Instruments)
+   oculto: Brassy Wave (Proteus3_Instruments)
+
+SE QUEDA: Reedy Buzz (Proteus2 Instruments)
+   oculto: Reedy Buzz (Proteus3_Instruments)
+
+SE QUEDA: Growl Wave (Proteus2 Instruments)
+   oculto: Growl Wave (Proteus3_Instruments)
+
+SE QUEDA: HarpsiWave (Proteus2 Instruments)
+   oculto: HarpsiWave (Proteus3_Instruments)
+
+SE QUEDA: Fuzzy Gruzz (Proteus2 Instruments)
+   oculto: Fuzzy Gruzz (Proteus3_Instruments)
+
+SE QUEDA: Power 5ths (Proteus2 Instruments)
+   oculto: Power 5ths (Proteus3_Instruments)
+
+SE QUEDA: Filt Saw (Proteus2 Instruments)
+   oculto: Filt Saw (Proteus3_Instruments)
+
+SE QUEDA: Ice Bell (Proteus2 Instruments)
+   oculto: Ice Bell (Proteus3_Instruments)
+
+SE QUEDA: Bronze Age (Proteus2 Instruments)
+   oculto: Bronze Age (Proteus3_Instruments)
+
+SE QUEDA: Iron Plate (Proteus2 Instruments)
+   oculto: Iron Plate (Proteus3_Instruments)
+
+SE QUEDA: Aluminum (Proteus2 Instruments)
+   oculto: Aluminum (Proteus3_Instruments)
+
+SE QUEDA: Lead Beam (Proteus2 Instruments)
+   oculto: Lead Beam (Proteus3_Instruments)
+
+SE QUEDA: SteelXtract (Proteus2 Instruments)
+   oculto: SteelXtract (Proteus3_Instruments)
+
+SE QUEDA: WinterGlass (Proteus2 Instruments)
+   oculto: WinterGlass (Proteus3_Instruments)
+
+SE QUEDA: NylonPluck1 (Proteus2 Instruments)
+   oculto: NylonPluck2 (Proteus2 Instruments)
+
+SE QUEDA: E-mu Sytems 1997 (Proteus2 Presets)
+   oculto: Solo Cello (Proteus2 Presets)
+
+SE QUEDA: Shimmer Ways (Proteus2 Presets)
+   oculto: Shimmer Attack (Proteus2 Presets)
+
+SE QUEDA: Renaissance (Proteus3_Instruments)
+   oculto: E-mu Systems 1997 (Proteus3_Instruments)
+
+SE QUEDA: Troubador (Proteus3_Presets)
+   oculto: Troubador (Proteus3_Instruments)
+
+SE QUEDA: Irish Harp (Proteus3_Presets)
+   oculto: Irish Harp (Proteus3_Instruments)
+
+SE QUEDA: Dulcimer (Proteus3_Presets)
+   oculto: Dulcimer (Proteus3_Instruments)
+
+SE QUEDA: Shamisen (Proteus3_Presets)
+   oculto: Banjo (Proteus3_Instruments)
+
+SE QUEDA: Accordion (Proteus3_Presets)
+   oculto: Accordion (Proteus3_Instruments)
+
+SE QUEDA: Mizmars (Proteus3_Instruments)
+   oculto: Mizmars (Proteus3_Presets)
+
+SE QUEDA: Shenai (Proteus3_Instruments)
+   oculto: Shenai (Proteus3_Presets)
+
+SE QUEDA: Shakuhachi (Proteus3_Instruments)
+   oculto: Shakuhachi (Proteus3_Presets)
+
+SE QUEDA: Ney Flute (Proteus3_Instruments)
+   oculto: Ney Flute (Proteus3_Presets)
+
+SE QUEDA: Fsw-)Bagpipe (Proteus3_Presets)
+   oculto: Dron&ChantB (Proteus3_Instruments)
+
+SE QUEDA: All Perc 3 (Proteus3_Instruments)
+   oculto: Percussion 2 (Proteus3_Presets)
+
+SE QUEDA: Hanoi Drone (Proteus3_Presets)
+   oculto: Asiatic Dron (Proteus3_Presets)
+
+SE QUEDA: E-mu Systems 1997 (Proteus3_Presets)
+   oculto: AmbiJewsHarp (Proteus3_Presets)
+
+SE QUEDA: Piano 3 (SGM)
+   oculto: Piano 3 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: E.Piano 1 (SGM)
+   oculto: E.Piano 1 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Harpsichord (SGM)
+   oculto: Harpsichord (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Clav. (SGM)
+   oculto: Clav. (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Celesta (SGM)
+   oculto: Celesta (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Glockenspiel (SGM)
+   oculto: Glockenspiel (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Music Box (SGM)
+   oculto: Music Box (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Vibraphone (SGM)
+   oculto: Vibraphone (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Xylophone (SGM)
+   oculto: Xylophone (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Pipe Organ (SGM)
+   oculto: Pipe Organ (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Reed Organ (SGM)
+   oculto: Reed Organ (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Accordion (SGM)
+   oculto: Accordion (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Harmonica (SGM)
+   oculto: Harmonica (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Bandoneon (SGM)
+   oculto: Bandoneon (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Jazz Guitar (SGM)
+   oculto: Jazz Guitar (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Clean Guitar (SGM)
+   oculto: Clean Guitar (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Muted Guitar (SGM)
+   oculto: Muted Guitar (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Overdrive Guitar (SGM)
+   oculto: Overdrive Guitar (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Fretless Bass (SGM)
+   oculto: Fretless Bass (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Slap Bass 1 (SGM)
+   oculto: Slap Bass 1 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Synth Bass 2 (SGM)
+   oculto: Synth Bass 2 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Viola (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Viola (SGM)
+
+SE QUEDA: Cello (SGM)
+   oculto: Cello (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Contrabass (SGM)
+   oculto: Contrabass (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Tremolo Strings (SGM)
+   oculto: Tremolo Strings (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Harp (SGM)
+   oculto: Harp (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Timpani (SGM)
+   oculto: Timpani (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Strings (SGM)
+   oculto: Strings (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Slow Strings (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Slow Strings (SGM)
+
+SE QUEDA: Synth Strings 2 (SGM)
+   oculto: Synth Strings 2 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Choir Aahs (SGM)
+   oculto: Choir Aahs (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Voice Oohs (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Voice Oohs (SGM)
+
+SE QUEDA: OrchestraHit (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: OrchestraHit (SGM)
+
+SE QUEDA: Trumpet (SGM)
+   oculto: Trumpet (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Trombone (SGM)
+   oculto: Trombone (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Tuba (SGM)
+   oculto: Tuba (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: MutedTrumpet (SGM)
+   oculto: MutedTrumpet (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: French Horns (SGM)
+   oculto: French Horns (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Brass 1 (SGM)
+   oculto: Brass 1 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Synth Brass 1 (SGM)
+   oculto: Synth Brass 1 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Synth Brass 2 (SGM)
+   oculto: Synth Brass 2 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Alto Sax (SGM)
+   oculto: Alto Sax (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Tenor Sax (SGM)
+   oculto: Tenor Sax (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Baritone Sax (SGM)
+   oculto: Baritone Sax (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: English Horn (SGM)
+   oculto: English Horn (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Bassoon (SGM)
+   oculto: Bassoon (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Square Wave (SGM)
+   oculto: Square Wave (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Saw Wave (SGM)
+   oculto: Saw Wave (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Synth Calliope (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Synth Calliope (SGM)
+
+SE QUEDA: Chiffer Lead (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Chiffer Lead (SGM)
+
+SE QUEDA: Charang (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Charang (SGM)
+
+SE QUEDA: Solo Vox (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Solo Vox (SGM)
+
+SE QUEDA: 5th Saw Wave (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: 5th Saw Wave (SGM)
+
+SE QUEDA: Bass & Lead (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Bass & Lead (SGM)
+
+SE QUEDA: Fantasia (SGM)
+   oculto: Fantasia (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Polysynth (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Polysynth (SGM)
+
+SE QUEDA: Bowed Glass (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Bowed Glass (SGM)
+
+SE QUEDA: Metal Pad (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Metal Pad (SGM)
+
+SE QUEDA: Halo Pad (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Halo Pad (SGM)
+
+SE QUEDA: Sweep Pad (SGM)
+   oculto: Sweep Pad (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Soundtrack (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Soundtrack (SGM)
+
+SE QUEDA: Crystal (SGM)
+   oculto: Crystal (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Atmosphere (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Atmosphere (SGM)
+
+SE QUEDA: Brightness (SGM)
+   oculto: Brightness (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Echo Drops (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Echo Drops (SGM)
+
+SE QUEDA: Star Theme (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Star Theme (SGM)
+
+SE QUEDA: Sitar (SGM)
+   oculto: Sitar (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Banjo (SGM)
+   oculto: Banjo (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Shamisen (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Shamisen (SGM)
+
+SE QUEDA: Bagpipe (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Bagpipe (SGM)
+
+SE QUEDA: Shenai (SGM)
+   oculto: Shenai (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Tinkle Bell (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Tinkle Bell (SGM)
+
+SE QUEDA: Agogo (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Agogo (SGM)
+
+SE QUEDA: Steel Drums (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Steel Drums (SGM)
+
+SE QUEDA: Woodblock (SGM)
+   oculto: Woodblock (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Reverse Cym. (SGM)
+   oculto: Reverse Cym. (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Gt.FretNoise (SGM)
+   oculto: Gt.FretNoise (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Seashore (SGM)
+   oculto: Seashore (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Bird (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Bird (SGM)
+
+SE QUEDA: Telephone (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Telephone (SGM)
+
+SE QUEDA: Helicopter (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Helicopter (SGM)
+
+SE QUEDA: Applause (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Applause (SGM)
+
+SE QUEDA: Gun Shot (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Gun Shot (SGM)
+
+SE QUEDA: 12 String Guitar (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: 12 String Guitar (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Muted Dis.Gt (SGM)
+   oculto: Muted Dis.Gt (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: OB Strings (SGM)
+   oculto: OB Strings (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Fantasia 2 (SGM)
+   oculto: Fantasia 2 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Rain (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Rain (SGM)
+
+SE QUEDA: StackStrings (SGM)
+   oculto: StackStrings (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Fat & Perky (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Fat & Perky (SGM)
+
+SE QUEDA: JP8 Sqr Pad (SGM)
+   oculto: JP8 Sqr Pad (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Thunder (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Thunder (SGM)
+
+SE QUEDA: Laser Gun (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Laser Gun (SGM)
+
+SE QUEDA: Mellow FM (SGM)
+   oculto: Mellow FM (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Round Glock (SGM)
+   oculto: Round Glock (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Wind (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Wind (SGM)
+
+SE QUEDA: Bird 2 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Bird 2 (SGM)
+
+SE QUEDA: Explosion (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Explosion (SGM)
+
+SE QUEDA: Syn Fretless (SGM)
+   oculto: Syn Fretless (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: JP8 BsLead(sybs2sq) (SGM)
+   oculto: JP8 BsLead(sybs2sq) (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Loud Glock (SGM)
+   oculto: Loud Glock (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Stream (SGM)
+   oculto: Stream (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Scratch (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Scratch (SGM)
+
+SE QUEDA: Car-Crash (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Car-Crash (SGM)
+
+SE QUEDA: Heart Beat (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Heart Beat (SGM)
+
+SE QUEDA: Bubble (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Bubble (SGM)
+
+SE QUEDA: Windchimes (SGM)
+   oculto: Windchimes (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Siren (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Siren (SGM)
+
+SE QUEDA: Footsteps (SGM)
+   oculto: Footsteps (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: LM Square (SGM)
+   oculto: LM Square (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: GR-300 (SGM)
+   oculto: GR-300 (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Pick Scrape (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Pick Scrape (SGM)
+
+SE QUEDA: Train (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Train (SGM)
+
+SE QUEDA: Jetplane (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Jetplane (SGM)
+
+SE QUEDA: Comp Clav. (SGM)
+   oculto: Comp Clav. (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Gt. Feedback (SGM)
+   oculto: Gt. Feedback (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: St.ChoirAahs (SGM)
+   oculto: St.ChoirAahs (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: 2600 Sine (SGM)
+   oculto: 2600 Sine (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Org Bell (SGM)
+   oculto: Org Bell (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Castanets (SGM)
+   oculto: Castanets (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Concert BD (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Concert BD (SGM)
+
+SE QUEDA: Vibraphones (SGM)
+   oculto: Vibraphones (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Melted Choir (SGM)
+   oculto: Melted Choir (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Sine Lead (SGM)
+   oculto: Sine Lead (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: KG Lead (SGM)
+   oculto: KG Lead (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Music Bell (SGM)
+   oculto: Music Bell (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Phono Noise (SGM)
+   oculto: Phono Noise (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Mandolin (SGM)
+   oculto: Mandolin (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Power Guitar (SGM)
+   oculto: Power Guitar (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Multi Wind (SGM)
+   oculto: Multi Wind (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: P5 Sync Lead (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: P5 Sync Lead (SGM)
+
+SE QUEDA: Tambourine (SGM)
+   oculto: Tambourine (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Rash SD (SGM)
+   oculto: Rash SD (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: ReverseSweep (SGM)
+   oculto: ReverseSweep (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Hammer (SGM)
+   oculto: Hammer (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Octave Brass (SGM)
+   oculto: Octave Brass (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Finger Snaps (SGM)
+   oculto: Finger Snaps (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Oct Saw Lead (SGM)
+   oculto: Oct Saw Lead (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: GS POWER (SGM)
+   oculto: GS POWER (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Taiko (sc55 map) (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Taiko (sc55 map) (SGM)
+
+SE QUEDA: POWER (SGM)
+   oculto: POWER (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Honkey-tonk (SGM)
+   oculto: Honky-Tonk (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Bright Grand (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+   oculto: Grand Piano (SGM-v2.01-NicePianosGuitarsBass-V1.2)
+
+SE QUEDA: Guitar (Animal Crossing KK Slider)
+   oculto: Guitar 2 (Animal Crossing KK Slider)
+
+SE QUEDA: Rock Organ (DK64) (Banjo Series and Donkey Kong Series)
+   oculto: Rock Organ (Nintendo 64)
+
+SE QUEDA: Pizzicato (BK64) (Banjo Series and Donkey Kong Series)
+   oculto: Pizzicato (Nintendo 64)
+
+SE QUEDA: Timpani (BK64) (Banjo Series and Donkey Kong Series)
+   oculto: Timpani (Nintendo 64)
+
+SE QUEDA: Tuba (BK64) (Banjo Series and Donkey Kong Series)
+   oculto: Tuba (Nintendo 64)
+
+SE QUEDA: Grand Piano (BeepBox)
+   oculto: Grand Piano (JummBox)
+
+SE QUEDA: Bright Piano (BeepBox)
+   oculto: Bright Piano (JummBox)
+
+SE QUEDA: Honky Tonk Piano (BeepBox)
+   oculto: Honky Tonk Piano (JummBox)
+
+SE QUEDA: Electric Grand (BeepBox)
+   oculto: Electric Grand (JummBox)
+
+SE QUEDA: Electric Piano 1 (BeepBox)
+   oculto: Electric Piano 1 (JummBox)
+
+SE QUEDA: Electric Piano 2 (BeepBox)
+   oculto: Electric Piano 2 (JummBox)
+
+SE QUEDA: Harpsichord (BeepBox)
+   oculto: Harpsichord (JummBox)
+
+SE QUEDA: Calvinet (BeepBox)
+   oculto: Calvinet (JummBox)
+
+SE QUEDA: Dulcimer (BeepBox)
+   oculto: Dulcimer (JummBox)
+
+SE QUEDA: Celesta (BeepBox)
+   oculto: Celesta (JummBox)
+
+SE QUEDA: Glockenspiel (BeepBox)
+   oculto: Glockenspiel (JummBox)
+
+SE QUEDA: Music Box 1 (BeepBox)
+   oculto: Music Box 1 (JummBox)
+
+SE QUEDA: Music Box 2 (BeepBox)
+   oculto: Music Box 2 (JummBox)
+
+SE QUEDA: Vibraphone (BeepBox)
+   oculto: Vibraphone (JummBox)
+
+SE QUEDA: Marimba (BeepBox)
+   oculto: Marimba (JummBox)
+
+SE QUEDA: Xylophone (BeepBox)
+   oculto: Xylophone (JummBox)
+
+SE QUEDA: Tubular Bell (BeepBox)
+   oculto: Tubular Bell (JummBox)
+
+SE QUEDA: Drawbar Organ 1 (BeepBox)
+   oculto: Drawbar Organ 1 (JummBox)
+
+SE QUEDA: Drawbar Organ 2 (BeepBox)
+   oculto: Drawbar Organ 2 (JummBox)
+
+SE QUEDA: Percussive Organ (BeepBox)
+   oculto: Percussive Organ (JummBox)
+
+SE QUEDA: Rock Organ (BeepBox)
+   oculto: Rock Organ (JummBox)
+
+SE QUEDA: Reed Organ (BeepBox)
+   oculto: Reed Organ (JummBox)
+
+SE QUEDA: Pipe Organ (BeepBox)
+   oculto: Pipe Organ (JummBox)
+
+SE QUEDA: Accordion (BeepBox)
+   oculto: Accordion (JummBox)
+
+SE QUEDA: Harmonica (BeepBox)
+   oculto: Harmonica (JummBox)
+
+SE QUEDA: Bandoneon (BeepBox)
+   oculto: Bandoneon (JummBox)
+
+SE QUEDA: Nylon Guitar (BeepBox)
+   oculto: Nylon Guitar (JummBox)
+
+SE QUEDA: Steel Guitar (BeepBox)
+   oculto: Steel Guitar (JummBox)
+
+SE QUEDA: Jazz Guitar (BeepBox)
+   oculto: Jazz Guitar (JummBox)
+
+SE QUEDA: Clean Guitar (BeepBox)
+   oculto: Clean Guitar (JummBox)
+
+SE QUEDA: Muted Guitar (BeepBox)
+   oculto: Muted Guitar (JummBox)
+
+SE QUEDA: Overdrive Guitar (BeepBox)
+   oculto: Overdrive Guitar (JummBox)
+
+SE QUEDA: Distortion Guitar (BeepBox)
+   oculto: Distortion Guitar (JummBox)
+
+SE QUEDA: Guitar Harmonics (BeepBox)
+   oculto: Guitar Harmonics (JummBox)
+
+SE QUEDA: Acoustic Bass (BeepBox)
+   oculto: Acoustic Bass (JummBox)
+
+SE QUEDA: Fingered Bass (BeepBox)
+   oculto: Fingered Bass (JummBox)
+
+SE QUEDA: Picked Bass (BeepBox)
+   oculto: Picked Bass (JummBox)
+
+SE QUEDA: Fretless Bass (BeepBox)
+   oculto: Fretless Bass (JummBox)
+
+SE QUEDA: Slap Bass 1 (BeepBox)
+   oculto: Slap Bass 1 (JummBox)
+
+SE QUEDA: Slap Bass 2 (BeepBox)
+   oculto: Slap Bass 2 (JummBox)
+
+SE QUEDA: Bass Synth 2 (BeepBox)
+   oculto: Bass Synth 2 (JummBox)
+
+SE QUEDA: Bass Synth 1 (BeepBox)
+   oculto: Bass Synth 1 (JummBox)
+
+SE QUEDA: Violin (BeepBox)
+   oculto: Violin (JummBox)
+
+SE QUEDA: Viola (BeepBox)
+   oculto: Viola (JummBox)
+
+SE QUEDA: Cello (BeepBox)
+   oculto: Cello (JummBox)
+
+SE QUEDA: Contrabass (BeepBox)
+   oculto: Contrabass (JummBox)
+
+SE QUEDA: Tremolo Strings (BeepBox)
+   oculto: Tremolo Strings (JummBox)
+
+SE QUEDA: Pizzicato Strings (BeepBox)
+   oculto: Pizzicato Strings (JummBox)
+
+SE QUEDA: Harp (BeepBox)
+   oculto: Harp (JummBox)
+
+SE QUEDA: Timpani (BeepBox)
+   oculto: Timpani (JummBox)
+
+SE QUEDA: Strings (BeepBox)
+   oculto: Strings (JummBox)
+
+SE QUEDA: Slow Strings (BeepBox)
+   oculto: Slow Strings (JummBox)
+
+SE QUEDA: Strings Synth 2 (BeepBox)
+   oculto: Strings Synth 2 (JummBox)
+
+SE QUEDA: Strings Synth 1 (BeepBox)
+   oculto: Strings Synth 1 (JummBox)
+
+SE QUEDA: Choir Soprano (BeepBox)
+   oculto: Choir Soprano (JummBox)
+
+SE QUEDA: Choir Bass (BeepBox)
+   oculto: Choir Bass (JummBox)
+
+SE QUEDA: Choir Tenor (BeepBox)
+   oculto: Choir Tenor (JummBox)
+
+SE QUEDA: Dark Choir (BeepBox)
+   oculto: Dark Choir (JummBox)
+
+SE QUEDA: Solo Soprano (BeepBox)
+   oculto: Solo Soprano (JummBox)
+
+SE QUEDA: Solo Bass (BeepBox)
+   oculto: Solo Bass (JummBox)
+
+SE QUEDA: Solo Tenor (BeepBox)
+   oculto: Solo Tenor (JummBox)
+
+SE QUEDA: Voice Ooh (BeepBox)
+   oculto: Voice Ooh (JummBox)
+
+SE QUEDA: Voice synth (BeepBox)
+   oculto: Voice synth (JummBox)
+
+SE QUEDA: Orchestra Hit 1 (BeepBox)
+   oculto: Orchestra Hit 1 (JummBox)
+
+SE QUEDA: Orchestra Hit 2 (BeepBox)
+   oculto: Orchestra Hit 2 (JummBox)
+
+SE QUEDA: Trumpet (BeepBox)
+   oculto: Trumpet (JummBox)
+
+SE QUEDA: Trombone (BeepBox)
+   oculto: Trombone (JummBox)
+
+SE QUEDA: Tuba (BeepBox)
+   oculto: Tuba (JummBox)
+
+SE QUEDA: Muted Trumpet (BeepBox)
+   oculto: Muted Trumpet (JummBox)
+
+SE QUEDA: French Horn (BeepBox)
+   oculto: French Horn (JummBox)
+
+SE QUEDA: Brass Section (BeepBox)
+   oculto: Brass Section (JummBox)
+
+SE QUEDA: Brass Synth 1 (BeepBox)
+   oculto: Brass Synth 1 (JummBox)
+
+SE QUEDA: Brass Synth 2 (BeepBox)
+   oculto: Brass Synth 2 (JummBox)
+
+SE QUEDA: Pulse Brass (BeepBox)
+   oculto: Pulse Brass (JummBox)
+
+SE QUEDA: Soprano Sax (BeepBox)
+   oculto: Soprano Sax (JummBox)
+
+SE QUEDA: Alto Sax (BeepBox)
+   oculto: Alto Sax (JummBox)
+
+SE QUEDA: Tenor Sax (BeepBox)
+   oculto: Tenor Sax (JummBox)
+
+SE QUEDA: Baritone Sax (BeepBox)
+   oculto: Baritone Sax (JummBox)
+
+SE QUEDA: Oboe (BeepBox)
+   oculto: Oboe (JummBox)
+
+SE QUEDA: English Horn (BeepBox)
+   oculto: English Horn (JummBox)
+
+SE QUEDA: Basson (BeepBox)
+   oculto: Basson (JummBox)
+
+SE QUEDA: Clarinet (BeepBox)
+   oculto: Clarinet (JummBox)
+
+SE QUEDA: Piccolo (BeepBox)
+   oculto: Piccolo (JummBox)
+
+SE QUEDA: Flute (BeepBox)
+   oculto: Flute (JummBox)
+
+SE QUEDA: Recorder (BeepBox)
+   oculto: Recorder (JummBox)
+
+SE QUEDA: Pan Flute (BeepBox)
+   oculto: Pan Flute (JummBox)
+
+SE QUEDA: Blown Bottle (BeepBox)
+   oculto: Blown Bottle (JummBox)
+
+SE QUEDA: Shakuhachi (BeepBox)
+   oculto: Shakuhachi (JummBox)
+
+SE QUEDA: Whistle (BeepBox)
+   oculto: Whistle (JummBox)
+
+SE QUEDA: Ocarina (BeepBox)
+   oculto: Ocarina (JummBox)
+
+SE QUEDA: Square Lead (BeepBox)
+   oculto: Square Lead (JummBox)
+
+SE QUEDA: Sawtooth Lead 1 (BeepBox)
+   oculto: Sawtooth Lead 1 (JummBox)
+
+SE QUEDA: Sawtooth Lead 2 (BeepBox)
+   oculto: Sawtooth Lead 2 (JummBox)
+
+SE QUEDA: Calliope (BeepBox)
+   oculto: Calliope (JummBox)
+
+SE QUEDA: Chiffer (BeepBox)
+   oculto: Chiffer (JummBox)
+
+SE QUEDA: Charango Synth (BeepBox)
+   oculto: Charango Synth (JummBox)
+
+SE QUEDA: Distorted Synth 1 (BeepBox)
+   oculto: Distorted Synth 1 (JummBox)
+
+SE QUEDA: Distorted Synth 2 (BeepBox)
+   oculto: Distorted Synth 2 (JummBox)
+
+SE QUEDA: Distorted Synth 3 (BeepBox)
+   oculto: Distorted Synth 3 (JummBox)
+
+SE QUEDA: Distorted Synth 4 (BeepBox)
+   oculto: Distorted Synth 4 (JummBox)
+
+SE QUEDA: Fifth Saw Lead (BeepBox)
+   oculto: Fifth Saw Lead (JummBox)
+
+SE QUEDA: Bass And Lead (BeepBox)
+   oculto: Bass And Lead (JummBox)
+
+SE QUEDA: Warm Pad (BeepBox)
+   oculto: Warm Pad (JummBox)
+
+SE QUEDA: Polysynth Pad (BeepBox)
+   oculto: Polysynth Pad (JummBox)
+
+SE QUEDA: Space Voice Pad (BeepBox)
+   oculto: Space Voice Pad (JummBox)
+
+SE QUEDA: Bowed Glass Pad (BeepBox)
+   oculto: Bowed Glass Pad (JummBox)
+
+SE QUEDA: Metallic Pad (BeepBox)
+   oculto: Metallic Pad (JummBox)
+
+SE QUEDA: Sweep Pad (BeepBox)
+   oculto: Sweep Pad (JummBox)
+
+SE QUEDA: New Age Pad (BeepBox)
+   oculto: New Age Pad (JummBox)
+
+SE QUEDA: Soundtrack (BeepBox)
+   oculto: Soundtrack (JummBox)
+
+SE QUEDA: Crystal (BeepBox)
+   oculto: Crystal (JummBox)
+
+SE QUEDA: Atmosphere (BeepBox)
+   oculto: Atmosphere (JummBox)
+
+SE QUEDA: Brightness (BeepBox)
+   oculto: Brightness (JummBox)
+
+SE QUEDA: Goblins (BeepBox)
+   oculto: Goblins (JummBox)
+
+SE QUEDA: Echo Drop (BeepBox)
+   oculto: Echo Drop (JummBox)
+
+SE QUEDA: Sitar (BeepBox)
+   oculto: Sitar (JummBox)
+
+SE QUEDA: Banjo (BeepBox)
+   oculto: Banjo (JummBox)
+
+SE QUEDA: Shamisen (BeepBox)
+   oculto: Shamisen (JummBox)
+
+SE QUEDA: Koto (BeepBox)
+   oculto: Koto (JummBox)
+
+SE QUEDA: Kalimba (BeepBox)
+   oculto: Kalimba (JummBox)
+
+SE QUEDA: Fiddle (BeepBox)
+   oculto: Fiddle (JummBox)
+
+SE QUEDA: Shehnai (BeepBox)
+   oculto: Shehnai (JummBox)
+
+SE QUEDA: Tinkle Bell (BeepBox)
+   oculto: Tinkle Bell (JummBox)
+
+SE QUEDA: Agogo (BeepBox)
+   oculto: Agogo (JummBox)
+
+SE QUEDA: Steel Drum (BeepBox)
+   oculto: Steel Drum (JummBox)
+
+SE QUEDA: Steel Pan Synth (BeepBox)
+   oculto: Steel Pan Synth (JummBox)
+
+SE QUEDA: Woodblock (BeepBox)
+   oculto: Woodblock (JummBox)
+
+SE QUEDA: Taiko Drum (BeepBox)
+   oculto: Taiko Drum (JummBox)
+
+SE QUEDA: Melodic Drum (BeepBox)
+   oculto: Melodic Drum (JummBox)
+
+SE QUEDA: Drum Synth (BeepBox)
+   oculto: Drum Synth (JummBox)
+
+SE QUEDA: Reverse Cymbal (BeepBox)
+   oculto: Reverse Cymbal (JummBox)
+
+SE QUEDA: Guitar Fret Noise (BeepBox)
+   oculto: Guitar Fret Noise (JummBox)
+
+SE QUEDA: Breath Nose (BeepBox)
+   oculto: Breath Nose (JummBox)
+
+SE QUEDA: Ship Noise (JummBox)
+   oculto: Seashore (Long) (BeepBox)
+
+SE QUEDA: Bird Tweet (BeepBox)
+   oculto: Bird Tweet (JummBox)
+
+SE QUEDA: Telephone Ring (BeepBox)
+   oculto: Telephone Ring (JummBox)
+
+SE QUEDA: Helicopter (BeepBox)
+   oculto: Helicopter (JummBox)
+
+SE QUEDA: Applause (BeepBox)
+   oculto: Applause (JummBox)
+
+SE QUEDA: Gunshot (BeepBox)
+   oculto: Gunshot (JummBox)
+
+SE QUEDA: Flutter Pad (BeepBox)
+   oculto: Flutter Pad (JummBox)
+
+SE QUEDA: Feedback Pad (BeepBox)
+   oculto: Feedback Pad (JummBox)
+
+SE QUEDA: Sci-Fi (BeepBox)
+   oculto: Sci-Fi (JummBox)
+
+SE QUEDA: Bagpipe (BeepBox)
+   oculto: Bagpipe (JummBox)
+
+SE QUEDA: Ukulele (BeepBox)
+   oculto: Ukulele (JummBox)
+
+SE QUEDA: Triangle Wave (BeepBox)
+   oculto: Triangle Wave (JummBox)
+
+SE QUEDA: FM Bass (BeepBox)
+   oculto: FM Bass (JummBox)
+
+SE QUEDA: FM Flute (BeepBox)
+   oculto: FM Flute (JummBox)
+
+SE QUEDA: FM Organ (BeepBox)
+   oculto: FM Organ (JummBox)
+
+SE QUEDA: FM Twang (BeepBox)
+   oculto: FM Twang (JummBox)
+
+SE QUEDA: Rain Drop (BeepBox)
+   oculto: Rain Drop (JummBox)
+
+SE QUEDA: Bell Synth (BeepBox)
+   oculto: Bell Synth (JummBox)
+
+SE QUEDA: Buzz Saw (BeepBox)
+   oculto: Buzz Saw (JummBox)
+
+SE QUEDA: Fifth Swell (BeepBox)
+   oculto: Fifth Swell (JummBox)
+
+SE QUEDA: Mosquito (BeepBox)
+   oculto: Mosquito (JummBox)
+
+SE QUEDA: Scoot (BeepBox)
+   oculto: Scoot (JummBox)
+
+SE QUEDA: Sonar Ping (BeepBox)
+   oculto: Sonar Ping (JummBox)
+
+SE QUEDA: Theremin (BeepBox)
+   oculto: Theremin (JummBox)
+
+SE QUEDA: Gumdrop (BeepBox)
+   oculto: Gumdrop (JummBox)
+
+SE QUEDA: Mouse (BeepBox)
+   oculto: Mouse (JummBox)
+
+SE QUEDA: Tiny Robot (BeepBox)
+   oculto: Tiny Robot (JummBox)
+
+SE QUEDA: Yowie (BeepBox)
+   oculto: Yowie (JummBox)
+
+SE QUEDA: Dark Strike (BeepBox)
+   oculto: Dark Strike (JummBox)
+
+SE QUEDA: Breathing (BeepBox)
+   oculto: Breathing (JummBox)
+
+SE QUEDA: Klaxon Synth (BeepBox)
+   oculto: Klaxon Synth (JummBox)
+
+SE QUEDA: Metal Pipe (BeepBox)
+   oculto: Metal Pipe (JummBox)
+
+SE QUEDA: Tom-Tom (BeepBox)
+   oculto: Tom-Tom (JummBox)
+
+SE QUEDA: 128 (JummBox)
+   oculto: 128 (BeepBox)
+
+SE QUEDA: Pick Bass (Nintendo 64)
+   oculto: Muted Guitar (Bomberman 64)
+
+SE QUEDA: Wave 26 (Cave Story)
+   oculto: Wave 37 (Cave Story)
+
+SE QUEDA: crashfd1 (Chrono Trigger)
+   oculto: cymbal (Chrono Trigger)
+
+SE QUEDA: fbassfd (Chrono Trigger)
+   oculto: fbass (Chrono Trigger)
+
+SE QUEDA: C64 Noise LP (Commodore 64)
+   oculto: C64 Noise (Commodore 64)
+
+SE QUEDA: C64 Pulse Release (Commodore 64)
+   oculto: C64 Pulse (Commodore 64)
+
+SE QUEDA: FZ Synth Lead 3 (F-Zero)
+   oculto: Electric Piano (Cool Spot)
+
+SE QUEDA: Drums [ Orchestal ] (Crash Bandicoot)
+   oculto: Drums [ Room ] (Crash Bandicoot)
+
+SE QUEDA: CrystalFX (Crash Bandicoot)
+   oculto: Glockenspiel (Crash Bandicoot)
+
+SE QUEDA: Violin (Crash Bandicoot)
+   oculto: Fiddle (Crash Bandicoot)
+
+SE QUEDA: Strings1 (Crash Bandicoot)
+   oculto: Strings2 (Crash Bandicoot)
+
+SE QUEDA: SynthStrings1 (Crash Bandicoot)
+   oculto: SynthStrings2 (Crash Bandicoot)
+
+SE QUEDA: Voice2 (Crash Bandicoot)
+   oculto: VoicePad (Crash Bandicoot)
+
+SE QUEDA: PanFlute (Crash Bandicoot)
+   oculto: BlownBottle (Crash Bandicoot)
+
+SE QUEDA: Shanai (Crash Bandicoot)
+   oculto: Shakuhachi (Crash Bandicoot)
+
+SE QUEDA: CBa (DOOM (SNES))
+   oculto: CBa (DOOM (SNES))
+
+SE QUEDA: fx1_056 (Donkey Kong Country SFX 1)
+   oculto: fx1_063 (Donkey Kong Country SFX 1)
+
+SE QUEDA: fx1_069 (Donkey Kong Country SFX 1)
+   oculto: fx1_075 (Donkey Kong Country SFX 1)
+
+SE QUEDA: Rock Organ (Megalo Strike Back)
+   oculto: Rock Organ (EarthBound)
+
+SE QUEDA: Overdriven Guitar (Megalo Strike Back)
+   oculto: Overdriven Guitar (EarthBound)
+
+SE QUEDA: Onett Bass (Megalo Strike Back)
+   oculto: Onett Bass (EarthBound)
+
+SE QUEDA: Slap Bass (Megalo Strike Back)
+   oculto: Slap Bass (EarthBound)
+
+SE QUEDA: Bazaar Perc (EarthBound)
+   oculto: Unforgiving Desert1 (EarthBound)
+
+SE QUEDA: GB Bass 2 (Pokémon Emerald)
+   oculto: Sine 1 (EarthBound)
+
+SE QUEDA: M. D. Seeger (Megalo Strike Back)
+   oculto: M. D. Seeger (EarthBound)
+
+SE QUEDA: Giygas 3 (Megalo Strike Back)
+   oculto: Giygas 3 (EarthBound)
+
+SE QUEDA: Hi Hat Open (Megalo Strike Back)
+   oculto: Hi Hat Open (EarthBound)
+
+SE QUEDA: Ride (Megalo Strike Back)
+   oculto: Ride (EarthBound)
+
+SE QUEDA: Snare 1 (Megalo Strike Back)
+   oculto: Snare 1 (EarthBound)
+
+SE QUEDA: Kick 2 (Megalo Strike Back)
+   oculto: Kick 2 (EarthBound)
+
+SE QUEDA: Click (EarthBound)
+   oculto: Enjoy Percussion (EarthBound)
+
+SE QUEDA: The Kraken (EarthBound)
+   oculto: K3 (EarthBound)
+
+SE QUEDA: Picked Bass (Final Fantasy IV)
+   oculto: Fingered Bass (Final Fantasy IV)
+
+SE QUEDA: Timbale (No Rel) (Final Fantasy IV)
+   oculto: Timbale (Release) (Final Fantasy IV)
+
+SE QUEDA: Shaker (Release) (Final Fantasy IV)
+   oculto: Shaker (No Rel) (Final Fantasy IV)
+
+SE QUEDA: Whistle (Envelope) (Final Fantasy IV)
+   oculto: Whistle (No Env) (Final Fantasy IV)
+
+SE QUEDA: Kick (Release) (Final Fantasy IV)
+   oculto: Kick (No Rel) (Final Fantasy IV)
+
+SE QUEDA: Crash (Env/No Rel) (Final Fantasy IV)
+   oculto: Crash (No Rel/Env) (Final Fantasy IV)
+
+SE QUEDA: Standard Releases (Final Fantasy IV)
+   oculto: Standard No Releases (Final Fantasy IV)
+
+SE QUEDA: Piano (Panbrello) (Final Fantasy IV)
+   oculto: Piano (Release) (Final Fantasy IV)
+
+SE QUEDA: Flute (Vibrato) (Final Fantasy IV)
+   oculto: Flute (No Vib) (Final Fantasy IV)
+
+SE QUEDA: Harp (Release) (Final Fantasy IV)
+   oculto: Harp (Super Nintendo Entertainment System)
+
+SE QUEDA: Organ 3 (Final Fantasy V)
+   oculto: Organ 2 (Final Fantasy V)
+
+SE QUEDA: Nylon Guitar (Final Fantasy VII)
+   oculto: Guitar (clean) (Final Fantasy VII)
+
+SE QUEDA: Tuba (Final Fantasy VII)
+   oculto: Tuba (Final Fantasy VIII Demo)
+
+SE QUEDA: Sustain (Final Fantasy VIII Demo)
+   oculto: Ensemble Strings 1 (Final Fantasy VIII Demo)
+
+SE QUEDA: Type 3 @0xd40e4 (Game & Watch Gallery 4)
+   oculto: Type 3 @0xd48ac (Game & Watch Gallery 4)
+
+SE QUEDA: Type 3 @0xd40f0 (Game & Watch Gallery 4)
+   oculto: Type 3 @0xd48b8 (Game & Watch Gallery 4)
+
+SE QUEDA: Type 3 @0xd40fc (Game & Watch Gallery 4)
+   oculto: Type 3 @0xd48c4 (Game & Watch Gallery 4)
+
+SE QUEDA: Type 3 @0xd4108 (Game & Watch Gallery 4)
+   oculto: Type 3 @0xd48d0 (Game & Watch Gallery 4)
+
+SE QUEDA: Type 3 @0xd4114 (Game & Watch Gallery 4)
+   oculto: Type 3 @0xd48dc (Game & Watch Gallery 4)
+
+SE QUEDA: Type 3 @0xd412c (Game & Watch Gallery 4)
+   oculto: Type 3 @0xd48f4 (Game & Watch Gallery 4)
+
+SE QUEDA: Type 3 @0xd4138 (Game & Watch Gallery 4)
+   oculto: Type 3 @0xd4900 (Game & Watch Gallery 4)
+
+SE QUEDA: Type 3 @0xd4144 (Game & Watch Gallery 4)
+   oculto: Type 3 @0xd490c (Game & Watch Gallery 4)
+
+SE QUEDA: Type 3 @0xd4150 (Game & Watch Gallery 4)
+   oculto: Type 3 @0xd4918 (Game & Watch Gallery 4)
+
+SE QUEDA: Type 3 @0xd4168 (Game & Watch Gallery 4)
+   oculto: Type 3 @0xd4930 (Game & Watch Gallery 4)
+
+SE QUEDA: Type 0 @0xd4324 (Game & Watch Gallery 4)
+   oculto: Type 0 @0xd4948 (Game & Watch Gallery 4)
+
+SE QUEDA: Type 0 @0xd433c (Game & Watch Gallery 4)
+   oculto: Type 0 @0xd4960 (Game & Watch Gallery 4)
+
+SE QUEDA: Celesta (Game Boy Advance)
+   oculto: Tinker Bell (Game Boy Advance)
+
+SE QUEDA: Accordion (Game Boy Advance)
+   oculto: Bandoneon (Game Boy Advance)
+
+SE QUEDA: Synth Bass 2 (Game Boy Advance)
+   oculto: Fretless Bass (Game Boy Advance)
+
+SE QUEDA: Synth Strings 2 (Game Boy Advance)
+   oculto: Synth Strings 1 (Game Boy Advance)
+
+SE QUEDA: Jazz (Game Boy Advance)
+   oculto: Standard (Game Boy Advance)
+
+SE QUEDA: Tinkle Bell (Game Gear)
+   oculto: Piano 1 (Game Gear)
+
+SE QUEDA: Picked Bass (Game Gear)
+   oculto: Finger Bass (Game Gear)
+
+SE QUEDA: Metal Pad (Game Gear)
+   oculto: Bowed Glass (Game Gear)
+
+SE QUEDA: Clavinet (Game Gear)
+   oculto: Square Solo (Game Gear)
+
+SE QUEDA: Organ 2 (Game Gear)
+   oculto: Organ 3 (Game Gear)
+
+SE QUEDA: Guitar Overdrive (Game Gear)
+   oculto: Guitar Distorted (Game Gear)
+
+SE QUEDA: Soprano Sax (Game Gear)
+   oculto: Tuba (Game Gear)
+
+SE QUEDA: Guitar (Clean) (GoldenEye 007)
+   oculto: Guitar (Clean Clone) (GoldenEye 007)
+
+SE QUEDA: Bass (Pop) (GoldenEye 007)
+   oculto: Bass (Pop) (GoldenEye 007)
+
+SE QUEDA: Xylophone (GoldenEye 007)
+   oculto: Xylophone (Clone) (GoldenEye 007)
+
+SE QUEDA: Bongos (L/R) (GoldenEye 007)
+   oculto: Bongos (Mono) (GoldenEye 007)
+
+SE QUEDA: Snare (Military 1) (GoldenEye 007)
+   oculto: Snare (Military 2) (GoldenEye 007)
+
+SE QUEDA: Vibraphone (GoldenEye 007)
+   oculto: Vibraphone (Clone) (GoldenEye 007)
+
+SE QUEDA: Strings Section (GoldenEye 007)
+   oculto: Strings Sec. (Clone) (GoldenEye 007)
+
+SE QUEDA: JD_RockKit5Hcut (JD Rock Kit)
+   oculto: JD_RockKit5 (JD Rock Kit)
+
+SE QUEDA: JD_RockKit2Hcut (JD Rock Kit)
+   oculto: JD_RockKit2 (JD Rock Kit)
+
+SE QUEDA: no (Juicestain's SoundFont)
+   oculto: no (Juicestain's SoundFont)
+
+SE QUEDA: Power (Juicestain's SoundFont)
+   oculto: Electronic (Juicestain's SoundFont)
+
+SE QUEDA: 3 Octave Buzzer (Juicestain's SoundFont)
+   oculto: 3 Octave Buzzer (Juicestain's SoundFont)
+
+SE QUEDA: Gameboy Pulse (Kirby Nightmare in Dream Land)
+   oculto: Gameboy Sawtooth (Kirby Nightmare in Dream Land)
+
+SE QUEDA: 808 Drums (Kirby Series Drumkit)
+   oculto: 16-Bit Drums (Kirby Series Drumkit)
+
+SE QUEDA: Synth (Kirby Super Star)
+   oculto: Oboe 1 (Kirby Super Star)
+
+SE QUEDA: Orchestra Hit (Mario Paint)
+   oculto: Orchestra Hit 1 (Kirby Super Star)
+
+SE QUEDA: Slap Bass (Kirby Super Star)
+   oculto: FingeredBass (Kirby's Dream Land 3)
+
+SE QUEDA: Strings (Kirby Super Star)
+   oculto: Strings (Kirby's Dream Land 3)
+
+SE QUEDA: Bongo 2 (Mario Paint)
+   oculto: Bongo (Kirby's Dream Land 3)
+
+SE QUEDA: TB303 Bass 2 (Bill90's SoundFont)
+   oculto: Synth Bass 1 (Windows Default SoundFont)
+
+SE QUEDA: Er-Hu (Bill90's SoundFont)
+   oculto: Gao Hu (Bill90's SoundFont)
+
+SE QUEDA: Elec Perc. (Bill90's SoundFont)
+   oculto: Elec Perc.(GM2) (Bill90's SoundFont)
+
+SE QUEDA: Detuned EP 1 (Bill90's SoundFont)
+   oculto: Detuned EP 1 (Windows Default SoundFont)
+
+SE QUEDA: Gt. Feedback (Bill90's SoundFont)
+   oculto: Gt. Feedback (Windows Default SoundFont)
+
+SE QUEDA: Clean Gt (Bill90's SoundFont)
+   oculto: Chorus Gt. (Bill90's SoundFont)
+
+SE QUEDA: 12-str. Guitar (Bill90's SoundFont)
+   oculto: 12-str. Gt(GM2) (Bill90's SoundFont)
+
+SE QUEDA: Slow Violin (Bill90's SoundFont)
+   oculto: Slow Violin (Windows Default SoundFont)
+
+SE QUEDA: Synth Bass 4 (Bill90's SoundFont)
+   oculto: Synth Bass 4 (Windows Default SoundFont)
+
+SE QUEDA: Sine Wave (Bill90's SoundFont)
+   oculto: Sine Wave (Windows Default SoundFont)
+
+SE QUEDA: Castanets (Bill90's SoundFont)
+   oculto: Castanets(GM2) (Bill90's SoundFont)
+
+SE QUEDA: Concert BD (Bill90's SoundFont)
+   oculto: Concert BD(GM2) (Bill90's SoundFont)
+
+SE QUEDA: Overdrive 3 (Bill90's SoundFont)
+   oculto: Overdrive 2 (Bill90's SoundFont)
+
+SE QUEDA: Muted Dis.Gt (Bill90's SoundFont)
+   oculto: Dist Rtm GTR (Bill90's SoundFont)
+
+SE QUEDA: SynthBass101 (Bill90's SoundFont)
+   oculto: SynthBass101 (Windows Default SoundFont)
+
+SE QUEDA: Fr.Horn 2 (Bill90's SoundFont)
+   oculto: Fr.Horn 2 (Windows Default SoundFont)
+
+SE QUEDA: Square (Bill90's SoundFont)
+   oculto: Square (Windows Default SoundFont)
+
+SE QUEDA: Jazz Gt. (Bill90's SoundFont)
+   oculto: Jazz Gt. (Touhou Series)
+
+SE QUEDA: MG Saw 2 (Bill90's SoundFont)
+   oculto: MG Saw 1 (Bill90's SoundFont)
+
+SE QUEDA: Velo Harmnix (Bill90's SoundFont)
+   oculto: Nylon Gt.2 (Bill90's SoundFont)
+
+SE QUEDA: LA Clav.1 (Bill90's SoundFont)
+   oculto: Clav. (Windows Default SoundFont)
+
+SE QUEDA: LA Clav.2 (Bill90's SoundFont)
+   oculto: LA Clav.3 (Bill90's SoundFont)
+
+SE QUEDA: LA Celesta1 (Bill90's SoundFont)
+   oculto: LA Celesta2 (Bill90's SoundFont)
+
+SE QUEDA: LA Syn Brass4 (Bill90's SoundFont)
+   oculto: Synth Brass2 (Windows Default SoundFont)
+
+SE QUEDA: LA Contrabass (Bill90's SoundFont)
+   oculto: Contrabass (Windows Default SoundFont)
+
+SE QUEDA: Woodblock (MOTHER 1+2)
+   oculto: Wood Block (MOTHER 1+2)
+
+SE QUEDA: Type 1 @0x107a60 (MOTHER 1+2)
+   oculto: Type 2 @0x107a90 (MOTHER 1+2)
+
+SE QUEDA: Town Nylon (MOTHER 1+2)
+   oculto: Home Nylon (MOTHER 1+2)
+
+SE QUEDA: Type 3 @0x107388 (MOTHER 1+2)
+   oculto: Type 3 @0x107a9c (MOTHER 1+2)
+
+SE QUEDA: Type 3 @0x107394 (MOTHER 1+2)
+   oculto: Type 3 @0x107aa8 (MOTHER 1+2)
+
+SE QUEDA: Type 3 @0x1073a0 (MOTHER 1+2)
+   oculto: Type 3 @0x107ab4 (MOTHER 1+2)
+
+SE QUEDA: Crowd (MOTHER 3 Drumkit)
+   oculto: [SFX] Cheering (MOTHER 3)
+
+SE QUEDA: Xylophone (Pokémon Emerald)
+   oculto: Bone Marimba (MOTHER 3)
+
+SE QUEDA: [GB] Custom 1 (MOTHER 3)
+   oculto: [GB] Custom 7 (MOTHER 3)
+
+SE QUEDA: Sign Wave (Magic Castle)
+   oculto: Sine Wave 1 (Mega Man 8)
+
+SE QUEDA: Glockenspiel (Mario & Luigi - Partners in Time)
+   oculto: Glockenspiel 3 (Mario & Luigi - Partners in Time)
+
+SE QUEDA: Muted Trumpet (Mario & Luigi - Partners in Time)
+   oculto: Muted Trumpet 3 (Mario & Luigi - Partners in Time)
+
+SE QUEDA: Synth Brass 1 (Mario & Luigi - Partners in Time)
+   oculto: Brass Section (Mario & Luigi - Partners in Time)
+
+SE QUEDA: TR 808 Drums (Mario & Luigi - Partners in Time)
+   oculto: Hip Hop Drums (Mario & Luigi - Partners in Time)
+
+SE QUEDA: Recorder (Mario & Luigi - Partners in Time)
+   oculto: Flute 3 (Mario & Luigi - Partners in Time)
+
+SE QUEDA: Synth Bass 2 (Mario & Luigi - Partners in Time)
+   oculto: Synth Bass 4 (Mario & Luigi - Partners in Time)
+
+SE QUEDA: Muted Trumpet 2 (Mario & Luigi - Partners in Time)
+   oculto: Muted Trumpet 4 (Mario & Luigi - Partners in Time)
+
+SE QUEDA: Tremolo Strings (Mario & Luigi - Partners in Time)
+   oculto: Strings Ensemble 5 (Mario & Luigi - Partners in Time)
+
+SE QUEDA: Type 2 @0xfb4d5c (Mario & Luigi - Superstar Saga)
+   oculto: Type 1 @0xfb4d8c (Mario & Luigi - Superstar Saga)
+
+SE QUEDA: Type 2 @0xfb4e7c (Mario & Luigi - Superstar Saga)
+   oculto: Type 1 @0xfb4ec4 (Mario & Luigi - Superstar Saga)
+
+SE QUEDA: Type 1 @0xfb4e88 (Mario & Luigi - Superstar Saga)
+   oculto: Type 1 @0xfb4ea0 (Mario & Luigi - Superstar Saga)
+
+SE QUEDA: Drums (Mario Hoops 3-on-3)
+   oculto: Room Drums (Mario Hoops 3-on-3)
+
+SE QUEDA: Timpani 3 (Mario Hoops 3-on-3)
+   oculto: Timpani (Mario Hoops 3-on-3)
+
+SE QUEDA: Violin (Mario Kart 64)
+   oculto: Viola (Nintendo 64)
+
+SE QUEDA: HarmonMute (Vib) (Mario Party 2)
+   oculto: HarmonMute (Stem) (Mario Party 2)
+
+SE QUEDA: Recorder (Mario Party 2)
+   oculto: Pan Flute (Mario Party 2)
+
+SE QUEDA: Combination Piano (Mario Party 2)
+   oculto: Piano (Correct ADSR) (Mario Party 2)
+
+SE QUEDA: Music Box (Mario Party 2)
+   oculto: Celeste (Mario Party 2)
+
+SE QUEDA: Synth Strings (Mario Party DS)
+   oculto: Polysynth (Mario Party DS)
+
+SE QUEDA: Calliope (Mario vs. Donkey Kong - Mini-Land Mayhem!)
+   oculto: Charang Lead 3 (Mario vs. Donkey Kong - Mini-Land Mayhem!)
+
+SE QUEDA: Electric Piano (Mario vs. Donkey Kong 2 - March of the Minis)
+   oculto: Electric Piano (Mario vs. Donkey Kong - Mini-Land Mayhem!)
+
+SE QUEDA: Electric Bass (Mario vs. Donkey Kong - Mini-Land Mayhem!)
+   oculto: Electric Bass (Mario vs. Donkey Kong 2 - March of the Minis)
+
+SE QUEDA: Picked Bass (Mario vs. Donkey Kong - Mini-Land Mayhem!)
+   oculto: Picked Bass (Mario vs. Donkey Kong 2 - March of the Minis)
+
+SE QUEDA: Fretless Bass (Mario vs. Donkey Kong - Mini-Land Mayhem!)
+   oculto: Fretless Bass (Mario vs. Donkey Kong 2 - March of the Minis)
+
+SE QUEDA: Synth Bass (Mario vs. Donkey Kong - Mini-Land Mayhem!)
+   oculto: Synth Bass (Mario vs. Donkey Kong 2 - March of the Minis)
+
+SE QUEDA: Pizzicato Strings (Mario vs. Donkey Kong - Mini-Land Mayhem!)
+   oculto: Pizzicato Strings (Mario vs. Donkey Kong 2 - March of the Minis)
+
+SE QUEDA: Percussive Organ (Mario vs. Donkey Kong - Mini-Land Mayhem!)
+   oculto: Percussive Organ (Mario vs. Donkey Kong 2 - March of the Minis)
+
+SE QUEDA: Marimba (Mario vs. Donkey Kong 2 - March of the Minis)
+   oculto: Marimba 2 (Mario vs. Donkey Kong - Mini-Land Mayhem!)
+
+SE QUEDA: Jazz Guitar (Mario vs. Donkey Kong - Mini-Land Mayhem!)
+   oculto: Jazz Guitar (Mario vs. Donkey Kong 2 - March of the Minis)
+
+SE QUEDA: Synth Brass (Mario vs. Donkey Kong - Mini-Land Mayhem!)
+   oculto: Synth Brass (Mario vs. Donkey Kong 2 - March of the Minis)
+
+SE QUEDA: Synth Brass 2 (Mario vs. Donkey Kong 2 - March of the Minis)
+   oculto: Synth Brass 2 (Mario vs. Donkey Kong - Mini-Land Mayhem!)
+
+SE QUEDA: GM Drums (Mario vs. Donkey Kong 2 - March of the Minis)
+   oculto: GM Drums (Mario vs. Donkey Kong - Mini-Land Mayhem!)
+
+SE QUEDA: Pan Flute (Mario vs. Donkey Kong - Mini-Land Mayhem!)
+   oculto: Pan Flute (Mario vs. Donkey Kong 2 - March of the Minis)
+
+SE QUEDA: Celesta (Mario vs. Donkey Kong - Mini-Land Mayhem!)
+   oculto: Celesta (Mario vs. Donkey Kong 2 - March of the Minis)
+
+SE QUEDA: Synth Brass 3 (Mega Man & Bass (GBA))
+   oculto: Synth Strings 2 (Mega Man 7)
+
+SE QUEDA: Synth Brass 4 (Mega Man & Bass (GBA))
+   oculto: Polysynth (Mega Man 7)
+
+SE QUEDA: Synth Brass (Mega Man 7)
+   oculto: Synth Brass 5 (Mega Man & Bass (GBA))
+
+SE QUEDA: Synth Strings 1 (Mega Man & Bass (GBA))
+   oculto: Synth Strings 1 (Mega Man 7)
+
+SE QUEDA: Synth Strings 3 (Mega Man & Bass (GBA))
+   oculto: Synth Strings 3 (Mega Man 7)
+
+SE QUEDA: Piano 1 (Mega Man 2 - The Power Fighters)
+   oculto: Piano 3 (Mega Man 2 - The Power Fighters)
+
+SE QUEDA: Distortion Guitar (Mega Man 8 Beta)
+   oculto: Distortion Guitar 2 (Mega Man 8)
+
+SE QUEDA: Drumkit 3 (Mega Man 8)
+   oculto: Drumkit 6 (Mega Man 8)
+
+SE QUEDA: more bass (Mega Man Legends)
+   oculto: upright bass (Mega Man Legends)
+
+SE QUEDA: Piano Chords (Mega Man Star Force 3)
+   oculto: Piano Chords (Mega Man Star Force 3)
+
+SE QUEDA: Chord Synth B 4 (Mega Man Star Force 3)
+   oculto: Chord Synth B 4 (Mega Man Star Force 3)
+
+SE QUEDA: Chord Synth B 5 (Mega Man Star Force 3)
+   oculto: Chord Synth B 5 (Mega Man Star Force 3)
+
+SE QUEDA: Overdrive Harm S50 (Mega Man X)
+   oculto: Overdrive Guitar S50 (Mega Man X)
+
+SE QUEDA: Slap Bass Korg M1 (Mega Man X)
+   oculto: Slap Bass (Seinfield Theme)
+
+SE QUEDA: Synth (Mega Man X2)
+   oculto: Synth X2 (Mega Man X2)
+
+SE QUEDA: sea bass (Mega Man ZX Advent)
+   oculto: synth bass (Mega Man ZX Advent)
+
+SE QUEDA: cymbol (Mega Man ZX Advent)
+   oculto: cymbal (Mega Man ZX Advent)
+
+SE QUEDA: SEINBASS (Mega Man ZX Advent)
+   oculto: boring bass (Mega Man ZX Advent)
+
+SE QUEDA: guitar bit (Mega Man ZX Advent)
+   oculto: robot bottle blow (Mega Man ZX Advent)
+
+SE QUEDA: xylophone (Mega Man ZX Advent)
+   oculto: reverby rhodes (Mega Man ZX Advent)
+
+SE QUEDA: mr. horn (Mega Man ZX Advent)
+   oculto: that annoying horn a (Mega Man ZX Advent)
+
+SE QUEDA: guitar 2 (Mega Man ZX Advent)
+   oculto: ELECTRIC GUITAR (Mega Man ZX Advent)
+
+SE QUEDA: guitar (Mega Man ZX Advent)
+   oculto: guitar 33 (Mega Man ZX Advent)
+
+SE QUEDA: ahhhh (Mega Man ZX Advent)
+   oculto: space piano (Mega Man ZX Advent)
+
+SE QUEDA: NOW THATS WHAT I CAL (Mega Man ZX Advent)
+   oculto: NOW THATS WHAT I CAL (Mega Man ZX Advent)
+
+SE QUEDA: e piano 2 (Mega Man ZX)
+   oculto: piano 4 (Mega Man ZX)
+
+SE QUEDA: Harpsichord (Minecraft)
+   oculto: L. 8 (bass + lead) (Minecraft)
+
+SE QUEDA: OD Guitar (Minecraft)
+   oculto: Dist. Guitar (Minecraft)
+
+SE QUEDA: Taiko Drum (Minecraft)
+   oculto: Synth Drum (Minecraft)
+
+SE QUEDA: MN64 Samba 2 (Mystical Ninja Starring Goemon)
+   oculto: MN64 Samba 1 (Mystical Ninja Starring Goemon)
+
+SE QUEDA: Steel Drums (Super Mario 64)
+   oculto: Steel Drums (Nintendo 64)
+
+SE QUEDA: GUITAR 3 (Nintendo Entertainment System)
+   oculto: STEEL DRUM (Nintendo Entertainment System)
+
+SE QUEDA: BASS 6 (Nintendo Entertainment System)
+   oculto: BASS 5 (Nintendo Entertainment System)
+
+SE QUEDA: GUITAR 2 (Nintendo Entertainment System)
+   oculto: GUITAR 1 (Nintendo Entertainment System)
+
+SE QUEDA: E. PIANO 2 (Nintendo Entertainment System)
+   oculto: E. PIANO 1 (Nintendo Entertainment System)
+
+SE QUEDA: String Ensemble 1 (Pokémon Black 2 and White 2)
+   oculto: String Ensemble 3 (Pokémon Black 2 and White 2)
+
+SE QUEDA: Orchestral Hit (Pokémon Platinum)
+   oculto: Elite Orchestra Hit (Pokémon Black 2 and White 2)
+
+SE QUEDA: Oboe (Pokémon Black 2 and White 2)
+   oculto: Oboe 2 (Pokémon Black 2 and White 2)
+
+SE QUEDA: Drumset 4 (Pokémon Black 2 and White 2)
+   oculto: Drumset 3 (Pokémon Black 2 and White 2)
+
+SE QUEDA: Trombone (Pokémon Platinum)
+   oculto: Muted Trumpet (Pokémon Black 2 and White 2)
+
+SE QUEDA: Flute (Pokémon HeartGold and SoulSilver)
+   oculto: Flute 2 (Pokémon Black 2 and White 2)
+
+SE QUEDA: Wind Fx (Pokémon Black 2 and White 2)
+   oculto: Wind sfx (Pokémon HeartGold and SoulSilver)
+
+SE QUEDA: Reverse (Pokémon Black 2 and White 2)
+   oculto: Reverse (Pokémon HeartGold and SoulSilver)
+
+SE QUEDA: String ensemble (Pokémon HeartGold and SoulSilver)
+   oculto: String Ensemble 4 (Pokémon Black 2 and White 2)
+
+SE QUEDA: Drawbar organ (Pokémon HeartGold and SoulSilver)
+   oculto: Drawbar Organ 4 (Pokémon Black 2 and White 2)
+
+SE QUEDA: Trumpet (Pokémon HeartGold and SoulSilver)
+   oculto: Trumpet 2.1 (Pokémon Black 2 and White 2)
+
+SE QUEDA: Harp 2 (Pokémon Emerald)
+   oculto: Harp (Pokémon Emerald)
+
+SE QUEDA: Wacky Strings (Pokémon Emerald)
+   oculto: String Ensemble (Pokémon Emerald)
+
+SE QUEDA: Trumpet 3 (Pokémon Emerald)
+   oculto: Trumpet (Pokémon Emerald)
+
+SE QUEDA: Tuba 2 (Pokémon Emerald)
+   oculto: Tuba (Pokémon Emerald)
+
+SE QUEDA: French Horn 4 (Pokémon Emerald)
+   oculto: French Horn (Pokémon Emerald)
+
+SE QUEDA: Flute (Pokémon Emerald)
+   oculto: Flute 2 (Pokémon Emerald)
+
+SE QUEDA: GB Fifths (Pokémon Emerald)
+   oculto: GB Sawtooth (Pokémon Emerald)
+
+SE QUEDA: GB Bass+Lead (Pokémon Emerald)
+   oculto: GB Bass+Lead 2 (Pokémon Emerald)
+
+SE QUEDA: Pad 3 (Pokémon Emerald)
+   oculto: Synth Strings (Pokémon Emerald)
+
+SE QUEDA: Drum Kit 2 (Pokémon Emerald)
+   oculto: Drum Kit 5 (Pokémon Emerald)
+
+SE QUEDA: String Ensemble 2 (Pokémon Emerald)
+   oculto: String Ensemble 3 (Pokémon Emerald)
+
+SE QUEDA: Drum Kit 15 (Pokémon Emerald)
+   oculto: Drum Kit 10 (Pokémon Emerald)
+
+SE QUEDA: Drum Kit 11 (Toms 2) (Pokémon Emerald)
+   oculto: Drum Kit 12 (Toms 3) (Pokémon Emerald)
+
+SE QUEDA: Feedback Guitar (Pokémon Platinum)
+   oculto: Short overdriven (Pokémon HeartGold and SoulSilver)
+
+SE QUEDA: Picked Bass (Pokémon Platinum)
+   oculto: Slap bass (Pokémon HeartGold and SoulSilver)
+
+SE QUEDA: Polysquare (Pokémon Platinum)
+   oculto: Square lead (Pokémon HeartGold and SoulSilver)
+
+SE QUEDA: Whistle (Pokémon Platinum)
+   oculto: Whistle (Pokémon HeartGold and SoulSilver)
+
+SE QUEDA: Rock Organ (Pokémon Platinum)
+   oculto: Percussion Organ (Pokémon HeartGold and SoulSilver)
+
+SE QUEDA: Synth Bass 2 (Pokémon Platinum)
+   oculto: Synth Bass 2 (Pokémon HeartGold and SoulSilver)
+
+SE QUEDA: Saxophone (Pokémon Platinum)
+   oculto: Alto Sax (Pokémon HeartGold and SoulSilver)
+
+SE QUEDA: Bubble Bass (Pokémon Platinum)
+   oculto: Weird Slap Bass (Pokémon HeartGold and SoulSilver)
+
+SE QUEDA: O) Fantasia (bgm051) (Pokémon Mystery Dungeon - Explorers of Sky)
+   oculto: O) Fantasia (bgm108) (Pokémon Mystery Dungeon - Explorers of Sky)
+
+SE QUEDA: O) Marimba (Pokémon Mystery Dungeon - Explorers of Sky)
+   oculto: S) Marimba 1-C4 (Pokémon Mystery Dungeon - Explorers of Sky)
+
+SE QUEDA: O) Oboe 1 (Pokémon Mystery Dungeon - Explorers of Sky)
+   oculto: S) Oboe 1 1-C#3 (Pokémon Mystery Dungeon - Explorers of Sky)
+
+SE QUEDA: O) Pitched Cymbal (Pokémon Mystery Dungeon - Explorers of Sky)
+   oculto: P) CrashCy3-S (Pokémon Mystery Dungeon - Explorers of Sky)
+
+SE QUEDA: O) Pitched Drum (Pokémon Mystery Dungeon - Explorers of Sky)
+   oculto: P) unknDrum-S-1 (Pokémon Mystery Dungeon - Explorers of Sky)
+
+SE QUEDA: O) Pitched Tamburine (Pokémon Mystery Dungeon - Explorers of Sky)
+   oculto: P) Tamburine 1 (Pokémon Mystery Dungeon - Explorers of Sky)
+
+SE QUEDA: O) Pitched Shaker (Pokémon Mystery Dungeon - Explorers of Sky)
+   oculto: P) Shaker2 (Pokémon Mystery Dungeon - Explorers of Sky)
+
+SE QUEDA: O) Sitar (Pokémon Mystery Dungeon - Explorers of Sky)
+   oculto: S) Sitar 1-D2 (Pokémon Mystery Dungeon - Explorers of Sky)
+
+SE QUEDA: O) String Section (Pokémon Mystery Dungeon - Explorers of Sky)
+   oculto: S) String Sec. 1-C2 (Pokémon Mystery Dungeon - Explorers of Sky)
+
+SE QUEDA: O) Violin 2 (Pokémon Mystery Dungeon - Explorers of Sky)
+   oculto: S) Violin 2 1-G3 (Pokémon Mystery Dungeon - Explorers of Sky)
+
+SE QUEDA: U) Oboe 2 (Pokémon Mystery Dungeon - Explorers of Sky)
+   oculto: S) Oboe 2 1-C4 (Pokémon Mystery Dungeon - Explorers of Sky)
+
+SE QUEDA: U) Unused Synth (Pokémon Mystery Dungeon - Explorers of Sky)
+   oculto: S) Unused Synth 1-C1 (Pokémon Mystery Dungeon - Explorers of Sky)
+
+SE QUEDA: SFX WindH 1 (Pokémon Mystery Dungeon - Explorers of Sky)
+   oculto: U) SFX WindH 1-1 (Pokémon Mystery Dungeon - Explorers of Sky)
+
+SE QUEDA: U) SFX TremOrFire 1 (Pokémon Mystery Dungeon - Explorers of Sky)
+   oculto: U) SFX TremOrFire 2 (Pokémon Mystery Dungeon - Explorers of Sky)
+
+SE QUEDA: S) Pizz Strings 3-C3 (Pokémon Mystery Dungeon - Explorers of Sky)
+   oculto: C) Hard Pizzicato (Pokémon Mystery Dungeon - Explorers of Sky)
+
+SE QUEDA: Trumpet (Pokémon Platinum)
+   oculto: Trumpet 2 (Pokémon Platinum)
+
+SE QUEDA: Drumkit 1-1 (Pokémon Platinum)
+   oculto: Drumkit 1 (Pokémon Platinum)
+
+SE QUEDA: MM THUMBS A (Prete's Thumbs)
+   oculto: MM THUMBS A (Touhou Series)
+
+SE QUEDA: Room (RPG Maker - Super Dante)
+   oculto: Standard (RPG Maker - Super Dante)
+
+SE QUEDA: Type 0 @0xeedf0 (Rayman 3)
+   oculto: Type 0 @0xeedfc (Rayman 3)
+
+SE QUEDA: Type 0 @0xeef4c (Rayman 3)
+   oculto: Type 0 @0xeef58 (Rayman 3)
+
+SE QUEDA: Type 0 @0xeef64 (Rayman 3)
+   oculto: Type 0 @0xeef70 (Rayman 3)
+
+SE QUEDA: Type 0 @0xef03c (Rayman 3)
+   oculto: Type 0 @0xef0a8 (Rayman 3)
+
+SE QUEDA: Metal Bricks Synth (Roblox)
+   oculto: Metal Bricks Synth (Roblox)
+
+SE QUEDA: Noob Alert Piano (Roblox)
+   oculto: Noob Alert Piano (Roblox)
+
+SE QUEDA: Noob Alert Saw (Roblox)
+   oculto: Noob Alert Saw (Roblox)
+
+SE QUEDA: Noob Alert Saw 2 (Roblox)
+   oculto: Noob Alert Saw 2 (Roblox)
+
+SE QUEDA: Noob Alert Square (Roblox)
+   oculto: Noob Alert Square (Roblox)
+
+SE QUEDA: Fiddle (Roland SC-55)
+   oculto: Violin (Roland SC-55)
+
+SE QUEDA: Acoustic Bass (Roland SC-55)
+   oculto: Acoustic Bs. (Windows Default SoundFont)
+
+SE QUEDA: Recorder (Roland SC-88)
+   oculto: Piccolo (Roland SC-88)
+
+SE QUEDA: Picked Bass (SGM)
+   oculto: Picked Bass (Undertale 'MEGALOVANIA')
+
+SE QUEDA: Piano 2 (SGM)
+   oculto: Piano 1 (SGM)
+
+SE QUEDA: Xilo with vibrato (SampleSynthesis)
+   oculto: Casio SK-5 Xilophone (SampleSynthesis)
+
+SE QUEDA: Electric Piano 1 (Scratch)
+   oculto: Electric Piano 2 (Scratch)
+
+SE QUEDA: Xylophone (Scratch)
+   oculto: Vibraphone (Scratch)
+
+SE QUEDA: Shanai (Scratch)
+   oculto: Clarinet (Scratch)
+
+SE QUEDA: Clavinet (Sega Genesis)
+   oculto: Mute Guitar (Sega Genesis)
+
+SE QUEDA: Whistle 2 (Sega Genesis)
+   oculto: Whistle 1 (Sega Genesis)
+
+SE QUEDA: Harp (Sega Genesis)
+   oculto: Nylon Guitar 1 (Sega Genesis)
+
+SE QUEDA: Harpsichord (Sega Genesis)
+   oculto: Pizz. Strings (Sega Genesis)
+
+SE QUEDA: Orchestra Hit (Sega Genesis)
+   oculto: S3 DAC Orch Hit (Sonic Series)
+
+SE QUEDA: Synth Bass 2 (Sega Genesis)
+   oculto: Synth Bass 1 (Sega Genesis)
+
+SE QUEDA: Slap Bass 2 (Sega Genesis)
+   oculto: Slap Bass 1 (Sega Genesis)
+
+SE QUEDA: Fretless Bass (Sega Genesis)
+   oculto: Acoustic Bass (Sega Genesis)
+
+SE QUEDA: E. Bass 2 (Sega Genesis)
+   oculto: E. Bass 1 (Sega Genesis)
+
+SE QUEDA: Organ 5 (Sega Genesis)
+   oculto: Organ 2 (Sega Genesis)
+
+SE QUEDA: E. Piano 2 (Sega Genesis)
+   oculto: E. Piano 1 (Sega Genesis)
+
+SE QUEDA: S1 1up Trumpet1 (Sonic Series)
+   oculto: S1 Intro Trumpet (Sonic Series)
+
+SE QUEDA: S3 Special Trumpet (Sonic Series)
+   oculto: S3 ActClear Trumpet (Sonic Series)
+
+SE QUEDA: S3 BPZ2P Strings1 (Sonic Series)
+   oculto: S3 BPZ2P Strings3 (Sonic Series)
+
+SE QUEDA: Sunsoft Bass (PC) (Sunsoft Bass)
+   oculto: Sunsoft Bass (Sunsoft Bass)
+
+SE QUEDA: Fiddle (Super Mario 64)
+   oculto: Harmonica (Super Mario 64)
+
+SE QUEDA: Synth Bass 1 (Super Mario 64)
+   oculto: Synth Bass 2 (Super Mario 64)
+
+SE QUEDA: Pizzicato Strings (Super Mario 64)
+   oculto: FX 1 (rain) (Super Mario 64)
+
+SE QUEDA: Cello (Super Mario 64)
+   oculto: Contrabass (Super Mario 64)
+
+SE QUEDA: Clav (Super Mario 64)
+   oculto: Harpsichord (Super Mario 64)
+
+SE QUEDA: Synth Drum (Super Mario 64)
+   oculto: Taiko Drum (Super Mario 64)
+
+SE QUEDA: SMW Overdrive (Super Mario Advance 4 - Super Mario Bros. 3)
+   oculto: Distortion Guitar (Super Mario Advance 4 - Super Mario Bros. 3)
+
+SE QUEDA: Jazz Guitar (Super Nintendo Entertainment System)
+   oculto: Jazz Guitar (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: Church Organ (Super Nintendo Entertainment System)
+   oculto: Church Organ (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: Clavinet (Super Nintendo Entertainment System)
+   oculto: Clavinet (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: Brass Section (Super Nintendo Entertainment System)
+   oculto: Brass Section (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: Taiko Drum (Super Nintendo Entertainment System)
+   oculto: Taiko Drum (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: Koto (Super Nintendo Entertainment System)
+   oculto: Koto (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: FX 3 (crystal) (Super Nintendo Entertainment System)
+   oculto: FX 3 (crystal) (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: Ocarina (Super Nintendo Entertainment System)
+   oculto: Ocarina (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: Recorder (Super Nintendo Entertainment System)
+   oculto: Recorder (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: Baritone Sax (Super Nintendo Entertainment System)
+   oculto: Baritone Sax (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: French Horn (Super Nintendo Entertainment System)
+   oculto: French Horn (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: Contrabass (Super Nintendo Entertainment System)
+   oculto: Contrabass (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: Viola (Super Nintendo Entertainment System)
+   oculto: Viola (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: String Ensemble 1 (Super Nintendo Entertainment System)
+   oculto: String Ensemble 1 (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: Fretless Bass (Super Nintendo Entertainment System)
+   oculto: Fretless Bass (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: Overdriven Guitar (Super Nintendo Entertainment System)
+   oculto: Overdriven Guitar (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: Acoustic Guitar (ste (Super Nintendo Entertainment System)
+   oculto: Acoustic Guitar (ste (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: Acoustic Guitar (nyl (Super Nintendo Entertainment System)
+   oculto: Acoustic Guitar (nyl (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: Tubular Bells (Super Nintendo Entertainment System)
+   oculto: Tubular Bells (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: Xylophone (Super Nintendo Entertainment System)
+   oculto: Xylophone (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: Vibraphone (Super Nintendo Entertainment System)
+   oculto: Vibraphone (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: Strings (Super Mario All Stars + Super Mario World)
+   oculto: String Ensemble 2 (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: Power (Super Mario All Stars + Super Mario World)
+   oculto: Standard (Super Mario All Stars + Super Mario World)
+
+SE QUEDA: Castle Complete Lead (Super Mario Bros.)
+   oculto: Castle Lead (Super Mario Bros.)
+
+SE QUEDA: Electric Piano 1 (Super Mario Sunshine)
+   oculto: Electric Piano 1 (Super Mario Sunshine)
+
+SE QUEDA: SynthStrings 1 (Super Mario Sunshine)
+   oculto: SynthStrings 1 (Super Mario Sunshine)
+
+SE QUEDA: Kalimba (Super Mario Sunshine)
+   oculto: Kalimba (Super Mario Sunshine)
+
+SE QUEDA: Brass Section (Super Mario Sunshine)
+   oculto: Brass Section (Super Mario Sunshine)
+
+SE QUEDA: Timpani (Super Mario Sunshine)
+   oculto: Vs. Boss Timpani (Super Mario Sunshine)
+
+SE QUEDA: Trombone (Super Mario Sunshine)
+   oculto: Trombone (Super Mario Sunshine)
+
+SE QUEDA: Drawbar Organ (Super Mario Sunshine)
+   oculto: Drawbar Organ (Super Mario Sunshine)
+
+SE QUEDA: SNES (PSP Drum) (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Standard (Super Nintendo Entertainment System)
+
+SE QUEDA: Accordion (The Legend of Zelda - Majoras Mask)
+   oculto: Accordion (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Acoustic Guitar (The Legend of Zelda - Majoras Mask)
+   oculto: Acoustic Guitar ALT (The Legend of Zelda - Majoras Mask)
+
+SE QUEDA: Bass Marimba (The Legend of Zelda - Majoras Mask)
+   oculto: Bass Marimba (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Bell (The Legend of Zelda - Majoras Mask)
+   oculto: Bell (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Bent Drum (The Legend of Zelda - Majoras Mask)
+   oculto: Bent Drum (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Clarinet (The Legend of Zelda - Majoras Mask)
+   oculto: Clarinet (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Conga (The Legend of Zelda - Majoras Mask)
+   oculto: Conga (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Conga / Shaker (The Legend of Zelda - Majoras Mask)
+   oculto: Conga / Shaker (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Cowbell (The Legend of Zelda - Majoras Mask)
+   oculto: Cowbell (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Cuica (The Legend of Zelda - Majoras Mask)
+   oculto: Cuica (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Djembe (The Legend of Zelda - Majoras Mask)
+   oculto: Djembe (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Double Bass Pizz (The Legend of Zelda - Majoras Mask)
+   oculto: Double Bass Pizz (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Dulcimer (The Legend of Zelda - Majoras Mask)
+   oculto: Dulcimer (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Fantasia (The Legend of Zelda - Majoras Mask)
+   oculto: Fantasia (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Female Choir (The Legend of Zelda - Majoras Mask)
+   oculto: Female Choir (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Fiddle (The Legend of Zelda - Majoras Mask)
+   oculto: Fiddle (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Glockenspiel (The Legend of Zelda - Majoras Mask)
+   oculto: Glockenspiel (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Gong / Windchimes (The Legend of Zelda - Majoras Mask)
+   oculto: Gong / Windchimes (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Harmonica (The Legend of Zelda - Majoras Mask)
+   oculto: Harmonica (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Harp (The Legend of Zelda - Majoras Mask)
+   oculto: Harp (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Harp ALT (The Legend of Zelda - Majoras Mask)
+   oculto: Harp ALT (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Harpsichord (The Legend of Zelda - Majoras Mask)
+   oculto: Harpsichord (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Horn (The Legend of Zelda - Majoras Mask)
+   oculto: Horn (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Lulu (The Legend of Zelda - Majoras Mask)
+   oculto: Malon (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Male Choir (The Legend of Zelda - Majoras Mask)
+   oculto: Male Choir (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Marimba (The Legend of Zelda - Majoras Mask)
+   oculto: Marimba (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Nylon Guitar (The Legend of Zelda - Majoras Mask)
+   oculto: Nylon Guitar (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Oboe (The Legend of Zelda - Majoras Mask)
+   oculto: Oboe (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Ocarina (The Legend of Zelda - Majoras Mask)
+   oculto: Ocarina (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Orchestra Kit (The Legend of Zelda - Majoras Mask)
+   oculto: Orchestra Kit (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Piccolo (The Legend of Zelda - Majoras Mask)
+   oculto: Piccolo (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Steel Drum (The Legend of Zelda - Majoras Mask)
+   oculto: Steel Drum (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: String Pizz (The Legend of Zelda - Majoras Mask)
+   oculto: Strings Pizz (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: String Synth (The Legend of Zelda - Ocarina of Time)
+   oculto: String Synth ALT (The Legend of Zelda - Majoras Mask)
+
+SE QUEDA: Strings (The Legend of Zelda - Majoras Mask)
+   oculto: Strings (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Strings ALT (The Legend of Zelda - Majoras Mask)
+   oculto: Strings ALT (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Sustain Guitar (The Legend of Zelda - Majoras Mask)
+   oculto: Sustain Guitar (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Sustain Guitar ALT (The Legend of Zelda - Majoras Mask)
+   oculto: Sustain Guitar ALT (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Tambourine (The Legend of Zelda - Majoras Mask)
+   oculto: Tambourine (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Trombone (The Legend of Zelda - Majoras Mask)
+   oculto: Trombone (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Tuba (The Legend of Zelda - Majoras Mask)
+   oculto: Tuba (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Voice Pad (The Legend of Zelda - Majoras Mask)
+   oculto: Voice Pad ALT (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Wind (The Legend of Zelda - Majoras Mask)
+   oculto: Wind (The Legend of Zelda - Ocarina of Time)
+
+SE QUEDA: Instr bnk0 num2 (The Misadventures of Tron Bonne 'Red Head Servbot to the Rescue!')
+   oculto: Instr bnk0 num11 (The Misadventures of Tron Bonne 'Red Head Servbot to the Rescue!')
+
+SE QUEDA: Instr bnk0 num5 (The Misadventures of Tron Bonne 'Red Head Servbot to the Rescue!')
+   oculto: Instr bnk0 num10 (The Misadventures of Tron Bonne 'Red Head Servbot to the Rescue!')
+
+SE QUEDA: Instr bnk0 num6 (The Misadventures of Tron Bonne 'Red Head Servbot to the Rescue!')
+   oculto: Instr bnk0 num12 (The Misadventures of Tron Bonne 'Red Head Servbot to the Rescue!')
+
+SE QUEDA: Instr bnk0 num7 (The Misadventures of Tron Bonne 'Red Head Servbot to the Rescue!')
+   oculto: Instr bnk0 num13 (The Misadventures of Tron Bonne 'Red Head Servbot to the Rescue!')
+
+SE QUEDA: Rhodes EP (Touhou Series)
+   oculto: Detuned EP 1 (Touhou Series)
+
+SE QUEDA: Legend EP 2 (Touhou Series)
+   oculto: Detuned EP 2 (Touhou Series)
+
+SE QUEDA: JP-8 Square (Touhou Series)
+   oculto: P5 Square (Touhou Series)
+
+SE QUEDA: Sweet Muted (Touhou Series)
+   oculto: Sweet Muted (just t4)
+
+SE QUEDA: Shamisen (just t4)
+   oculto: Shamisen (Touhou Series)
+
+SE QUEDA: Steel Drums (just t4)
+   oculto: Steel Drums (Touhou Series)
+
+SE QUEDA: Telephone (just t4)
+   oculto: Telephone (Touhou Series)
+
+SE QUEDA: Piano 1 (Windows Default SoundFont)
+   oculto: Piano 1 (Windows Default SoundFont)
+
+SE QUEDA: Piano 2 (Windows Default SoundFont)
+   oculto: Piano 2 (Windows Default SoundFont)
+
+SE QUEDA: Piano 3 (Windows Default SoundFont)
+   oculto: Piano 3 (Windows Default SoundFont)
+
+SE QUEDA: Honky-tonk (Windows Default SoundFont)
+   oculto: Honky-tonk (Windows Default SoundFont)
+
+SE QUEDA: E.Piano 1 (Windows Default SoundFont)
+   oculto: E.Piano 1v (Windows Default SoundFont)
+
+SE QUEDA: Vibraphone (Windows Default SoundFont)
+   oculto: Vibraphone (Windows Default SoundFont)
+
+SE QUEDA: Marimba (Windows Default SoundFont)
+   oculto: Marimba (Windows Default SoundFont)
+
+SE QUEDA: Accordion Fr (Windows Default SoundFont)
+   oculto: Accordion It (Windows Default SoundFont)
+
+SE QUEDA: Muted Gt. (Windows Default SoundFont)
+   oculto: Funk Gt.2 (Windows Default SoundFont)
+
+SE QUEDA: Violin (Windows Default SoundFont)
+   oculto: Fiddle (Windows Default SoundFont)
+
+SE QUEDA: Tremolo Str (Windows Default SoundFont)
+   oculto: Orchestra (Windows Default SoundFont)
+
+SE QUEDA: Halo Pad (Windows Default SoundFont)
+   oculto: Choir Aahs (Windows Default SoundFont)
+
+SE QUEDA: Brass 1 (Windows Default SoundFont)
+   oculto: Brass 2 (Windows Default SoundFont)
+
+SE QUEDA: VIOLIN (ctk1550)
+   oculto: FIDDLE (ctk1550)
+
+SE QUEDA: STANDARD SET (ctk1550)
+   oculto: STANDARD SET (ctk1550)
+
+SE QUEDA: DANCE SET (ctk1550)
+   oculto: SYNTH SET (ctk1550)
+
+SE QUEDA: BRUSH SET (ctk1550)
+   oculto: BRUSH SET (ctk1550)
+
+SE QUEDA: fidle (just t4)
+   oculto: violin (just t4)
+
+SE QUEDA: vocal effects (just t4)
+   oculto: vocal effects gs (just t4)
+
+SE QUEDA: synth strings 2 (just t4)
+   oculto: synth strings 1 (just t4)
+
+SE QUEDA: slap bass 2 (just t4)
+   oculto: slap bass 1 (just t4)
+
+SE QUEDA: tyros 4 cm-64 (just t4)
+   oculto: tyros 4 standard (just t4)
+
+SE QUEDA: Jazz Kit (pspkvm_soundfont_by_XXtherobloxx21)
+   oculto: Brush Kit (pspkvm_soundfont_by_XXtherobloxx21)
+

@@ -1,12 +1,14 @@
 #pragma once
 #include <JuceHeader.h>
+#include <juce_dsp/juce_dsp.h>
 #include "Library.h"
 
 struct tsf;
 
 class TMUProcessor : public juce::AudioProcessor,
                      private juce::Thread,
-                     private juce::ChangeListener
+                     private juce::ChangeListener,
+                     private juce::Timer
 {
 public:
     TMUProcessor();
@@ -47,12 +49,31 @@ public:
     juce::MidiKeyboardState keyboardState;
     juce::SharedResourcePointer<PresetLibrary> library;
 
+    // MIDI learn: click derecho en una perilla > Aprender controlador
+    void startLearning (const juce::String& paramId);
+    void clearLearning (const juce::String& paramId);
+    int getAssignedCC (const juce::String& paramId) const;
+    juce::String getLearningParam() const;
+
     // estado de la interfaz (se guarda con el proyecto)
     juce::String uiView { "type" }, uiGroup, uiSearch;
 
 private:
     void run() override;   // hilo de carga
     void changeListenerCallback (juce::ChangeBroadcaster*) override;
+    void timerCallback() override;
+
+    static constexpr int numLearnable = 4;
+    static const char* learnableIds[numLearnable];
+    std::array<std::atomic<int>, 128> ccMap;
+    std::array<std::atomic<float>, numLearnable> pendingCC;
+    std::atomic<int> learningParam { -1 };
+    std::atomic<float> modWheel { 0.0f };
+    std::atomic<float>* modParam = nullptr;
+    std::atomic<float>* filterParam = nullptr;
+    juce::SmoothedValue<float> modSmoothed, filterSmoothed;
+    double lfoPhase = 0.0;
+    juce::dsp::StateVariableTPTFilter<float> lowCut, highCut;
     static juce::AudioProcessorValueTreeState::ParameterLayout createLayout();
 
     juce::SpinLock synthLock;

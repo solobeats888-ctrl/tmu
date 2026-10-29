@@ -1,4 +1,117 @@
 #include "Library.h"
+#include <BinaryData.h>
+#include <set>
+
+//==============================================================================
+UserPrefs::UserPrefs()
+{
+    file = juce::File::getSpecialLocation (juce::File::userApplicationDataDirectory)
+             .getChildFile ("Application Support/TMU/TMU-favoritos.xml");
+   #if ! JUCE_MAC
+    file = juce::File::getSpecialLocation (juce::File::userApplicationDataDirectory).getChildFile ("TMU/TMU-favoritos.xml");
+   #endif
+    if (auto xml = juce::XmlDocument::parse (file))
+    {
+        showDuplicates = xml->getBoolAttribute ("showDuplicates", false);
+        tutorialSeen = xml->getBoolAttribute ("tutorialSeen", false);
+        for (auto* f : xml->getChildWithTagNameIterator ("fav"))
+        {
+            const int n = juce::jlimit (0, 3, f->getIntAttribute ("stars"));
+            if (n > 0) stars[f->getStringAttribute ("key")] = n;
+        }
+    }
+}
+
+int UserPrefs::getStars (const juce::String& key) const
+{
+    const juce::ScopedLock sl (lock);
+    auto it = stars.find (key);
+    return it == stars.end() ? 0 : it->second;
+}
+
+void UserPrefs::setStars (const juce::String& key, int n)
+{
+    {
+        const juce::ScopedLock sl (lock);
+        if (n <= 0) stars.erase (key); else stars[key] = juce::jmin (3, n);
+    }
+    save();
+}
+
+int UserPrefs::numFavourites() const
+{
+    const juce::ScopedLock sl (lock);
+    return (int) stars.size();
+}
+
+bool UserPrefs::getShowDuplicates() const
+{
+    const juce::ScopedLock sl (lock);
+    return showDuplicates;
+}
+
+void UserPrefs::setShowDuplicates (bool b)
+{
+    {
+        const juce::ScopedLock sl (lock);
+        showDuplicates = b;
+    }
+    save();
+}
+
+bool UserPrefs::getTutorialSeen() const
+{
+    const juce::ScopedLock sl (lock);
+    return tutorialSeen;
+}
+
+void UserPrefs::setTutorialSeen (bool b)
+{
+    {
+        const juce::ScopedLock sl (lock);
+        tutorialSeen = b;
+    }
+    save();
+}
+
+void UserPrefs::save()
+{
+    juce::XmlElement xml ("TMUFavoritos");
+    {
+        const juce::ScopedLock sl (lock);
+        xml.setAttribute ("showDuplicates", showDuplicates);
+        xml.setAttribute ("tutorialSeen", tutorialSeen);
+        for (auto& [k, n] : stars)
+        {
+            auto* f = xml.createNewChildElement ("fav");
+            f->setAttribute ("key", k);
+            f->setAttribute ("stars", n);
+        }
+    }
+    file.getParentDirectory().createDirectory();
+    xml.writeTo (file);
+    ++version;
+}
+
+//==============================================================================
+// Lista de sonidos repetidos / mudos de la biblioteca incluida (calculada comparando
+// la huella de audio de cada sonido). Formato: archivo \t indice \t nombre \t motivo
+static const std::map<juce::String, int>& knownHidden()
+{
+    static const std::map<juce::String, int> table = []
+    {
+        std::map<juce::String, int> t;
+        const juce::String text (juce::CharPointer_UTF8 (BinaryData::repetidos_tsv), (size_t) BinaryData::repetidos_tsvSize);
+        for (auto& line : juce::StringArray::fromLines (text))
+        {
+            auto parts = juce::StringArray::fromTokens (line, "\t", "");
+            if (parts.size() < 4) continue;
+            t[PresetEntry::makeKey (parts[0], parts[1].getIntValue(), parts[2])] = parts[3] == "mudo" ? 2 : 1;
+        }
+        return t;
+    }();
+    return table;
+}
 
 PresetLibrary::PresetLibrary() : juce::Thread ("TMU library scan")
 {
@@ -84,6 +197,9 @@ void PresetLibrary::run()
                 e.program = raw[i].program;
                 e.phdrIndex = raw[i].phdrIndex;
                 e.category = cats[i];
+                e.key = PresetEntry::makeKey (f.getFileName(), e.phdrIndex, e.name);
+                auto hid = knownHidden().find (e.key);
+                if (hid != knownHidden().end()) e.hidden = hid->second;
                 list->push_back (std::move (e));
             }
         }

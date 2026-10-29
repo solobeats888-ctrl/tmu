@@ -54,7 +54,8 @@ jobs:
         run: |
           set -e
           git clone -q --depth 1 https://github.com/hogliux/bomutils.git
-          make -C bomutils -j4 >/dev/null
+          mkdir -p bomutils/build/bin
+          c++ -std=c++11 -O2 -w -o bomutils/build/bin/mkbom bomutils/src/mkbom.cpp bomutils/src/printnode.cpp bomutils/src/crc32.cpp
           python3 tools/make_test_sf2.py "test sine.sf2"
           printf "%s\t%s\n" "$PWD/test sine.sf2" "Test Sine.sf2" > test-list.tsv
           python3 tools/make_pkg.py all --out TMU-Test.pkg --sounds test-list.tsv \

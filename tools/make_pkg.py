@@ -165,7 +165,14 @@ WELCOME = """<html><body style="font-family:-apple-system,Helvetica;font-size:13
 CONCLUSION = """<html><body style="font-family:-apple-system,Helvetica;font-size:13px">
 <h2 style="color:#ff3d6e">Listo</h2>
 <p>Abri FL Studio, entra a <b>Options &gt; Manage plugins</b> y toca <b>Find installed plugins</b>. TMU aparece como generador.</p>
-<p>Para sumar tus propios soundfonts, ponelos en la carpeta <b>Musica / TMU SoundFonts</b> y toca <b>Reescanear</b> en el plugin.</p>
+<p>Para sumar tus propios soundfonts, ponelos en la carpeta <b>Musica / TMU SoundFonts</b> y toca <b>RESCAN</b> en el plugin.</p>
+<p><b>Si FL no ve el plugin o Mac lo bloquea</b>, abri la app Terminal, pega esto y apreta Enter (te pide la contrasena de la Mac):</p>
+<pre style="font-size:11px">sudo xattr -cr "/Library/Audio/Plug-Ins/VST3/TMU.vst3"
+sudo xattr -cr "/Library/Audio/Plug-Ins/Components/TMU.component"
+sudo codesign --force --deep --sign - "/Library/Audio/Plug-Ins/VST3/TMU.vst3"
+sudo codesign --force --deep --sign - "/Library/Audio/Plug-Ins/Components/TMU.component"
+killall -9 AudioComponentRegistrar</pre>
+<p>Despues reinicia FL Studio. Estas instrucciones tambien estan en LEEME.txt.</p>
 </body></html>"""
 
 # ---------------------------------------------------------------- etapas

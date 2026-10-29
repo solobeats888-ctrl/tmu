@@ -29,6 +29,9 @@ juce_add_plugin(TMU
 
 juce_generate_juce_header(TMU)
 
+# lista de sonidos repetidos de la biblioteca (tools: tmufp + analisis de huellas)
+juce_add_binary_data(TMUData SOURCES Resources/repetidos.tsv Resources/fonts/PressStart2P-Regular.ttf)
+
 target_sources(TMU PRIVATE
     Source/PluginProcessor.cpp
     Source/PluginEditor.cpp
@@ -42,5 +45,5 @@ target_compile_definitions(TMU PUBLIC
     JUCE_VST3_CAN_REPLACE_VST2=0)
 
 target_link_libraries(TMU
-    PRIVATE juce::juce_audio_utils
+    PRIVATE TMUData juce::juce_audio_utils juce::juce_dsp
     PUBLIC juce::juce_recommended_config_flags juce::juce_recommended_lto_flags juce::juce_recommended_warning_flags)

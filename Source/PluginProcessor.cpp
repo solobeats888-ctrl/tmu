@@ -9,6 +9,11 @@ TMUProcessor::TMUProcessor()
 {
     volumeParam = params.getRawParameterValue ("volume");
     transposeParam = params.getRawParameterValue ("transpose");
+    modParam = params.getRawParameterValue ("mod");
+    filterParam = params.getRawParameterValue ("filter");
+    for (auto& m : ccMap) m = -1;
+    for (auto& v : pendingCC) v = -1.0f;
+    startTimerHz (60);
     for (int i = 0; i < 128; ++i) noteMap[(size_t) i] = i;
     startThread (juce::Thread::Priority::normal);
     library->addChangeListener (this);
@@ -18,6 +23,7 @@ TMUProcessor::TMUProcessor()
 
 TMUProcessor::~TMUProcessor()
 {
+    stopTimer();
     library->removeChangeListener (this);
     signalThreadShouldExit();
     notify();
@@ -33,6 +39,21 @@ juce::AudioProcessorValueTreeState::ParameterLayout TMUProcessor::createLayout()
                     juce::AudioParameterFloatAttributes().withLabel ("dB")));
     layout.add (std::make_unique<juce::AudioParameterInt> (juce::ParameterID { "transpose", 1 }, "Transpose", -24, 24, 0,
                     juce::AudioParameterIntAttributes().withLabel ("st")));
+    // Mod: vibrato como la rueda de modulacion (la rueda CC1 del teclado tambien lo mueve)
+    layout.add (std::make_unique<juce::AudioParameterFloat> (juce::ParameterID { "mod", 1 }, "Mod",
+                    juce::NormalisableRange<float> (0.0f, 1.0f, 0.001f), 0.0f,
+                    juce::AudioParameterFloatAttributes().withLabel ("%")
+                        .withStringFromValueFunction ([] (float v, int) { return juce::String (juce::roundToInt (v * 100.0f)) + " %"; })));
+    // Filtro: centro sin filtro, izquierda corta agudos, derecha corta graves (igual que rmx_)
+    layout.add (std::make_unique<juce::AudioParameterFloat> (juce::ParameterID { "filter", 1 }, "Filter",
+                    juce::NormalisableRange<float> (-1.0f, 1.0f, 0.001f), 0.0f,
+                    juce::AudioParameterFloatAttributes()
+                        .withStringFromValueFunction ([] (float v, int)
+                        {
+                            if (std::abs (v) < 0.01f) return juce::String ("OFF");
+                            return v < 0 ? "HIGH CUT " + juce::String (juce::roundToInt (-v * 100)) + "%"
+                                         : "LOW CUT " + juce::String (juce::roundToInt (v * 100)) + "%";
+                        })));
     return layout;
 }
 
@@ -49,6 +70,16 @@ void TMUProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
     gainSmoothed.reset (sampleRate, 0.03);
     gainSmoothed.setCurrentAndTargetValue (juce::Decibels::decibelsToGain (volumeParam->load(), -36.0f));
 
+    juce::dsp::ProcessSpec spec { sampleRate, (juce::uint32) juce::jmax (512, samplesPerBlock), 2 };
+    lowCut.prepare (spec);  lowCut.setType (juce::dsp::StateVariableTPTFilterType::highpass);
+    highCut.prepare (spec); highCut.setType (juce::dsp::StateVariableTPTFilterType::lowpass);
+    lowCut.setResonance (0.75f); highCut.setResonance (0.75f);
+    filterSmoothed.reset (sampleRate, 0.05);
+    filterSmoothed.setCurrentAndTargetValue (filterParam->load());
+    modSmoothed.reset (sampleRate, 0.05);
+    modSmoothed.setCurrentAndTargetValue (0.0f);
+    lfoPhase = 0.0;
+
     const juce::SpinLock::ScopedLockType sl (synthLock);
     if (synth != nullptr)
     {
@@ -64,6 +95,26 @@ void TMUProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuf
     buffer.clear();
 
     keyboardState.processNextMidiBuffer (midi, 0, numSamples, true);
+
+    // MIDI learn y controladores asignados (se aplican a los parametros desde el hilo de la interfaz)
+    for (const auto meta : midi)
+    {
+        const auto m = meta.getMessage();
+        if (! m.isController()) continue;
+        const int cc = m.getControllerNumber();
+        if (cc == 1) modWheel = (float) m.getControllerValue() / 127.0f;
+
+        const int learn = learningParam.load();
+        if (learn >= 0 && cc != 64 && cc < 120)
+        {
+            for (auto& slot : ccMap) if (slot.load() == learn) slot = -1;   // un solo CC por perilla
+            ccMap[(size_t) cc] = learn;
+            learningParam = -1;
+        }
+        const int target = ccMap[(size_t) cc].load();
+        if (target >= 0 && target < numLearnable)
+            pendingCC[(size_t) target] = (float) m.getControllerValue() / 127.0f;
+    }
 
     const float vol = volumeParam->load();
     gainSmoothed.setTargetValue (vol <= -35.9f ? 0.0f : juce::Decibels::decibelsToGain (vol));
@@ -82,11 +133,21 @@ void TMUProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuf
     auto* left = buffer.getWritePointer (0);
     auto* right = buffer.getNumChannels() > 1 ? buffer.getWritePointer (1) : nullptr;
 
+    modSmoothed.setTargetValue (juce::jmax (modParam->load(), modWheel.load()));
+    const double lfoInc = juce::MathConstants<double>::twoPi * 5.5 / currentSampleRate.load();
+
     auto render = [&] (int start, int count)
     {
         while (count > 0)
         {
-            const int chunk = juce::jmin (count, (int) renderBuffer.size() / 2);
+            // vibrato: se actualiza cada 32 muestras (hasta medio semitono, como la rueda de mod de un GM)
+            const float depth = modSmoothed.getNextValue();
+            if (count > 1) modSmoothed.skip (juce::jmin (count, 32) - 1);
+            const float tune = depth > 0.0005f ? 0.5f * depth * (float) std::sin (lfoPhase) : 0.0f;
+            tsf_channel_set_tuning (synth, 0, tune);
+            lfoPhase = std::fmod (lfoPhase + lfoInc * juce::jmin (count, 32), juce::MathConstants<double>::twoPi);
+
+            const int chunk = juce::jmin (count, 32, (int) renderBuffer.size() / 2);
             tsf_render_float (synth, renderBuffer.data(), chunk, 0);
             for (int i = 0; i < chunk; ++i)
             {
@@ -131,10 +192,77 @@ void TMUProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuf
         }
         else if (m.isController())
         {
-            tsf_channel_midi_control (synth, 0, m.getControllerNumber(), m.getControllerValue());
+            const int cc = m.getControllerNumber();
+            if (cc != 1 && cc != 6 && cc != 38 && cc != 100 && cc != 101 && ccMap[(size_t) cc].load() < 0)
+                tsf_channel_midi_control (synth, 0, cc, m.getControllerValue());
         }
     }
     if (pos < numSamples) render (pos, numSamples - pos);
+
+    // ---- filtro de salida
+    filterSmoothed.setTargetValue (filterParam->load());
+    const float fv = filterSmoothed.skip (numSamples);
+    if (std::abs (fv) > 0.005f)
+    {
+        juce::dsp::AudioBlock<float> block (buffer);
+        juce::dsp::ProcessContextReplacing<float> ctx (block);
+        if (fv < 0)
+        {
+            highCut.setCutoffFrequency (20000.0f * std::pow (200.0f / 20000.0f, -fv));
+            highCut.process (ctx);
+        }
+        else
+        {
+            lowCut.setCutoffFrequency (20.0f * std::pow (2000.0f / 20.0f, fv));
+            lowCut.process (ctx);
+        }
+    }
+}
+
+//==============================================================================
+const char* TMUProcessor::learnableIds[TMUProcessor::numLearnable] = { "volume", "mod", "filter", "transpose" };
+
+void TMUProcessor::timerCallback()
+{
+    // aplicar los controladores MIDI asignados a los parametros (avisando a FL)
+    for (int i = 0; i < numLearnable; ++i)
+    {
+        const float v = pendingCC[(size_t) i].exchange (-1.0f);
+        if (v >= 0.0f)
+            if (auto* prm = params.getParameter (learnableIds[i]))
+                prm->setValueNotifyingHost (v);
+    }
+}
+
+void TMUProcessor::startLearning (const juce::String& paramId)
+{
+    for (int i = 0; i < numLearnable; ++i)
+        if (paramId == learnableIds[i]) learningParam = i;
+}
+
+void TMUProcessor::clearLearning (const juce::String& paramId)
+{
+    for (int i = 0; i < numLearnable; ++i)
+        if (paramId == learnableIds[i])
+        {
+            for (auto& slot : ccMap) if (slot.load() == i) slot = -1;
+            if (learningParam.load() == i) learningParam = -1;
+        }
+}
+
+int TMUProcessor::getAssignedCC (const juce::String& paramId) const
+{
+    for (int i = 0; i < numLearnable; ++i)
+        if (paramId == learnableIds[i])
+            for (int cc = 0; cc < 128; ++cc)
+                if (ccMap[(size_t) cc].load() == i) return cc;
+    return -1;
+}
+
+juce::String TMUProcessor::getLearningParam() const
+{
+    const int l = learningParam.load();
+    return l >= 0 ? juce::String (learnableIds[l]) : juce::String();
 }
 
 //==============================================================================
@@ -243,6 +371,10 @@ void TMUProcessor::getStateInformation (juce::MemoryBlock& destData)
     root.setProperty ("uiView", uiView, nullptr);
     root.setProperty ("uiGroup", uiGroup, nullptr);
     root.setProperty ("uiSearch", uiSearch, nullptr);
+    juce::StringArray map;
+    for (int cc = 0; cc < 128; ++cc)
+        if (ccMap[(size_t) cc].load() >= 0) map.add (juce::String (cc) + ":" + learnableIds[ccMap[(size_t) cc].load()]);
+    root.setProperty ("midiMap", map.joinIntoString (","), nullptr);
 
     if (auto xml = root.createXml())
         copyXmlToBinary (*xml, destData);
@@ -261,6 +393,14 @@ void TMUProcessor::setStateInformation (const void* data, int sizeInBytes)
     uiView = root.getProperty ("uiView", "type").toString();
     uiGroup = root.getProperty ("uiGroup").toString();
     uiSearch = root.getProperty ("uiSearch").toString();
+    for (auto& m : ccMap) m = -1;
+    for (auto& item : juce::StringArray::fromTokens (root.getProperty ("midiMap").toString(), ",", ""))
+    {
+        const int cc = item.upToFirstOccurrenceOf (":", false, false).getIntValue();
+        const auto id = item.fromFirstOccurrenceOf (":", false, false);
+        for (int i = 0; i < numLearnable; ++i)
+            if (id == learnableIds[i] && cc >= 0 && cc < 128) ccMap[(size_t) cc] = i;
+    }
 
     PresetEntry e;
     e.file = root.getProperty ("file").toString();

@@ -30,7 +30,8 @@ juce_add_plugin(TMU
 juce_generate_juce_header(TMU)
 
 # lista de sonidos repetidos de la biblioteca (tools: tmufp + analisis de huellas)
-juce_add_binary_data(TMUData SOURCES Resources/repetidos.tsv Resources/fonts/PressStart2P-Regular.ttf)
+file(GLOB TMU_FONTS CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/Resources/fonts/*.ttf" "${CMAKE_CURRENT_SOURCE_DIR}/Resources/fonts/*.otf")
+juce_add_binary_data(TMUData SOURCES Resources/repetidos.tsv Resources/viszeversa.png ${TMU_FONTS})
 
 target_sources(TMU PRIVATE
     Source/PluginProcessor.cpp

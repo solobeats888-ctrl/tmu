@@ -11,7 +11,10 @@ public:
     void setAccent (juce::Colour c) { accent = c; }
     juce::Colour accent;
 
-    juce::Font pixel (float h) const;   // Press Start 2P (todo el texto)
+    juce::Font pixel (float h) const;   // fuente principal: JetBrains Mono Bold
+    juce::Font heavy (float h) const;   // JetBrains Mono ExtraBold (logo y titulos)
+    juce::Font signature (float h) const;   // firma "viszeversa": Kihim (si esta) o la cursiva del sistema
+    float mainScale = 1.0f;   // ajuste de tamano segun la fuente principal
 
     void drawRotarySlider (juce::Graphics&, int x, int y, int w, int h, float pos, float start, float end, juce::Slider&) override;
     void drawButtonBackground (juce::Graphics&, juce::Button&, const juce::Colour&, bool over, bool down) override;
@@ -23,7 +26,7 @@ public:
     int getDefaultScrollbarWidth() override { return 8; }
 
 private:
-    juce::Typeface::Ptr press;
+    juce::Typeface::Ptr press, pressHeavy, sig;
 };
 
 // Mini piano pintado

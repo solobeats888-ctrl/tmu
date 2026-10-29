@@ -16,7 +16,7 @@ const juce::Colour screenDim  (0xff5a3a86);
 const juce::Colour glassBase  (0xff0d0514);
 const juce::Colour lavender   (0xffece2ff);
 
-constexpr int W = 1000, H = 720;
+constexpr int W = 1000, H = 686;
 
 const juce::StringArray& installedFonts()
 {
@@ -78,7 +78,27 @@ void drawLed (juce::Graphics& g, juce::Point<float> c, float radius)
 TMULook::TMULook()
 {
     accent = violet;
-    press = juce::Typeface::createSystemTypefaceFor (BinaryData::PressStart2PRegular_ttf, (size_t) BinaryData::PressStart2PRegular_ttfSize);
+    // Fuentes de Resources/fonts (van adentro del plugin). Se buscan por nombre de archivo,
+    // asi alcanza con poner el .ttf/.otf en la carpeta y volver a compilar.
+    auto findFont = [] (const char* namePart) -> juce::Typeface::Ptr
+    {
+        for (int i = 0; i < BinaryData::namedResourceListSize; ++i)
+        {
+            const juce::String original (BinaryData::getNamedResourceOriginalFilename (BinaryData::namedResourceList[i]));
+            if (original.containsIgnoreCase (namePart) && (original.endsWithIgnoreCase (".ttf") || original.endsWithIgnoreCase (".otf")))
+            {
+                int size = 0;
+                if (auto* data = BinaryData::getNamedResource (BinaryData::namedResourceList[i], size))
+                    return juce::Typeface::createSystemTypefaceFor (data, (size_t) size);
+            }
+        }
+        return nullptr;
+    };
+    press = findFont ("JetBrainsMono-Bold");
+    pressHeavy = findFont ("JetBrainsMono-ExtraBold");
+    if (pressHeavy == nullptr) pressHeavy = press;
+    mainScale = 1.55f;   // JetBrains Mono es mas angosta que la fuente pixel anterior
+    sig = findFont ("Kihim");
 
     setColour (juce::ListBox::backgroundColourId, juce::Colours::transparentBlack);
     setColour (juce::ListBox::outlineColourId, juce::Colours::transparentBlack);
@@ -96,7 +116,15 @@ TMULook::TMULook()
     setColour (juce::CaretComponent::caretColourId, violetHi);
 }
 
-juce::Font TMULook::pixel (float h) const { return juce::Font (juce::FontOptions (press).withHeight (h)); }
+juce::Font TMULook::pixel (float h) const { return juce::Font (juce::FontOptions (press).withHeight (h * mainScale)); }
+
+juce::Font TMULook::heavy (float h) const { return juce::Font (juce::FontOptions (pressHeavy).withHeight (h)); }
+
+juce::Font TMULook::signature (float h) const
+{
+    if (sig != nullptr) return juce::Font (juce::FontOptions (sig).withHeight (h));
+    return scriptFont (h);
+}
 
 void TMULook::drawRotarySlider (juce::Graphics& g, int x, int y, int w, int h, float pos, float start, float end, juce::Slider& slider)
 {
@@ -349,7 +377,7 @@ TMUEditor::TMUEditor (TMUProcessor& p)
     };
 
     search.setFont (look.pixel (13.0f));
-    search.setIndents (4, 7);
+    search.setIndents (4, 3);
     search.setColour (juce::TextEditor::textColourId, violetHi);
     search.setTextToShowWhenEmpty ("nombre, tipo o soundfont", screenDim);
     search.setText (proc.uiSearch, false);
@@ -468,8 +496,8 @@ void TMUEditor::buildChassis()
     // ---- franja violeta superior
     {
         juce::Path p;
-        p.addRectangle (body.getX(), body.getY(), body.getWidth(), 110.0f);
-        juce::ColourGradient vg (juce::Colour (0xffb06bff), 0, body.getY(), purple, 0, body.getY() + 110, false);
+        p.addRectangle (body.getX(), body.getY(), body.getWidth(), 76.0f);
+        juce::ColourGradient vg (juce::Colour (0xffb06bff), 0, body.getY(), purple, 0, body.getY() + 76, false);
         vg.addColour (0.5, violet);
         g.setGradientFill (vg);
         g.fillPath (p);
@@ -477,15 +505,21 @@ void TMUEditor::buildChassis()
         g.setGradientFill (shine);
         g.fillPath (p);
         g.setColour (juce::Colours::black.withAlpha (0.35f));
-        g.fillRect (body.getX(), body.getY() + 107, body.getWidth(), 3.0f);
+        g.fillRect (body.getX(), body.getY() + 73, body.getWidth(), 3.0f);
     }
-    g.setFont (look.pixel (46.0f));
+    g.setFont (look.heavy (52.0f));
     g.setColour (purpleDark);
-    g.drawText ("TMU", juce::Rectangle<int> (74, 40, 220, 64).translated (4, 4), juce::Justification::centredLeft);
+    g.drawText ("TMU", juce::Rectangle<int> (68, -4, 200, 60).translated (2, 3), juce::Justification::centredLeft);
     g.setColour (black);
-    g.drawText ("TMU", juce::Rectangle<int> (74, 40, 220, 64), juce::Justification::centredLeft);
-    g.setFont (scriptFont (30.0f));
-    g.drawText ("viszeversa", juce::Rectangle<int> (240, 46, 200, 50), juce::Justification::centredLeft);
+    g.drawText ("TMU", juce::Rectangle<int> (68, -4, 200, 60), juce::Justification::centredLeft);
+    g.setFont (look.pixel (8.0f));
+    g.drawText ("SOUND FONT PLAYER", juce::Rectangle<int> (71, 50, 300, 16), juce::Justification::centredLeft);
+    // firma "viszeversa": imagen hecha con la fuente Kihim (asi no hace falta incluir el archivo de la fuente)
+    {
+        auto logo = juce::ImageCache::getFromMemory (BinaryData::viszeversa_png, BinaryData::viszeversa_pngSize);
+        g.setColour (black);
+        g.drawImage (logo, juce::Rectangle<float> (190, 15, 250, 30), juce::RectanglePlacement::xLeft | juce::RectanglePlacement::yMid, true);
+    }
 
     // ---- ranura del cartucho (pantalla)
     auto slot = lcdArea.toFloat();
@@ -499,9 +533,9 @@ void TMUEditor::buildChassis()
     {
         const float x = 80.0f + (float) i * 16.0f;
         g.setColour (juce::Colours::black);
-        g.fillRoundedRectangle (x, 650.0f, 8.0f, 26.0f, 3.0f);
+        g.fillRoundedRectangle (x, 616.0f, 8.0f, 26.0f, 3.0f);
         g.setColour (juce::Colours::white.withAlpha (0.05f));
-        g.fillRect (x, 676.0f, 8.0f, 1.0f);
+        g.fillRect (x, 642.0f, 8.0f, 1.0f);
     }
 
     // ---- etiquetas
@@ -511,14 +545,14 @@ void TMUEditor::buildChassis()
     knobLabel (volArea, "VOL");
     knobLabel (modArea, "MOD");
     knobLabel (filterArea, "FILTRO");
-    g.drawText ("POWER", juce::Rectangle<int> (prevButton.getX(), 512, 80, 12), juce::Justification::centredLeft);
+    g.drawText ("POWER", juce::Rectangle<int> (prevButton.getX(), 478, 80, 12), juce::Justification::centredLeft);
     g.drawText ("SONIDO", prevButton.getBounds().getUnion (nextButton.getBounds()).withY (prevButton.getY() - 14).withHeight (10), juce::Justification::centred);
 }
 
 void TMUEditor::paint (juce::Graphics& g)
 {
     g.drawImage (chassis, getLocalBounds().toFloat());
-    drawLed (g, { (float) prevButton.getX() + 88.0f, 517.0f }, 5.0f);
+    drawLed (g, { (float) prevButton.getX() + 88.0f, 483.0f }, 5.0f);
 
     // ---- vidrio
     auto glass = lcdArea.toFloat().reduced (14.0f);
@@ -601,14 +635,14 @@ void TMUEditor::paint (juce::Graphics& g)
 
 void TMUEditor::resized()
 {
-    lcdArea = { 70, 140, W - 140, 340 };
+    lcdArea = { 70, 106, W - 140, 340 };
     auto glass = lcdArea.reduced (14).reduced (18, 10);
     miniLcdArea = { glass.getX(), glass.getBottom() - 36, glass.getWidth(), 36 };
-    keySlot = { 80, 506, 410, 126 };
-    volArea = { 520, 512, 62, 62 };
-    modArea = { 594, 512, 62, 62 };
-    filterArea = { 668, 512, 62, 62 };
-    trArea = { 742, 512, 62, 62 };
+    keySlot = { 80, 472, 410, 126 };
+    volArea = { 520, 478, 62, 62 };
+    modArea = { 594, 478, 62, 62 };
+    filterArea = { 668, 478, 62, 62 };
+    trArea = { 742, 478, 62, 62 };
 
     // botones de la franja violeta
     int x = W - 60;
@@ -616,7 +650,7 @@ void TMUEditor::resized()
     for (auto b : { B { &helpButton, 40 }, B { &favButton, 78 }, B { &dupButton, 96 }, B { &viewAZ, 62 }, B { &viewSource, 62 }, B { &viewType, 72 } })
     {
         x -= b.w;
-        b.b->setBounds (x, 54, b.w, 32);
+        b.b->setBounds (x, 22, b.w, 32);
         x -= 8;
     }
 
@@ -631,10 +665,10 @@ void TMUEditor::resized()
     filterKnob.setBounds (filterArea);
     transpose.setBounds (trArea);
 
-    prevButton.setBounds (832, 546, 52, 30);
-    nextButton.setBounds (888, 546, 52, 30);
-    rescanButton.setBounds (832, 588, 108, 30);
-    folderButton.setBounds (832, 626, 108, 30);
+    prevButton.setBounds (832, 512, 52, 30);
+    nextButton.setBounds (888, 512, 52, 30);
+    rescanButton.setBounds (832, 554, 108, 30);
+    folderButton.setBounds (832, 592, 108, 30);
 
     keyboard.setBounds (keySlot);
     keyboard.setKeyWidth ((float) keySlot.getWidth() / 22.0f);   // C4..C7 = 22 teclas blancas

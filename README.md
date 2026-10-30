@@ -47,4 +47,4 @@ Los grupos con similitud ≥ 0,995 (o audio idéntico) quedan en `Resources/repe
 
 ## Créditos
 Motor de SoundFont: [TinySoundFont](https://github.com/schellingb/TinySoundFont) (MIT). Framework: JUCE 8.
-Fuente: JetBrains Mono (SIL Open Font License, ver `Resources/fonts`). La firma "viszeversa" es una imagen (`Resources/viszeversa.png`) hecha con Kihim de Fontshare; el archivo de la fuente no se incluye.
+Fuente: JetBrains Mono (SIL Open Font License, ver `Resources/fonts`). La firma "viszeversza" es una imagen (`Resources/viszeversa.png`) hecha con Kihim de Fontshare; el archivo de la fuente no se incluye.

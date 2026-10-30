@@ -3,23 +3,31 @@
 
 namespace
 {
-// ---- paleta: violeta, purpura y negro (+ lavanda clara para teclas y etiquetas)
-const juce::Colour outerBg    (0xff050406);
-const juce::Colour black      (0xff0b090d);
-const juce::Colour bodyTop    (0xff0b090d);   // todo negro
-const juce::Colour violetHi   (0xffc98cff);
-const juce::Colour violet     (0xff8b3dff);
-const juce::Colour purple     (0xff5b1a9e);
-const juce::Colour purpleDark (0xff2a0a4a);
-const juce::Colour screenTxt  (0xffb77dff);
-const juce::Colour screenDim  (0xff5a3a86);
-const juce::Colour glassBase  (0xff0d0514);
-const juce::Colour lavender   (0xffb98cff);   // texto: violeta
+// ---- paleta "netbook": tapa negra mate, plastico blanco, teclas chiclet negras,
+// letras celestes de la tecla Fn y escritorio azul de fondo en la pantalla
+const juce::Colour bezel      (0xff111113);
+const juce::Colour deckTop    (0xfff0eee9);
+const juce::Colour deckBottom (0xffdcd9d2);
+const juce::Colour keyCap     (0xff1d1d20);
+const juce::Colour keyCapOver (0xff2a2a2f);
+const juce::Colour legend     (0xffeeeeee);
+const juce::Colour fnBlue     (0xff3d9de6);
+const juce::Colour ledBlue    (0xff59b8ff);
+const juce::Colour ink        (0xff57544f);   // texto impreso sobre el plastico blanco
+const juce::Colour winDeep    (0xff040b26);
+const juce::Colour winBlue    (0xff1a56c4);
+const juce::Colour scrHi      (0xffffffff);
+const juce::Colour screenTxt  (0xffdce7ff);
+const juce::Colour screenDim  (0xff7d93c2);
+const juce::Colour selBlue    (0xff3399ff);
+const juce::Colour starGold   (0xffffd24a);
 
 constexpr int W = 1000, H = 658;
 constexpr int M = 70;            // margen izquierdo / derecho de todo el contenido
 constexpr int R = W - M;         // borde derecho
-constexpr int HEADER = 76;       // alto de la franja violeta
+constexpr int HEADER = 64;       // franja de arriba de la tapa (botones)
+constexpr int HINGE = 436;       // donde termina la tapa y empieza la bisagra
+constexpr int DECK = 446;        // donde empieza el plastico blanco
 
 // limites exactos del dibujo de un texto (sin el espacio extra de la fuente), para alinear al pixel
 juce::Rectangle<float> tightBounds (const juce::Font& f, const juce::String& t)
@@ -51,14 +59,11 @@ juce::Font scriptFont (float h)
     return juce::Font (juce::FontOptions (juce::Font::getDefaultSerifFontName(), h, juce::Font::italic));
 }
 
+// texto de la pantalla con sombrita, como los iconos del escritorio
 void glowText (juce::Graphics& g, const juce::String& s, juce::Rectangle<int> r, juce::Justification j, juce::Colour c, float glow = 0.0f)
 {
-    if (glow > 0)
-    {
-        g.setColour (c.withAlpha (glow));
-        for (auto d : { juce::Point<int> (1, 0), juce::Point<int> (-1, 0), juce::Point<int> (0, 1), juce::Point<int> (0, -1) })
-            g.drawText (s, r.translated (d.x, d.y), j, true);
-    }
+    g.setColour (juce::Colours::black.withAlpha (0.55f + glow));
+    g.drawText (s, r.translated (1, 1), j, true);
     g.setColour (c);
     g.drawText (s, r, j, true);
 }
@@ -82,20 +87,56 @@ void drawStars (juce::Graphics& g, juce::Rectangle<int> area, int stars, juce::C
 
 void drawLed (juce::Graphics& g, juce::Point<float> c, float radius)
 {
-    juce::ColourGradient glow (violetHi.withAlpha (0.6f), c, violetHi.withAlpha (0.0f), c.translated (radius * 3.5f, 0), true);
+    juce::ColourGradient glow (ledBlue.withAlpha (0.55f), c, ledBlue.withAlpha (0.0f), c.translated (radius * 3.0f, 0), true);
     g.setGradientFill (glow);
-    g.fillEllipse (juce::Rectangle<float> (radius * 7, radius * 7).withCentre (c));
-    g.setColour (juce::Colours::black);
-    g.fillEllipse (juce::Rectangle<float> (radius * 2 + 2, radius * 2 + 2).withCentre (c));
-    g.setColour (violetHi.brighter (0.3f));
+    g.fillEllipse (juce::Rectangle<float> (radius * 6, radius * 6).withCentre (c));
+    g.setColour (ledBlue.brighter (0.4f));
     g.fillEllipse (juce::Rectangle<float> (radius * 2, radius * 2).withCentre (c));
+}
+
+// tecla chiclet negra (botones, piano)
+void drawKeyCap (juce::Graphics& g, juce::Rectangle<float> r, bool over, bool down, bool lit, float rad = 4.0f)
+{
+    g.setColour (juce::Colours::black.withAlpha (0.45f));
+    g.fillRoundedRectangle (r.translated (0, 1.5f), rad);
+    auto f = r.translated (0, down ? 1.0f : 0.0f);
+    juce::ColourGradient cg (lit ? fnBlue.darker (0.1f) : (over ? keyCapOver : keyCap).brighter (0.08f), 0, f.getY(),
+                             lit ? fnBlue.darker (0.6f) : (over ? keyCapOver : keyCap).darker (0.25f), 0, f.getBottom(), false);
+    g.setGradientFill (cg);
+    g.fillRoundedRectangle (f, rad);
+    g.setColour (juce::Colours::white.withAlpha (0.07f));
+    g.drawHorizontalLine ((int) f.getY() + 1, f.getX() + rad, f.getRight() - rad);
+}
+
+// calco troquelado: la forma con borde blanco y sombrita; despues se pinta el contenido
+void stickerBase (juce::Graphics& g, const juce::Path& shape, float border = 7.0f)
+{
+    juce::Path outline;
+    juce::PathStrokeType (border * 2.0f, juce::PathStrokeType::curved, juce::PathStrokeType::rounded).createStrokedPath (outline, shape);
+    outline.addPath (shape);
+    outline.setUsingNonZeroWinding (true);
+    g.setColour (juce::Colours::black.withAlpha (0.35f));
+    g.fillPath (outline, juce::AffineTransform::translation (1.2f, 2.2f));
+    g.setColour (juce::Colour (0xfff8f8f5));
+    g.fillPath (outline);
+}
+
+juce::Path textPath (const juce::Font& f, const juce::String& t, float cx, float cy)
+{
+    juce::GlyphArrangement ga;
+    ga.addLineOfText (f, t, 0.0f, 0.0f);
+    juce::Path p;
+    ga.createPath (p);
+    const auto b = p.getBounds();
+    p.applyTransform (juce::AffineTransform::translation (cx - b.getCentreX(), cy - b.getCentreY()));
+    return p;
 }
 } // namespace
 
 //==============================================================================
 TMULook::TMULook()
 {
-    accent = violet;
+    accent = fnBlue;
     // Fuentes de Resources/fonts (van adentro del plugin). Se buscan por nombre de archivo,
     // asi alcanza con poner el .ttf/.otf en la carpeta y volver a compilar.
     auto findFont = [] (const char* namePart) -> juce::Typeface::Ptr
@@ -120,18 +161,18 @@ TMULook::TMULook()
 
     setColour (juce::ListBox::backgroundColourId, juce::Colours::transparentBlack);
     setColour (juce::ListBox::outlineColourId, juce::Colours::transparentBlack);
-    setColour (juce::TextButton::textColourOffId, lavender);
-    setColour (juce::TextButton::textColourOnId, lavender);
+    setColour (juce::TextButton::textColourOffId, legend);
+    setColour (juce::TextButton::textColourOnId, legend);
     setColour (juce::MidiKeyboardComponent::shadowColourId, juce::Colours::transparentBlack);
     setColour (juce::MidiKeyboardComponent::keySeparatorLineColourId, juce::Colours::transparentBlack);
     setColour (juce::MidiKeyboardComponent::whiteNoteColourId, juce::Colours::transparentBlack);
-    setColour (juce::BubbleComponent::backgroundColourId, black);
-    setColour (juce::BubbleComponent::outlineColourId, violet);
-    setColour (juce::TooltipWindow::textColourId, lavender);
-    setColour (juce::TextEditor::textColourId, violetHi);
-    setColour (juce::TextEditor::highlightColourId, violet.withAlpha (0.4f));
+    setColour (juce::BubbleComponent::backgroundColourId, bezel);
+    setColour (juce::BubbleComponent::outlineColourId, fnBlue);
+    setColour (juce::TooltipWindow::textColourId, legend);
+    setColour (juce::TextEditor::textColourId, scrHi);
+    setColour (juce::TextEditor::highlightColourId, selBlue.withAlpha (0.45f));
     setColour (juce::TextEditor::highlightedTextColourId, juce::Colours::white);
-    setColour (juce::CaretComponent::caretColourId, violetHi);
+    setColour (juce::CaretComponent::caretColourId, scrHi);
 }
 
 juce::Font TMULook::pixel (float h) const { return juce::Font (juce::FontOptions (press).withHeight (h * mainScale)); }
@@ -153,68 +194,56 @@ void TMULook::drawRotarySlider (juce::Graphics& g, int x, int y, int w, int h, f
     const bool bipolar = slider.getProperties()["bipolar"];
     const float angle = start + pos * (end - start);
 
-    // aro violeta (arco del valor)
+    // aro impreso en el plastico + valor en celeste (el color de la tecla Fn)
     juce::Path track, value;
     track.addCentredArc (c.x, c.y, rOuter - 3, rOuter - 3, 0, start, end, true);
     const float from = bipolar ? (start + end) * 0.5f : start;
     value.addCentredArc (c.x, c.y, rOuter - 3, rOuter - 3, 0, juce::jmin (from, angle), juce::jmax (from, angle), true);
-    g.setColour (purpleDark);
-    g.strokePath (track, juce::PathStrokeType (4.0f, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
-    g.setColour (violetHi);
-    g.strokePath (value, juce::PathStrokeType (4.0f, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
+    g.setColour (juce::Colour (0xffc6c2ba));
+    g.strokePath (track, juce::PathStrokeType (3.5f, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
+    g.setColour (fnBlue);
+    g.strokePath (value, juce::PathStrokeType (3.5f, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
 
-    const float rKnob = rOuter - 9.0f;
+    // perilla: plastico negro como las teclas
+    const float rKnob = rOuter - 8.0f;
     auto kr = juce::Rectangle<float> (rKnob * 2, rKnob * 2).withCentre (c);
-    g.setColour (juce::Colours::black.withAlpha (0.6f));
-    g.fillEllipse (kr.translated (0, 4));
-    juce::ColourGradient body (juce::Colour (0xff4a4250), kr.getX(), kr.getY(), black, kr.getRight(), kr.getBottom(), false);
+    g.setColour (juce::Colours::black.withAlpha (0.3f));
+    g.fillEllipse (kr.translated (0, 2.5f));
+    juce::ColourGradient body (juce::Colour (0xff35353a), kr.getX(), kr.getY(), juce::Colour (0xff111113), kr.getRight(), kr.getBottom(), false);
     g.setGradientFill (body);
     g.fillEllipse (kr);
-    g.setColour (juce::Colours::white.withAlpha (0.10f));
+    g.setColour (juce::Colours::white.withAlpha (0.08f));
     g.drawEllipse (kr.reduced (1.0f), 1.0f);
-    const juce::Point<float> p0 (c.x + (rKnob * 0.3f) * std::sin (angle), c.y - (rKnob * 0.3f) * std::cos (angle));
-    const juce::Point<float> p1 (c.x + (rKnob - 5) * std::sin (angle), c.y - (rKnob - 5) * std::cos (angle));
-    g.setColour (violetHi);
-    g.drawLine ({ p0, p1 }, 3.0f);
+    const juce::Point<float> p0 (c.x + (rKnob * 0.25f) * std::sin (angle), c.y - (rKnob * 0.25f) * std::cos (angle));
+    const juce::Point<float> p1 (c.x + (rKnob - 4) * std::sin (angle), c.y - (rKnob - 4) * std::cos (angle));
+    g.setColour (legend);
+    g.drawLine ({ p0, p1 }, 2.5f);
 }
 
 void TMULook::drawButtonBackground (juce::Graphics& g, juce::Button& b, const juce::Colour&, bool over, bool down)
 {
-    const auto style = b.getProperties()["style"].toString();
-    auto r = b.getLocalBounds().toFloat().reduced (1.0f);
-    const float rad = r.getHeight() * 0.5f;
-    const bool on = b.getToggleState();
-
-    if (style == "stripe")   // pill de la barra de arriba: negra con borde violeta; la activa se ilumina
+    // todos los botones son teclas chiclet negras; la activa se prende en celeste por abajo
+    auto r = b.getLocalBounds().toFloat().reduced (1.0f, 1.5f);
+    drawKeyCap (g, r, over, down, false);
+    if (b.getToggleState())
     {
-        auto f = r.reduced (0.5f).translated (0, down ? 1.0f : 0.0f);
-        g.setColour (on ? violet.withAlpha (0.22f) : (over ? juce::Colour (0xff1a1420) : juce::Colour (0xff110e14)));
-        g.fillRoundedRectangle (f, rad);
-        g.setColour (on ? violetHi : violet.withAlpha (over ? 0.6f : 0.35f));
-        g.drawRoundedRectangle (f, rad, on ? 1.5f : 1.0f);
-        return;
+        g.setColour (fnBlue);
+        g.fillRoundedRectangle (r.getX() + 8.0f, r.getBottom() - (down ? 3.0f : 4.0f), r.getWidth() - 16.0f, 2.0f, 1.0f);
     }
-    // "body": pill negra con borde violeta, igual que las de arriba
-    auto f = r.reduced (0.5f).translated (0, down ? 1.0f : 0.0f);
-    g.setColour (over ? juce::Colour (0xff1a1420) : juce::Colour (0xff110e14));
-    g.fillRoundedRectangle (f, rad);
-    g.setColour (violet.withAlpha (over ? 0.6f : 0.35f));
-    g.drawRoundedRectangle (f, rad, 1.0f);
 }
 
 void TMULook::drawButtonText (juce::Graphics& g, juce::TextButton& b, bool over, bool down)
 {
-    const auto style = b.getProperties()["style"].toString();
     auto r = b.getLocalBounds().translated (0, down ? 1 : 0);
     const bool on = b.getToggleState();
-    const auto col = style == "stripe" ? (on ? violetHi : (over ? lavender : violet.brighter (0.15f)))
-                                       : (over ? violetHi : lavender);
+    const auto col = on ? fnBlue.brighter (0.35f) : (over ? juce::Colours::white : legend);
     if (b.getProperties()["star"])
     {
-        g.setColour (col);
+        g.setColour (on ? starGold : col);
         g.fillPath (starPath ({ (float) r.getCentreX() - 18.0f, (float) r.getCentreY() }, 6.0f));
         r.removeFromLeft (r.getWidth() / 2 - 8);
         g.setFont (pixel (10.0f));
+        g.setColour (col);
         g.drawText (b.getButtonText(), r, juce::Justification::centredLeft);
         return;
     }
@@ -224,48 +253,40 @@ void TMULook::drawButtonText (juce::Graphics& g, juce::TextButton& b, bool over,
 }
 
 void TMULook::drawScrollbar (juce::Graphics& g, juce::ScrollBar&, int x, int y, int w, int h, bool vertical,
-                             int thumbStart, int thumbSize, bool, bool)
+                             int thumbStart, int thumbSize, bool over, bool)
 {
     juce::Rectangle<int> thumb = vertical ? juce::Rectangle<int> (x + 2, thumbStart, w - 4, thumbSize)
                                           : juce::Rectangle<int> (thumbStart, y + 2, thumbSize, h - 4);
-    g.setColour (violet.withAlpha (0.55f));
-    for (int yy = thumb.getY(); yy < thumb.getBottom(); yy += 4)
-        g.fillRect (thumb.getX(), yy, thumb.getWidth(), 2);
+    g.setColour (juce::Colours::white.withAlpha (over ? 0.45f : 0.28f));
+    g.fillRoundedRectangle (thumb.toFloat(), 2.0f);
 }
 
 //==============================================================================
+// Mini piano con teclas chiclet de netbook: las "blancas" son teclas negras con la nota escrita,
+// las "negras" son mas chicas y tienen el puntito celeste de las teclas con Fn
 void RetroKeyboard::drawWhiteNote (int note, juce::Graphics& g, juce::Rectangle<float> area, bool isDown, bool isOver, juce::Colour, juce::Colour)
 {
-    auto r = area.reduced (1.0f, 0.0f);
-    juce::Path key;
-    key.addRoundedRectangle (r.getX(), r.getY() - 6.0f, r.getWidth(), r.getHeight() + 6.0f, 4.0f);
-    g.saveState();
-    g.reduceClipRegion (area.toNearestInt());
-    // teclas negras: las "blancas" en negro grafito con separacion violeta
-    juce::ColourGradient kg (isDown ? violetHi : (isOver ? juce::Colour (0xff2e2636) : juce::Colour (0xff221c28)), 0, r.getY(),
-                             isDown ? violet : juce::Colour (0xff120f15), 0, r.getBottom(), false);
-    g.setGradientFill (kg);
-    g.fillPath (key);
-    g.setColour (violet.withAlpha (isDown ? 0.9f : 0.35f));
-    g.drawRoundedRectangle (r.getX() + 0.5f, r.getY() - 6.0f, r.getWidth() - 1.0f, r.getHeight() + 5.5f, 4.0f, 1.0f);
-    g.restoreState();
+    auto r = area.reduced (1.5f, 0.0f).withTrimmedTop (2.0f).withTrimmedBottom (2.0f);
+    drawKeyCap (g, r, isOver, isDown, isDown, 3.0f);
     if (note % 12 == 0)
     {
         g.setFont (look.pixel (7.0f));
-        g.setColour (isDown ? juce::Colours::white : violetHi.withAlpha (0.7f));
-        g.drawText ("C" + juce::String (note / 12), area.withTrimmedBottom (5).removeFromBottom (10).toNearestInt(), juce::Justification::centred);
+        g.setColour (isDown ? juce::Colours::white : legend.withAlpha (0.85f));
+        g.drawText ("C" + juce::String (note / 12), r.withTrimmedBottom (5).removeFromBottom (10).toNearestInt(), juce::Justification::centred);
     }
 }
 
 void RetroKeyboard::drawBlackNote (int, juce::Graphics& g, juce::Rectangle<float> area, bool isDown, bool isOver, juce::Colour)
 {
-    auto r = area.reduced (1.5f, 0.0f).withTrimmedTop (-4.0f);
-    g.setColour (juce::Colours::black.withAlpha (0.6f));
-    g.fillRoundedRectangle (r.translated (1.5f, 1.5f), 2.5f);
-    g.setColour (isDown ? violet : (isOver ? juce::Colour (0xff2a1a3a) : juce::Colour (0xff050406)));
+    auto r = area.reduced (1.0f, 0.0f).withTrimmedTop (2.0f);
+    g.setColour (juce::Colour (0xff050506));   // canaleta entre teclas
+    g.fillRoundedRectangle (r.expanded (2.0f, 0.0f).withTrimmedTop (-2.0f).withTrimmedBottom (-2.0f), 3.0f);
+    juce::ColourGradient cg (isDown ? fnBlue : (isOver ? juce::Colour (0xff45454c) : juce::Colour (0xff38383e)), 0, r.getY(),
+                             isDown ? fnBlue.darker (0.6f) : juce::Colour (0xff1c1c20), 0, r.getBottom(), false);
+    g.setGradientFill (cg);
     g.fillRoundedRectangle (r, 2.5f);
-    g.setColour (violet.withAlpha (isDown ? 1.0f : 0.5f));
-    g.drawRoundedRectangle (r.reduced (0.5f), 2.5f, 1.0f);
+    g.setColour (isDown ? juce::Colours::white : fnBlue);
+    g.fillEllipse (juce::Rectangle<float> (3.0f, 3.0f).withCentre ({ r.getCentreX(), r.getBottom() - 6.0f }));
 }
 
 void RetroKeyboard::drawUpDownButton (juce::Graphics&, int, int, bool, bool, bool) {}
@@ -304,7 +325,7 @@ void TutorialOverlay::paint (juce::Graphics& g)
     g.fillPath (dim);
     if (! st.spot.isEmpty())
     {
-        g.setColour (violetHi);
+        g.setColour (scrHi);
         for (float i = 0; i < st.spot.getWidth() + 12; i += 10)   // borde punteado
         {
             g.fillRect ((float) st.spot.getX() - 6 + i, (float) st.spot.getY() - 7, 5.0f, 2.0f);
@@ -315,20 +336,21 @@ void TutorialOverlay::paint (juce::Graphics& g)
     auto box = boxArea();
     g.setColour (juce::Colours::black.withAlpha (0.6f));
     g.fillRoundedRectangle (box.toFloat().translated (0, 5), 14.0f);
-    g.setColour (glassBase);
-    g.fillRoundedRectangle (box.toFloat(), 14.0f);
-    g.setColour (violet);
-    g.drawRoundedRectangle (box.toFloat().reduced (1), 14.0f, 2.0f);
+    juce::ColourGradient tb (juce::Colour (0xff10224f), 0, (float) box.getY(), juce::Colour (0xff060d24), 0, (float) box.getBottom(), false);
+    g.setGradientFill (tb);
+    g.fillRoundedRectangle (box.toFloat(), 8.0f);
+    g.setColour (selBlue.withAlpha (0.8f));
+    g.drawRoundedRectangle (box.toFloat().reduced (1), 8.0f, 1.5f);
 
     auto inner = box.reduced (18, 16);
     g.setFont (look.pixel (8.0f));
-    g.setColour (screenDim.brighter (0.6f));
+    g.setColour (screenDim.brighter (0.4f));
     g.drawText (juce::String ((int) index + 1) + "/" + juce::String ((int) steps.size()), inner.removeFromTop (12), juce::Justification::centredRight);
     g.setFont (look.pixel (13.0f));
-    glowText (g, st.title, inner.removeFromTop (22), juce::Justification::centredLeft, violetHi);
+    glowText (g, st.title, inner.removeFromTop (22), juce::Justification::centredLeft, scrHi);
     inner.removeFromTop (8);
     juce::AttributedString as;
-    as.append (st.text, look.pixel (9.0f), lavender);
+    as.append (st.text, look.pixel (9.0f), screenTxt);
     as.setLineSpacing (7.0f);
     as.setWordWrap (juce::AttributedString::byWord);
     juce::TextLayout tl;
@@ -336,14 +358,14 @@ void TutorialOverlay::paint (juce::Graphics& g)
     tl.draw (g, inner.withTrimmedBottom (40).toFloat());
 
     const bool last = index + 1 >= steps.size();
-    g.setColour (violet);
-    g.fillRoundedRectangle (nextArea().toFloat(), 15.0f);
+    g.setColour (fnBlue);
+    g.fillRoundedRectangle (nextArea().toFloat(), 5.0f);
     g.setFont (look.pixel (9.0f));
     g.setColour (juce::Colours::white);
     g.drawText (last ? "A JUGAR!" : "SIGUIENTE >", nextArea(), juce::Justification::centred);
     if (! last)
     {
-        g.setColour (lavender.withAlpha (0.6f));
+        g.setColour (screenTxt.withAlpha (0.6f));
         g.drawText ("SALTAR", skipArea(), juce::Justification::centredLeft);
     }
 }
@@ -401,7 +423,7 @@ TMUEditor::TMUEditor (TMUProcessor& p)
 
     search.setFont (look.pixel (13.0f));
     search.setIndents (4, 3);
-    search.setColour (juce::TextEditor::textColourId, violetHi);
+    search.setColour (juce::TextEditor::textColourId, scrHi);
     search.setTextToShowWhenEmpty ("nombre, tipo o soundfont", screenDim);
     search.setText (proc.uiSearch, false);
     search.applyFontToAllText (look.pixel (13.0f));
@@ -500,7 +522,7 @@ void TMUEditor::showTutorial()
     const auto pills = viewType.getBounds().getUnion (helpButton.getBounds());
     const auto knobs = knobsArea;
     tutorial.start ({
-        { "BIENVENIDO A TMU",  "Todos tus soundfonts en una consola. Son miles de sonidos ordenados para que encuentres rapido lo que buscas.\n\nEn 6 pasos te muestro como se usa.", {} },
+        { "BIENVENIDO A TMU",  "Todos tus soundfonts en una netbook. Son miles de sonidos ordenados para que encuentres rapido lo que buscas.\n\nEn 6 pasos te muestro como se usa.", {} },
         { "LA PANTALLA",       "Elegi un sonido con un click o con las flechas arriba/abajo. A la izquierda estan los grupos. Arriba escribis para buscar: bass, pad, mario...", lcdArea },
         { "COMO SE ORDENA",    "TIPO: pianos, bajos, pads...\nSF2: por soundfont.\nA-Z: alfabetico.\nSIN REP: oculta los sonidos repetidos y los que no suenan.", pills },
         { "FAVORITOS",         "Toca FAV (o las teclas 1, 2, 3) para darle estrellas al sonido elegido. Los vas a encontrar en el grupo FAVORITOS de la pantalla.", favButton.getBounds() },
@@ -518,73 +540,189 @@ void TMUEditor::buildChassis()
     chassis = juce::Image (juce::Image::ARGB, (int) std::ceil (W * scale), (int) std::ceil (H * scale), true);
     juce::Graphics g (chassis);
     g.addTransform (juce::AffineTransform::scale (scale));
+    juce::Random rnd (1115);   // siempre la misma "suciedad" y el mismo humo
 
-    g.fillAll (outerBg);
-    juce::ColourGradient floor (juce::Colour (0xff160c1e), W * 0.5f, H * 0.55f, outerBg, 0, 0, true);
-    g.setGradientFill (floor);
-    g.fillAll();
-
-    // ---- cuerpo negro: ocupa toda la ventana, sin bordes
-    auto body = juce::Rectangle<float> (0, 0, (float) W, (float) H);
-    juce::ColourGradient bg (bodyTop, 0, body.getY(), black, 0, body.getY() + body.getHeight() * 0.6f, false);
-    g.setGradientFill (bg);
-    g.fillRect (body);
-
-    // ---- franja violeta superior
+    // ---- tapa negra mate
     {
-        juce::Path p;
-        p.addRectangle (body.getX(), body.getY(), body.getWidth(), (float) HEADER);
-        g.setColour (black);
-        g.fillPath (p);
-        g.setColour (violet.withAlpha (0.45f));   // linea fina que separa la barra
-        g.fillRect (body.getX(), body.getY() + (float) HEADER - 1.0f, body.getWidth(), 1.0f);
+        juce::ColourGradient lid (juce::Colour (0xff1a1a1d), 0, 0, bezel, 0, (float) HINGE, false);
+        g.setGradientFill (lid);
+        g.fillRect (0, 0, W, HINGE);
+        // camara y microfono
+        const juce::Point<float> cam ((float) W * 0.5f, 9.0f);
+        g.setColour (juce::Colour (0xff2b2b30));
+        g.fillEllipse (juce::Rectangle<float> (9, 9).withCentre (cam));
+        g.setColour (juce::Colour (0xff070708));
+        g.fillEllipse (juce::Rectangle<float> (5, 5).withCentre (cam));
+        g.setColour (juce::Colour (0xff26262a));
+        g.fillEllipse (juce::Rectangle<float> (3, 3).withCentre (cam.translated (-40, 0)));
+        g.fillEllipse (juce::Rectangle<float> (3, 3).withCentre (cam.translated (40, 0)));
     }
-    // ---- logo: TMU y SOUND FONT PLAYER alineados a la izquierda, como bloque centrado en la franja
-    {
-        const auto logoFont = look.heavy (52.0f);
-        const auto subFont = look.pixel (8.0f);
-        const auto lb = tightBounds (logoFont, "TMU");
-        const auto sb = tightBounds (subFont, "SOUND FONT PLAYER");
-        const float gap = 7.0f;
-        const float top = ((float) HEADER - (lb.getHeight() + gap + sb.getHeight())) * 0.5f;
-        g.setColour (purpleDark);
-        drawTight (g, logoFont, "TMU", (float) M + 2.0f, top + 3.0f);
-        g.setColour (violetHi);
-        drawTight (g, logoFont, "TMU", (float) M, top);
-        g.setColour (violet);
-        drawTight (g, subFont, "SOUND FONT PLAYER", (float) M, top + lb.getHeight() + gap);
 
-        // firma "viszeversa": imagen hecha con la fuente Kihim, del alto de las letras de TMU
+    // ---- pantalla: escritorio azul con humo (se dibuja una sola vez)
+    auto glass = lcdArea.toFloat().reduced (14.0f);
+    {
+        g.setColour (juce::Colour (0xff050506));
+        g.fillRect (glass.expanded (3.0f));
+        g.saveState();
+        g.reduceClipRegion (glass.toNearestInt());
+        g.setColour (winDeep);
+        g.fillRect (glass);
+        const juce::Point<float> core (glass.getX() + glass.getWidth() * 0.58f, glass.getY() + glass.getHeight() * 0.32f);
+        juce::ColourGradient halo (winBlue.withAlpha (0.75f), core, winBlue.withAlpha (0.0f), core.translated (glass.getWidth() * 0.42f, 0), true);
+        g.setGradientFill (halo);
+        g.fillRect (glass);
+        for (int i = 0; i < 22; ++i)   // humo
+        {
+            const float rx = 40.0f + rnd.nextFloat() * 150.0f, ry = rx * (0.35f + rnd.nextFloat() * 0.5f);
+            const juce::Point<float> c (glass.getX() + rnd.nextFloat() * glass.getWidth(), glass.getY() + rnd.nextFloat() * glass.getHeight());
+            const auto col = (i % 3 == 0 ? juce::Colour (0xff7fd0ff) : juce::Colour (0xff3a6cff)).withAlpha (0.10f + rnd.nextFloat() * 0.12f);
+            juce::ColourGradient sm (col, c, col.withAlpha (0.0f), c.translated (rx, 0), true);
+            g.setGradientFill (sm);
+            g.fillEllipse (juce::Rectangle<float> (rx * 2, ry * 2).withCentre (c));
+        }
+        juce::ColourGradient spark (juce::Colour (0xccd8f2ff), core, juce::Colour (0x00d8f2ff), core.translated (38, 0), true);
+        g.setGradientFill (spark);
+        g.fillEllipse (juce::Rectangle<float> (76, 76).withCentre (core));
+        // oscurecer debajo de las listas para que se lea bien
+        g.setColour (juce::Colours::black.withAlpha (0.30f));
+        g.fillRect (glass);
+        juce::ColourGradient vig (juce::Colours::transparentBlack, glass.getCentreX(), glass.getCentreY(),
+                                  juce::Colours::black.withAlpha (0.55f), glass.getX(), glass.getY(), true);
+        g.setGradientFill (vig);
+        g.fillRect (glass);
+        // barra de tareas abajo
+        auto bar = glass.withTop (glass.getBottom() - 50.0f);
+        g.setColour (juce::Colour (0xd0060a18));
+        g.fillRect (bar);
+        g.setColour (juce::Colours::white.withAlpha (0.14f));
+        g.fillRect (bar.withHeight (1.0f));
+        g.restoreState();
+    }
+
+    // ---- calco "TMU" pegado en la tapa (troquelado con borde blanco)
+    {
+        juce::GlyphArrangement ga;
+        ga.addLineOfText (look.heavy (46.0f), "TMU", 0.0f, 0.0f);
+        juce::Path letters;
+        ga.createPath (letters);
+        const auto lb = letters.getBounds();
+        const auto tr = juce::AffineTransform::translation (-lb.getX(), -lb.getY())
+                            .rotated (-0.05f)
+                            .translated ((float) M + 6.0f, (float) HEADER * 0.5f - lb.getHeight() * 0.5f + 2.0f);
+        letters.applyTransform (tr);
+        juce::Path outline;
+        juce::PathStrokeType (12.0f, juce::PathStrokeType::curved, juce::PathStrokeType::rounded).createStrokedPath (outline, letters);
+        g.setColour (juce::Colours::black.withAlpha (0.45f));
+        g.fillPath (outline, juce::AffineTransform::translation (1.5f, 2.5f));
+        g.setColour (juce::Colour (0xfff7f7f4));
+        g.fillPath (outline);
+        g.fillPath (letters);
+        const auto b = letters.getBounds();
+        juce::ColourGradient lg (fnBlue.brighter (0.4f), 0, b.getY(), juce::Colour (0xff0d3f9a), 0, b.getBottom(), false);
+        g.setGradientFill (lg);
+        g.fillPath (letters);
+        g.setColour (juce::Colour (0xff0a1a3a));
+        g.strokePath (letters, juce::PathStrokeType (1.5f));
+
+        // al lado, impreso en la tapa
+        g.setFont (look.pixel (8.0f));
+        g.setColour (juce::Colour (0xff8a8a90));
+        g.drawText ("SOUND FONT PLAYER", juce::Rectangle<int> ((int) b.getRight() + 22, HEADER / 2 - 12, 200, 12), juce::Justification::centredLeft);
+        g.setColour (juce::Colour (0xff5f5f66));
+        g.drawText ("para compus de verdad", juce::Rectangle<int> ((int) b.getRight() + 22, HEADER / 2 + 1, 200, 12), juce::Justification::centredLeft);
+    }
+
+    // ---- abajo de la pantalla: dos rayitas y texto impreso (como en la tapa original)
+    {
+        const float y = glass.getBottom() + 12.0f;
+        g.setColour (juce::Colour (0xff6e6e74));
+        g.fillRect ((float) M, y, 20.0f, 5.0f);
+        g.fillRect ((float) M, y + 9.0f, 20.0f, 5.0f);
+        g.setFont (look.pixel (8.0f));
+        g.setColour (juce::Colour (0xff8a8a90));
+        g.drawText ("hecho en una netbook", juce::Rectangle<int> (M + 28, (int) y - 3, 200, 11), juce::Justification::centredLeft);
+        g.drawText ("por viszeversza", juce::Rectangle<int> (M + 28, (int) y + 7, 200, 11), juce::Justification::centredLeft);
+    }
+
+    // ---- bisagra
+    {
+        juce::ColourGradient hg (juce::Colour (0xff2c2c30), 0, (float) HINGE, juce::Colour (0xff0b0b0c), 0, (float) DECK, false);
+        g.setGradientFill (hg);
+        g.fillRect (0, HINGE, W, DECK - HINGE);
+    }
+
+    // ---- plastico blanco, un poco gastado
+    {
+        juce::ColourGradient dg (deckTop, 0, (float) DECK, deckBottom, 0, (float) H, false);
+        g.setGradientFill (dg);
+        g.fillRect (0, DECK, W, H - DECK);
+        g.setColour (juce::Colours::white.withAlpha (0.6f));
+        g.fillRect (0, DECK, W, 1);
+        for (int i = 0; i < 1400; ++i)
+        {
+            g.setColour (juce::Colour (0xff5a5045).withAlpha (0.03f + rnd.nextFloat() * 0.06f));
+            const float sz = 0.8f + rnd.nextFloat() * 1.6f;
+            g.fillEllipse ((float) rnd.nextInt (W), (float) (DECK + rnd.nextInt (H - DECK)), sz, sz);
+        }
+        g.setColour (juce::Colour (0xffbdb9b1));
+        g.fillRect (0, H - 2, W, 2);
+    }
+
+    // ---- calco holografico con la firma viszeversa (pegado entre la tapa y la bisagra)
+    {
         auto logo = juce::ImageCache::getFromMemory (BinaryData::viszeversa_png, BinaryData::viszeversa_pngSize);
-        const float h = std::round (lb.getHeight() * 0.62f);
-        const float w = h * (float) logo.getWidth() / (float) juce::jmax (1, logo.getHeight());
-        g.setColour (violet);
-        // centrada en el alto de las letras de TMU
-        g.drawImage (logo, juce::Rectangle<float> ((float) M + lb.getWidth() + 24.0f, top + (lb.getHeight() - h) * 0.5f, w, h),
-                     juce::RectanglePlacement::stretchToFit, true);
+        const float sh = 30.0f, lw = 150.0f;
+        auto st = juce::Rectangle<float> (lw + 26.0f, sh).withPosition ((float) R - lw - 26.0f, glass.getBottom() + 14.0f);
+        g.saveState();
+        g.addTransform (juce::AffineTransform::rotation (-0.045f, st.getCentreX(), st.getCentreY()));
+        g.setColour (juce::Colours::black.withAlpha (0.4f));
+        g.fillRoundedRectangle (st.translated (1.5f, 2.5f).expanded (3.0f), 9.0f);
+        g.setColour (juce::Colour (0xfff7f7f4));
+        g.fillRoundedRectangle (st.expanded (3.0f), 9.0f);
+        juce::ColourGradient holo (juce::Colour (0xffb9f3ff), st.getX(), st.getY(), juce::Colour (0xffffc6f1), st.getRight(), st.getBottom(), false);
+        holo.addColour (0.35, juce::Colour (0xfffff4b0));
+        holo.addColour (0.65, juce::Colour (0xffc9c4ff));
+        g.setGradientFill (holo);
+        g.fillRoundedRectangle (st, 7.0f);
+        for (int i = 0; i < 60; ++i)   // brillitos
+        {
+            g.setColour (juce::Colours::white.withAlpha (0.35f + rnd.nextFloat() * 0.5f));
+            g.fillRect (st.getX() + rnd.nextFloat() * st.getWidth(), st.getY() + rnd.nextFloat() * st.getHeight(), 1.5f, 1.5f);
+        }
+        const float h = sh * 0.62f, w = h * (float) logo.getWidth() / (float) juce::jmax (1, logo.getHeight());
+        g.setColour (juce::Colour (0xff1b1b22));
+        g.drawImage (logo, juce::Rectangle<float> (w, h).withCentre (st.getCentre()), juce::RectanglePlacement::stretchToFit, true);
+        g.restoreState();
     }
 
-    // ---- ranura del cartucho (pantalla)
-    auto slot = lcdArea.toFloat();
-    g.setColour (juce::Colours::white.withAlpha (0.07f));
-    g.fillRoundedRectangle (slot.translated (0, 1.5f).expanded (1), 16.0f);
-    g.setColour (juce::Colour (0xff040305));
-    g.fillRoundedRectangle (slot, 16.0f);
+    // ---- bandeja del teclado (debajo del piano)
+    g.setColour (juce::Colour (0xff0b0b0c));
+    g.fillRoundedRectangle (keySlot.toFloat().expanded (6.0f, 6.0f), 6.0f);
 
-    // ---- rejilla de ventilacion
-    for (int i = 0; i < 26; ++i)
+    // ---- touchpad (debajo de los botones de la derecha)
     {
-        const float x = (float) keySlot.getX() + (float) i * ((float) keySlot.getWidth() - 8.0f) / 25.0f;
-        const float y = (float) folderButton.getBottom() - 24.0f;   // termina a la misma altura que CARPETA
-        g.setColour (juce::Colours::black);
-        g.fillRoundedRectangle (x, y, 8.0f, 24.0f, 3.0f);
-        g.setColour (juce::Colours::white.withAlpha (0.05f));
-        g.fillRect (x, y + 24.0f, 8.0f, 1.0f);
+        auto pad = prevButton.getBounds().getUnion (folderButton.getBounds()).toFloat().expanded (10.0f, 12.0f).withTrimmedTop (-18.0f);
+        g.setColour (juce::Colour (0xffc9c5bd));
+        g.fillRoundedRectangle (pad.translated (0, -1.0f), 9.0f);
+        juce::ColourGradient pg (juce::Colour (0xffe2dfd8), 0, pad.getY(), juce::Colour (0xffd5d1c9), 0, pad.getBottom(), false);
+        g.setGradientFill (pg);
+        g.fillRoundedRectangle (pad.reduced (1.0f), 8.0f);
     }
 
-    // ---- etiquetas
+    // ---- parlante: agujeritos debajo del piano
+    for (int row = 0; row < 3; ++row)
+        for (int i = 0; i < 60; ++i)
+        {
+            const float x = (float) keySlot.getX() + 4.0f + (float) i * ((float) keySlot.getWidth() - 8.0f) / 59.0f + (row == 1 ? 3.5f : 0.0f);
+            const float y = (float) keySlot.getBottom() + 16.0f + (float) row * 6.0f;
+            if (x > keySlot.getRight() - 3) continue;
+            g.setColour (juce::Colour (0xff8e8a83));
+            g.fillEllipse (x, y, 2.6f, 2.6f);
+        }
+
+    // ---- etiquetas impresas en el plastico
     g.setFont (look.pixel (8.0f));
-    g.setColour (lavender.withAlpha (0.8f));
+    g.setColour (ink);
     auto knobLabel = [&] (juce::Rectangle<int> a, const char* t) { g.drawText (t, a.withY (a.getBottom() + 6).withHeight (10).expanded (20, 0), juce::Justification::centred); };
     knobLabel (volArea, "VOL");
     knobLabel (modArea, "MOD");
@@ -593,25 +731,41 @@ void TMUEditor::buildChassis()
     knobLabel (swingArea, "SWING");
     knobLabel (humanArea, "HUMAN");
     knobLabel (velArea, "VEL");
-    g.drawText ("POWER", juce::Rectangle<int> (prevButton.getX(), keySlot.getY(), 80, 16), juce::Justification::centredLeft);
     g.drawText ("SONIDO", prevButton.getBounds().getUnion (nextButton.getBounds()).withY (prevButton.getY() - 14).withHeight (10), juce::Justification::centred);
 
-    // ---- vidrio de la pantalla y LED (fijos)
-    auto glass = lcdArea.toFloat().reduced (14.0f);
+    // ---- etiqueta plateada abajo, como la de fabrica: INDUSTRIA ARGENTINA
     {
-        juce::ColourGradient crt (juce::Colour (0xff1c0b2c), glass.getCentreX(), glass.getCentreY(), glassBase, glass.getX(), glass.getY(), true);
-        g.setGradientFill (crt);
-        g.fillRoundedRectangle (glass, 10.0f);
-        g.saveState();
-        g.reduceClipRegion (glass.toNearestInt());
-        g.setColour (juce::Colours::black.withAlpha (0.3f));
-        for (float y = glass.getY(); y < glass.getBottom(); y += 3.0f) g.drawHorizontalLine ((int) y, glass.getX(), glass.getRight());
-        g.restoreState();
-        juce::ColourGradient refl (juce::Colours::white.withAlpha (0.05f), glass.getX(), glass.getY(), juce::Colours::transparentWhite, glass.getX(), glass.getY() + 90, false);
-        g.setGradientFill (refl);
-        g.fillRoundedRectangle (glass.reduced (4.0f), 8.0f);
+        auto lab = juce::Rectangle<float> (170.0f, 20.0f).withCentre ({ (float) knobsArea.getCentreX(), (float) H - 21.0f });
+        g.setColour (juce::Colours::black.withAlpha (0.18f));
+        g.fillRoundedRectangle (lab.translated (0, 1.0f), 2.5f);
+        juce::ColourGradient sil (juce::Colour (0xffe9e9ea), lab.getX(), lab.getY(), juce::Colour (0xffb9babd), lab.getRight(), lab.getBottom(), false);
+        sil.addColour (0.5, juce::Colour (0xfff7f7f8));
+        g.setGradientFill (sil);
+        g.fillRoundedRectangle (lab, 2.5f);
+        g.setColour (juce::Colour (0xff8d8e92));
+        g.drawRoundedRectangle (lab.reduced (2.0f), 1.5f, 0.6f);
+        // bandera chiquita
+        auto fl = juce::Rectangle<float> (15.0f, 10.0f).withPosition (lab.getX() + 7.0f, lab.getCentreY() - 5.0f);
+        g.setColour (juce::Colour (0xff74acdf));
+        g.fillRect (fl);
+        g.setColour (juce::Colours::white);
+        g.fillRect (fl.withTrimmedTop (fl.getHeight() / 3.0f).withHeight (fl.getHeight() / 3.0f));
+        g.setColour (juce::Colour (0xfff6b40e));
+        g.fillEllipse (juce::Rectangle<float> (2.6f, 2.6f).withCentre (fl.getCentre()));
+        g.setColour (juce::Colour (0xff2b2c30));
+        g.setFont (look.pixel (8.0f));
+        g.drawText ("INDUSTRIA ARGENTINA", lab.withTrimmedLeft (28.0f).toNearestInt(), juce::Justification::centredLeft);
     }
-    drawLed (g, { (float) R - 6.0f, (float) keySlot.getY() + 8.0f }, 5.0f);
+
+    // ---- boton de encendido y luz azul
+    {
+        auto pw = juce::Rectangle<float> (30.0f, 11.0f).withPosition ((float) prevButton.getX(), (float) keySlot.getY() - 2.0f);
+        g.setColour (juce::Colour (0xffa9a59d));
+        g.drawRoundedRectangle (pw, 5.5f, 1.2f);
+        g.setColour (ink);
+        g.drawText ("POWER", pw.toNearestInt().translated (36, 0).withWidth (60), juce::Justification::centredLeft);
+        drawLed (g, { (float) R - 6.0f, pw.getCentreY() }, 2.5f);
+    }
 }
 
 void TMUEditor::paint (juce::Graphics& g)
@@ -631,22 +785,21 @@ void TMUEditor::paint (juce::Graphics& g)
     const auto info = proc.getLoadedInfo();
     auto gi = glass.toNearestInt().reduced (18, 10);
     g.setFont (look.pixel (13.0f));
-    glowText (g, "BUSCAR>", gi.withHeight (28).withWidth (110), juce::Justification::centredLeft, violetHi);
+    glowText (g, "BUSCAR>", gi.withHeight (28).withWidth (110), juce::Justification::centredLeft, scrHi);
     juce::String status;
     if (proc.library->isScanning()) status = "CARGANDO...";
     else if (entries != nullptr) status = juce::String (filtered.size()) + "/" + juce::String (groups.empty() ? (int) entries->size() : groups[0].count);
     g.setFont (look.pixel (11.0f));
     glowText (g, status, gi.withHeight (28).withTrimmedLeft (gi.getWidth() - 220), juce::Justification::centredRight, screenTxt);
 
-    g.setColour (violet.withAlpha (0.45f));
-    for (int x = gi.getX(); x < gi.getRight(); x += 6) g.fillRect (x, gi.getY() + 34, 3, 2);
-    for (int x = gi.getX(); x < gi.getRight(); x += 6) g.fillRect (x, miniLcdArea.getY() - 6, 3, 2);
-    for (int y = gi.getY() + 42; y < miniLcdArea.getY() - 10; y += 6) g.fillRect (groupList.getRight() + 6, y, 2, 3);
+    g.setColour (juce::Colours::white.withAlpha (0.18f));
+    g.fillRect (gi.getX(), gi.getY() + 34, gi.getWidth(), 1);
+    g.fillRect (groupList.getRight() + 6, gi.getY() + 42, 1, presetList.getHeight());
 
     if (entries != nullptr && entries->empty() && ! proc.library->isScanning())
     {
         g.setFont (look.pixel (12.0f));
-        glowText (g, "NO HAY SOUNDFONTS", presetList.getBounds().withHeight (30).translated (0, 40), juce::Justification::centred, violetHi);
+        glowText (g, "NO HAY SOUNDFONTS", presetList.getBounds().withHeight (30).translated (0, 40), juce::Justification::centred, scrHi);
         g.setFont (look.pixel (8.0f));
         glowText (g, "Pone .sf2 en Musica/TMU SoundFonts y toca RESCAN", presetList.getBounds().withHeight (20).translated (0, 76), juce::Justification::centred, screenTxt);
     }
@@ -665,15 +818,15 @@ void TMUEditor::paint (juce::Graphics& g)
         auto vr = topRow.removeFromLeft (150);
         glowText (g, "VEL " + juce::String (lv).paddedLeft ('0', 3), vr.removeFromLeft (52), juce::Justification::centredLeft, screenTxt, 0.0f);
         auto bar = vr.withSizeKeepingCentre (vr.getWidth() - 8, 4).toFloat();
-        g.setColour (violet.withAlpha (0.25f));
+        g.setColour (juce::Colours::white.withAlpha (0.15f));
         g.fillRect (bar);
-        g.setColour (violetHi);
+        g.setColour (selBlue.brighter (0.3f));
         g.fillRect (bar.withWidth (bar.getWidth() * (float) lv / 127.0f));
     }
     if (info.name.isNotEmpty() && ! info.loading)
     {
         const int st = prefs->getStars (PresetEntry::makeKey (juce::File (info.file).getFileName(), info.phdrIndex, info.name));
-        drawStars (g, topRow.removeFromRight (44), st, violetHi, violetHi.withAlpha (0.15f), 5.0f);
+        drawStars (g, topRow.removeFromRight (44), st, starGold, scrHi.withAlpha (0.18f), 5.0f);
         topRow.removeFromRight (8);
         glowText (g, juce::String (tmu::categoryName (info.category)).toUpperCase() + " / " + info.source.toUpperCase(), topRow,
                   juce::Justification::centredRight, screenTxt.withAlpha (0.8f), 0.0f);
@@ -683,12 +836,12 @@ void TMUEditor::paint (juce::Graphics& g)
     g.setColour (screenDim.brighter (0.5f));
     g.drawText ("? = AYUDA", nameRow.removeFromRight (90), juce::Justification::centredRight);
     g.setFont (look.pixel (16.0f));
-    glowText (g, info.name.isNotEmpty() ? info.name.toUpperCase() : juce::String ("---"), nameRow, juce::Justification::centredLeft, violetHi, 0.22f);
+    glowText (g, info.name.isNotEmpty() ? info.name.toUpperCase() : juce::String ("---"), nameRow, juce::Justification::centredLeft, scrHi, 0.0f);
 
     // ---- transporte y CC asignados
     const int tr = (int) transpose.getValue();
     g.setFont (look.pixel (8.0f));
-    g.setColour (lavender.withAlpha (0.8f));
+    g.setColour (ink);
     g.drawText ("ST " + juce::String (tr > 0 ? "+" : "") + juce::String (tr), trArea.withY (trArea.getBottom() + 6).withHeight (10).expanded (20, 0), juce::Justification::centred);
     const auto learning = proc.getLearningParam();
     for (auto* k : allKnobs())
@@ -696,7 +849,7 @@ void TMUEditor::paint (juce::Graphics& g)
         const int cc = proc.getAssignedCC (k->paramId);
         const bool isLearning = learning == k->paramId;
         if (cc < 0 && ! isLearning) continue;
-        g.setColour (isLearning ? violetHi : lavender.withAlpha (0.6f));
+        g.setColour (isLearning ? fnBlue.darker (0.2f) : ink.withAlpha (0.75f));
         g.drawText (isLearning ? juce::String ("MOVE...") : "CC" + juce::String (cc), k->getBounds().withY (k->getY() - 14).withHeight (10).expanded (20, 0),
                     juce::Justification::centred);
     }
@@ -705,11 +858,11 @@ void TMUEditor::paint (juce::Graphics& g)
 void TMUEditor::resized()
 {
     // Grilla: todo arranca en x = M y termina en x = R; 24 px entre bloques.
-    lcdArea = { M, HEADER + 30, R - M, 340 };
+    lcdArea = { M - 14, HEADER + 2, R - M + 28, 352 };   // la pantalla (vidrio = lcdArea.reduced (14))
     auto glass = lcdArea.reduced (14).reduced (18, 10);
     miniLcdArea = { glass.getX(), glass.getBottom() - 36, glass.getWidth(), 36 };
 
-    const int rowTop = lcdArea.getBottom() + 24;
+    const int rowTop = DECK + 24;
     keySlot = { M, rowTop, 420, 126 };
 
     // columna derecha (POWER, < >, RESCAN, CARPETA), alineada al borde derecho
@@ -737,7 +890,7 @@ void TMUEditor::resized()
 
     // botones de la franja violeta: mismo ancho, mismo espacio, centrados en la franja y alineados a la derecha
     int x = R;
-    const int bh = 32, by = (HEADER - bh) / 2;
+    const int bh = 30, by = (HEADER - bh) / 2;
     for (auto* b : { &helpButton, &favButton, &dupButton, &viewAZ, &viewSource, &viewType })
     {
         const int bw = b == &helpButton ? bh : 80;
@@ -1007,16 +1160,18 @@ void TMUEditor::GroupModel::paintListBoxItem (int row, juce::Graphics& g, int w,
     auto r = juce::Rectangle<int> (0, 0, w, h).reduced (2, 1);
     if (selected)
     {
-        g.setColour (violet.withAlpha (0.3f));
-        g.fillRect (r);
+        g.setColour (selBlue.withAlpha (0.32f));
+        g.fillRoundedRectangle (r.toFloat(), 2.0f);
+        g.setColour (selBlue.withAlpha (0.8f));
+        g.drawRoundedRectangle (r.toFloat().reduced (0.5f), 2.0f, 1.0f);
     }
     r.removeFromLeft (6);
-    const auto col = selected ? violetHi : screenTxt.withAlpha (0.75f);
+    const auto col = selected ? scrHi : screenTxt.withAlpha (0.85f);
     g.setFont (ed.look.pixel (10.0f));
-    glowText (g, selected ? ">" : "", r.removeFromLeft (16), juce::Justification::centredLeft, violetHi);
+    glowText (g, selected ? ">" : "", r.removeFromLeft (16), juce::Justification::centredLeft, scrHi);
     if (gr.key == "fav")
     {
-        g.setColour (col);
+        g.setColour (starGold);
         g.fillPath (starPath ({ (float) r.getX() + 6.0f, (float) r.getCentreY() }, 6.0f));
         r.removeFromLeft (16);
     }
@@ -1026,7 +1181,7 @@ void TMUEditor::GroupModel::paintListBoxItem (int row, juce::Graphics& g, int w,
         g.drawText (juce::String (gr.count), r.removeFromRight (52).withTrimmedRight (4), juce::Justification::centredRight);
     }
     glowText (g, gr.label.toUpperCase().replace (juce::String (juce::CharPointer_UTF8 ("\xe2\x98\x85 ")), ""), r,
-              juce::Justification::centredLeft, col, selected ? 0.2f : 0.0f);
+              juce::Justification::centredLeft, col, 0.0f);
 }
 
 void TMUEditor::PresetModel::paintListBoxItem (int row, juce::Graphics& g, int w, int h, bool selected)
@@ -1036,10 +1191,15 @@ void TMUEditor::PresetModel::paintListBoxItem (int row, juce::Graphics& g, int w
     const bool isLoaded = e.phdrIndex == ed.lastInfo.phdrIndex && e.file == ed.lastInfo.file;
 
     auto r = juce::Rectangle<int> (0, 0, w, h).reduced (2, 1);
-    if (isLoaded)      { g.setColour (violet.withAlpha (0.35f)); g.fillRect (r); }
-    else if (selected) { g.setColour (violet.withAlpha (0.15f)); g.fillRect (r); }
+    if (isLoaded || selected)   // seleccion estilo escritorio
+    {
+        g.setColour (selBlue.withAlpha (isLoaded ? 0.38f : 0.16f));
+        g.fillRoundedRectangle (r.toFloat(), 2.0f);
+        g.setColour (selBlue.withAlpha (isLoaded ? 0.85f : 0.45f));
+        g.drawRoundedRectangle (r.toFloat().reduced (0.5f), 2.0f, 1.0f);
+    }
     r.removeFromLeft (6);
-    if (isLoaded) { g.setColour (violetHi); g.fillRect (r.removeFromLeft (8).withSizeKeepingCentre (6, 6)); }
+    if (isLoaded) { g.setColour (scrHi); g.fillRect (r.removeFromLeft (8).withSizeKeepingCentre (6, 6)); }
     else r.removeFromLeft (8);
     r.removeFromLeft (8);
 
@@ -1052,10 +1212,10 @@ void TMUEditor::PresetModel::paintListBoxItem (int row, juce::Graphics& g, int w
         g.drawText (right.toUpperCase(), r.removeFromRight (juce::jmin (230, w / 2)).withTrimmedRight (6), juce::Justification::centredRight, true);
     }
     const int st = ed.prefs->getStars (e.key);
-    drawStars (g, starsArea (w, h), st, violetHi, violetHi.withAlpha (selected || isLoaded ? 0.25f : 0.1f));
+    drawStars (g, starsArea (w, h), st, starGold, juce::Colours::white.withAlpha (selected || isLoaded ? 0.28f : 0.13f));
     r.setRight (starsArea (w, h).getX() - 6);
     g.setFont (ed.look.pixel (10.0f));
-    glowText (g, e.name.toUpperCase(), r, juce::Justification::centredLeft, textCol, isLoaded ? 0.25f : 0.0f);
+    glowText (g, e.name.toUpperCase(), r, juce::Justification::centredLeft, textCol, 0.0f);
 }
 
 void TMUEditor::GroupModel::selectedRowsChanged (int row)

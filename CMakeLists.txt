@@ -12,7 +12,7 @@ FetchContent_Declare(JUCE
 FetchContent_MakeAvailable(JUCE)
 
 juce_add_plugin(TMU
-    COMPANY_NAME "viszeversa"
+    COMPANY_NAME "Viszeversza"
     PRODUCT_NAME "TMU"
     BUNDLE_ID com.viszeversa.tmu
     PLUGIN_MANUFACTURER_CODE Vszv

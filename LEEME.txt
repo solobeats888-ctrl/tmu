@@ -1,4 +1,4 @@
-TMU - Sound Font Player (viszeversa)
+TMU - Sound Font Player (Viszeversza)
 ====================================
 
 INSTALAR
@@ -15,7 +15,7 @@ INSTALAR
    copia ahi tus .sf2 (pueden ir en subcarpetas) y toca RESCAN.
 
 
-CONTROLES (la interfaz es una consola de cartucho)
+CONTROLES (la interfaz es una netbook: tapa negra, pantalla azul y teclado blanco)
 - La primera vez que abris TMU aparece un tutorial. Para verlo de nuevo, toca "?" (arriba a la derecha).
 - Botones de la franja violeta: TIPO, SF2 (por soundfont), A-Z, SIN REP (oculta repetidos),
   FAV (estrellas del sonido elegido) y ? (tutorial).

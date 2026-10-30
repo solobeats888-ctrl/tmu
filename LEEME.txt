@@ -1,6 +1,13 @@
 TMU - Sound Font Player (Viszeversza)
 ====================================
 
+IMPORTANTE: QUE ESTAS COMPRANDO
+TMU es una herramienta para reproducir soundfonts (.sf2). No incluye ni vende soundfonts.
+La gran mayoria de los soundfonts que existen son de otras personas: cada uno pertenece a su
+autor y casi todos se descargan gratis desde sus paginas. Cada usuario carga los suyos y es
+responsable de respetar la licencia de cada soundfont que use.
+
+
 INSTALAR EN MAC
 1. Doble click en TMU-Instalador-Mac.pkg y segui los pasos.
    Si macOS dice que no se puede abrir o que esta danado:

@@ -1,6 +1,9 @@
 # TMU — Sound Font Player · Cómo instalarlo
 
-TMU es solo el plugin: no trae soundfonts. Después de instalarlo cargás los tuyos (.sf2).
+> **Importante: qué estás comprando.** TMU es una herramienta para reproducir soundfonts (.sf2).
+> **No incluye ni vende soundfonts.** La gran mayoría de los soundfonts son de otras personas: cada uno
+> pertenece a su autor y casi todos se descargan gratis desde sus páginas. Vos cargás los tuyos y sos
+> responsable de respetar la licencia de cada soundfont que uses.
 
 ## Mac (Apple Silicon e Intel)
 1. Abrí **TMU-Instalador-Mac.pkg** y seguí los pasos.

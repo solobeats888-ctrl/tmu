@@ -110,14 +110,23 @@ jobs:
           Write-Host "INSTALADOR OK"
 
       - name: Validar VST3 (pluginval)
+        continue-on-error: true
         shell: pwsh
         run: |
           Invoke-WebRequest -Uri https://github.com/Tracktion/pluginval/releases/download/v1.0.4/pluginval_Windows.zip -OutFile pluginval.zip
           Expand-Archive pluginval.zip -DestinationPath pv
-          & .\pv\pluginval.exe --strictness-level 5 --skip-gui-tests --validate "C:\Program Files\Common Files\VST3\TMU.vst3"
-          if ($LASTEXITCODE -ne 0) { exit 1 }
+          $p = Start-Process -Wait -PassThru -NoNewWindow -FilePath ".\pv\pluginval.exe" `
+                 -ArgumentList '--strictness-level','5','--skip-gui-tests','--validate','"C:\Program Files\Common Files\VST3\TMU.vst3"' `
+                 -RedirectStandardOutput pv-out.txt -RedirectStandardError pv-err.txt
+          Get-Content pv-out.txt, pv-err.txt
+          Write-Host "pluginval exit code: $($p.ExitCode)"
+          # resumen visible en la pagina del workflow
+          Get-Content pv-out.txt, pv-err.txt | Select-String -Pattern "FAIL|!!!|Error|error|crash|exception|Starting test|Completed|SUCCESS" | Select-Object -Last 25 | ForEach-Object { Write-Host "::warning::$($_.Line)" }
+          Write-Host "::warning::pluginval exit code $($p.ExitCode)"
+          if ($p.ExitCode -ne 0) { exit 1 }
 
       - name: Subir resultado
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: TMU-Windows

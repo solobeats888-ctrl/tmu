@@ -1,0 +1,15 @@
+<html><body style="font-family:-apple-system,Helvetica;font-size:13px">
+<h2>TMU quedó instalado</h2>
+<ol>
+<li>Abrí FL Studio &gt; <b>Options &gt; Manage plugins &gt; Find installed plugins</b>.</li>
+<li>Cargá <b>TMU</b> como instrumento (generador).</li>
+<li>Tocá <b>CARPETA</b> en el plugin, copiá ahí tus .sf2 y tocá <b>RESCAN</b>.</li>
+</ol>
+<p><b>Si FL no lo ve o la Mac lo bloquea</b>, abrí la app Terminal, pegá esto y apretá Enter (te pide la contraseña de la Mac; no se ve al escribirla):</p>
+<pre style="font-size:11px">sudo xattr -cr "/Library/Audio/Plug-Ins/VST3/TMU.vst3"
+sudo xattr -cr "/Library/Audio/Plug-Ins/Components/TMU.component"
+sudo codesign --force --deep --sign - "/Library/Audio/Plug-Ins/VST3/TMU.vst3"
+sudo codesign --force --deep --sign - "/Library/Audio/Plug-Ins/Components/TMU.component"
+killall -9 AudioComponentRegistrar</pre>
+<p>Después reiniciá FL Studio y volvé a buscar plugins.</p>
+</body></html>

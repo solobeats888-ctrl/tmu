@@ -1,11 +1,11 @@
-name: Build macOS
+name: Build TMU (Mac + Windows)
 
 on:
   push:
   workflow_dispatch:
 
 jobs:
-  build:
+  mac:
     runs-on: macos-14
     timeout-minutes: 60
     steps:
@@ -48,13 +48,15 @@ jobs:
             --version 1.0.0 --install-location /Library/Audio/Plug-Ins/VST3 --scripts installer/scripts-vst3 out/TMU-VST3.pkg
           pkgbuild --root stage/au --component-plist comp-au.plist --identifier com.viszeversa.tmu.au \
             --version 1.0.0 --install-location /Library/Audio/Plug-Ins/Components --scripts installer/scripts-au out/TMU-AU.pkg
-          productbuild --package out/TMU-VST3.pkg --package out/TMU-AU.pkg out/TMU-Instalador.pkg
+          # instalador con pantallas de bienvenida e instrucciones (installer/mac-resources)
+          productbuild --distribution installer/mac-distribution.xml --package-path out --resources installer/mac-resources \
+            out/TMU-Instalador-Mac.pkg
           rm out/TMU-VST3.pkg out/TMU-AU.pkg   # queda un solo instalador (solo el plugin, sin soundfonts)
 
       - name: Prueba del instalador
         run: |
           set -e
-          sudo installer -pkg out/TMU-Instalador.pkg -target / -verboseR
+          sudo installer -pkg out/TMU-Instalador-Mac.pkg -target / -verboseR
           ls -la /Library/Audio/Plug-Ins/VST3/TMU.vst3 /Library/Audio/Plug-Ins/Components/TMU.component
           pkgutil --pkgs | grep viszeversa
           echo "INSTALADOR OK"
@@ -77,4 +79,46 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: TMU-mac
+          path: out/
+
+  windows:
+    runs-on: windows-2022
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compilar (64 bits)
+        run: |
+          cmake -B build -G "Visual Studio 17 2022" -A x64
+          cmake --build build --config Release --target TMU_VST3
+
+      - name: Instalador .exe (Inno Setup)
+        shell: pwsh
+        run: |
+          $iscc = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+          if (-not (Test-Path $iscc)) { choco install innosetup -y --no-progress }
+          & $iscc "/DSourceDir=$PWD\build\TMU_artefacts\Release\VST3\TMU.vst3" "/O$PWD\out" installer\windows\TMU.iss
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+          Get-ChildItem out
+
+      - name: Probar el instalador
+        shell: pwsh
+        run: |
+          Start-Process -Wait -FilePath "out\TMU-Instalador-Windows.exe" -ArgumentList "/VERYSILENT","/SUPPRESSMSGBOXES","/NORESTART"
+          Get-ChildItem -Recurse "C:\Program Files\Common Files\VST3\TMU.vst3" | Select-Object -First 10
+          if (-not (Test-Path "C:\Program Files\Common Files\VST3\TMU.vst3\Contents\x86_64-win\TMU.vst3")) { exit 1 }
+          Write-Host "INSTALADOR OK"
+
+      - name: Validar VST3 (pluginval)
+        shell: pwsh
+        run: |
+          Invoke-WebRequest -Uri https://github.com/Tracktion/pluginval/releases/download/v1.0.4/pluginval_Windows.zip -OutFile pluginval.zip
+          Expand-Archive pluginval.zip -DestinationPath pv
+          & .\pv\pluginval.exe --strictness-level 5 --skip-gui-tests --validate "C:\Program Files\Common Files\VST3\TMU.vst3"
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+
+      - name: Subir resultado
+        uses: actions/upload-artifact@v4
+        with:
+          name: TMU-Windows
           path: out/

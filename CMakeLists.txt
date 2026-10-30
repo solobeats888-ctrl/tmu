@@ -11,6 +11,12 @@ FetchContent_Declare(JUCE
     GIT_SHALLOW TRUE)
 FetchContent_MakeAvailable(JUCE)
 
+if(APPLE)
+    set(TMU_FORMATS AU VST3)
+else()
+    set(TMU_FORMATS VST3)   # Windows: solo VST3
+endif()
+
 juce_add_plugin(TMU
     COMPANY_NAME "Viszeversza"
     PRODUCT_NAME "TMU"
@@ -25,7 +31,7 @@ juce_add_plugin(TMU
     COPY_PLUGIN_AFTER_BUILD FALSE
     VST3_CATEGORIES Instrument Synth Sampler
     AU_MAIN_TYPE kAudioUnitType_MusicDevice
-    FORMATS AU VST3)
+    FORMATS ${TMU_FORMATS})
 
 juce_generate_juce_header(TMU)
 

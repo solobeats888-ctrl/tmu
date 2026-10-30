@@ -1,13 +1,13 @@
 TMU - Sound Font Player (Viszeversza)
 ====================================
 
-INSTALAR
-1. Doble click en TMU-Instalador.pkg y segui los pasos.
+INSTALAR EN MAC
+1. Doble click en TMU-Instalador-Mac.pkg y segui los pasos.
    Si macOS dice que no se puede abrir o que esta danado:
    click derecho sobre el .pkg > Abrir > Abrir.
    Si igual no abre, abri la app Terminal y pega esto (cambia la ruta si el .pkg esta en otro lado):
 
-   xattr -cr ~/Downloads/TMU-Instalador.pkg
+   xattr -cr ~/Downloads/TMU-Instalador-Mac.pkg
 
 2. Abri FL Studio > Options > Manage plugins > Find installed plugins.
    TMU aparece como generador (VST3 y AU).
@@ -15,9 +15,22 @@ INSTALAR
    copia ahi tus .sf2 (pueden ir en subcarpetas) y toca RESCAN.
 
 
+INSTALAR EN WINDOWS (10 u 11, 64 bits)
+1. Cerra FL Studio.
+2. Doble click en TMU-Instalador-Windows.exe.
+   Si aparece "Windows protegio su PC": toca "Mas informacion" y despues "Ejecutar de todas formas".
+   Si pide permiso de administrador, toca "Si".
+3. Segui los pasos. TMU se instala en C:\Program Files\Common Files\VST3\TMU.vst3
+4. Abri FL Studio > Options > Manage plugins > Find plugins (si hace falta, toca "Find more plugins").
+   TMU aparece como generador (VST3).
+5. Toca CARPETA en el plugin (abre Musica\TMU SoundFonts), copia ahi tus .sf2 y toca RESCAN.
+   Si FL no lo encuentra, fijate en Manage plugins que la carpeta C:\Program Files\Common Files\VST3
+   este en la lista de carpetas a buscar.
+
+
 CONTROLES (la interfaz es una netbook: tapa negra, pantalla azul y teclado blanco)
 - La primera vez que abris TMU aparece un tutorial. Para verlo de nuevo, toca "?" (arriba a la derecha).
-- Botones de la franja violeta: TIPO, SF2 (por soundfont), A-Z, SIN REP (oculta repetidos),
+- Botones de arriba: TIPO, SF2 (por soundfont), A-Z, SIN REP (oculta repetidos),
   FAV (estrellas del sonido elegido) y ? (tutorial).
 - Botones < > (debajo de POWER): sonido anterior / siguiente. Tambien con las flechas del teclado.
 - RESCAN vuelve a buscar soundfonts. CARPETA abre Musica/TMU SoundFonts.
@@ -50,7 +63,7 @@ CONTROLES (la interfaz es una netbook: tapa negra, pantalla azul y teclado blanc
   o move la perilla y en FL anda a Tools > Last tweaked > Link to controller.
 
 
-SI FL STUDIO NO VE EL PLUGIN O MAC LO BLOQUEA
+SI FL STUDIO NO VE EL PLUGIN O MAC LO BLOQUEA (solo Mac)
 Abri la app Terminal (Aplicaciones > Utilidades > Terminal), pega estas lineas
 y apreta Enter. Te va a pedir la contrasena de tu Mac (cuando la escribis no se ve, es normal):
 
@@ -64,13 +77,20 @@ Despues cerra y abri FL Studio y volve a tocar Find installed plugins.
 
 
 DONDE QUEDA CADA COSA
-- Plugin VST3:   /Library/Audio/Plug-Ins/VST3/TMU.vst3
-- Plugin AU:     /Library/Audio/Plug-Ins/Components/TMU.component
+Mac
+- Plugin VST3:    /Library/Audio/Plug-Ins/VST3/TMU.vst3
+- Plugin AU:      /Library/Audio/Plug-Ins/Components/TMU.component
 - Tus soundfonts: Musica / TMU SoundFonts (boton CARPETA del plugin, despues RESCAN)
 - Favoritos:      ~/Library/Application Support/TMU/TMU-favoritos.xml
+Windows
+- Plugin VST3:    C:\Program Files\Common Files\VST3\TMU.vst3
+- Tus soundfonts: Musica\TMU SoundFonts (boton CARPETA del plugin, despues RESCAN)
+- Favoritos:      %APPDATA%\TMU\TMU-favoritos.xml
 
 
 DESINSTALAR
+Mac (en Terminal):
 sudo rm -rf "/Library/Audio/Plug-Ins/VST3/TMU.vst3" "/Library/Audio/Plug-Ins/Components/TMU.component"
 sudo pkgutil --forget com.viszeversa.tmu.vst3; sudo pkgutil --forget com.viszeversa.tmu.au
-(Tus soundfonts en Musica / TMU SoundFonts no se tocan.)
+Windows: Configuracion > Aplicaciones > "TMU - Sound Font Player (VST3)" > Desinstalar.
+(En los dos, tus soundfonts en Musica / TMU SoundFonts no se tocan.)

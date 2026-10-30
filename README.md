@@ -1,6 +1,6 @@
 # TMU — Sound Font Player
 
-Instrumento VST3 / AU para FL Studio (Mac) que junta todos tus soundfonts (.sf2) en un solo plugin
+Instrumento VST3 / AU para FL Studio (Mac y Windows) que junta todos tus soundfonts (.sf2) en un solo plugin
 y los organiza **por tipo de sonido**, **por soundfont** o **de la A a la Z**, con buscador.
 
 ## Cómo se usa
@@ -34,12 +34,12 @@ Si el instalador `.pkg` no abre: click derecho > Abrir, o en Terminal `xattr -cr
 Más detalles en `LEEME.txt`.
 
 ## Cómo compilarlo (GitHub Actions)
-1. Subí todo el contenido de esta carpeta a un repositorio nuevo de GitHub.
-   La carpeta `.github` está oculta en el Finder: si subís por el navegador, creá el archivo a mano con
-   **Add file > Create new file**, nombre `.github/workflows/build-mac.yml`, y pegá el contenido de `COPIAR_build-mac.yml.txt`.
-2. En la pestaña **Actions**, abrí "Build macOS" y esperá que termine en verde (~15 min).
-3. Bajá el artifact **TMU-mac**: trae `TMU-Instalador.pkg` (solo el plugin, VST3 + AU).
-   TMU no incluye soundfonts: cada usuario pone los suyos en `Música/TMU SoundFonts`.
+Cada push corre el workflow **Build TMU (Mac + Windows)** (`.github/workflows/build.yml`; copia en `COPIAR_build.yml.txt`).
+- Artifact **TMU-mac**: `TMU-Instalador-Mac.pkg` (VST3 + AU, Apple Silicon + Intel).
+- Artifact **TMU-Windows**: `TMU-Instalador-Windows.exe` (VST3 64 bits, instalador Inno Setup en `installer/windows/TMU.iss`).
+
+TMU no incluye soundfonts: cada usuario pone los suyos en `Música/TMU SoundFonts`.
+Las pantallas del instalador de Mac están en `installer/mac-resources`.
 
 ## Repetidos
 `tools/tmufp.cpp` hace sonar cada preset en 4 notas, calcula una huella del espectro y la compara entre todos.

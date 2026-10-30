@@ -8,10 +8,14 @@
 #include <cstdlib>
 
 #if defined(_WIN32)
+ #include <filesystem>
+ // En Windows fopen no entiende rutas UTF-8 (acentos, ñ, "Pokémon"...): se abre con la ruta ancha
+ static FILE* tmu_open (const std::string& p) { return _wfopen (std::filesystem::u8path (p).c_str(), L"rb"); }
  #define tmu_fseek _fseeki64
  #define tmu_ftell _ftelli64
  typedef long long tmu_off;
 #else
+ static FILE* tmu_open (const std::string& p) { return fopen (p.c_str(), "rb"); }
  #define tmu_fseek fseeko
  #define tmu_ftell ftello
  typedef off_t tmu_off;
@@ -136,7 +140,7 @@ std::string trimName (const uint8_t* p, size_t maxLen)
 bool readPresetList (const std::string& path, std::vector<RawPreset>& out)
 {
     out.clear();
-    FilePtr f (fopen (path.c_str(), "rb"));
+    FilePtr f (tmu_open (path));
     if (! f) return false;
 
     Hydra h;
@@ -471,7 +475,7 @@ std::vector<uint8_t> makeList (const char* type, const std::vector<uint8_t>& bod
 bool extractPreset (const std::string& path, int phdrIndex, std::vector<uint8_t>& outSf2, std::string& error)
 {
     outSf2.clear();
-    FilePtr f (fopen (path.c_str(), "rb"));
+    FilePtr f (tmu_open (path));
     if (! f) { error = "No se pudo abrir el archivo"; return false; }
 
     Hydra h;

@@ -133,10 +133,7 @@ juce::Array<juce::File> PresetLibrary::getSearchFolders()
 {
     juce::Array<juce::File> dirs;
     // TMU es solo la herramienta: no trae soundfonts. Cada uno pone los suyos en Musica/TMU SoundFonts.
-   #if JUCE_MAC
-   #elif JUCE_WINDOWS
-    dirs.add (juce::File::getSpecialLocation (juce::File::commonApplicationDataDirectory).getChildFile ("TMU/SoundFonts"));
-   #else
+   #if ! JUCE_MAC && ! JUCE_WINDOWS
     dirs.add (juce::File::getSpecialLocation (juce::File::userHomeDirectory).getChildFile (".local/share/TMU/SoundFonts"));
    #endif
     dirs.add (getUserFolder());   // ~/Music/TMU SoundFonts: para agregar soundfonts propios

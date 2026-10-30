@@ -8,6 +8,14 @@ autor y casi todos se descargan gratis desde sus paginas. Cada usuario carga los
 responsable de respetar la licencia de cada soundfont que use.
 
 
+DONDE CONSEGUIR SOUNDFONTS GRATIS (boton BAJAR SF2 del plugin)
+- Musical Artifacts: https://musical-artifacts.com/artifacts?formats=sf2
+- Polyphone:         https://www.polyphone.io/en/soundfonts
+- GeneralUser GS:    https://www.schristiancollins.com
+- Guia de MuseScore: https://musescore.org/en/handbook/soundfonts
+Baja el .sf2, toca CARPETA en TMU, copialo ahi y toca RESCAN. Fijate la licencia de cada uno.
+
+
 INSTALAR EN MAC
 1. Doble click en TMU-Instalador-Mac.pkg y segui los pasos.
    Si macOS dice que no se puede abrir o que esta danado:
@@ -37,7 +45,7 @@ INSTALAR EN WINDOWS (10 u 11, 64 bits)
 
 CONTROLES (la interfaz es una netbook: tapa negra, pantalla azul y teclado blanco)
 - La primera vez que abris TMU aparece un tutorial. Para verlo de nuevo, toca "?" (arriba a la derecha).
-- Botones de arriba: TIPO, SF2 (por soundfont), A-Z, SIN REP (oculta repetidos),
+- Botones de arriba: BAJAR SF2 (paginas con soundfonts gratis), TIPO, SF2 (por soundfont), A-Z, SIN REP (oculta repetidos),
   FAV (estrellas del sonido elegido) y ? (tutorial).
 - Botones < > (debajo de POWER): sonido anterior / siguiente. Tambien con las flechas del teclado.
 - RESCAN vuelve a buscar soundfonts. CARPETA abre Musica/TMU SoundFonts.

@@ -139,6 +139,8 @@ private:
     juce::ListBox groupList { "groups", &groupModel }, presetList { "presets", &presetModel };
 
     juce::TextButton viewType { "TIPO" }, viewSource { "SF2" }, viewAZ { "A-Z" }, dupButton { "SIN REP" }, favButton { "FAV" }, helpButton { "?" };
+    juce::TextButton getButton { "BAJAR SF2" };   // lista de paginas con soundfonts gratis
+    void showSoundfontLinks();
     juce::TextEditor search;
     juce::TextButton rescanButton { "RESCAN" }, folderButton { "CARPETA" }, prevButton { "<" }, nextButton { ">" };
     TutorialOverlay tutorial { look };

@@ -399,7 +399,7 @@ TMUEditor::TMUEditor (TMUProcessor& p)
 {
     setLookAndFeel (&look);
 
-    for (auto* b : { &viewType, &viewSource, &viewAZ, &dupButton, &favButton, &helpButton })
+    for (auto* b : { &viewType, &viewSource, &viewAZ, &dupButton, &favButton, &helpButton, &getButton })
     {
         b->getProperties().set ("style", "stripe");
         addAndMakeVisible (b);
@@ -414,6 +414,8 @@ TMUEditor::TMUEditor (TMUProcessor& p)
     viewSource.onClick = [this] { setView ("source"); };
     viewAZ.onClick     = [this] { setView ("az"); };
     helpButton.onClick = [this] { showTutorial(); };
+    getButton.setTooltip ("Donde conseguir soundfonts gratis (paginas de sus autores)");
+    getButton.onClick = [this] { showSoundfontLinks(); };
     favButton.onClick  = [this]
     {
         const int row = presetList.getSelectedRow();
@@ -527,7 +529,7 @@ void TMUEditor::showTutorial()
         { "COMO SE ORDENA",    "TIPO: pianos, bajos, pads...\nSF2: por soundfont.\nA-Z: alfabetico.\nSIN REP: oculta los sonidos repetidos y los que no suenan.", pills },
         { "FAVORITOS",         "Toca FAV (o las teclas 1, 2, 3) para darle estrellas al sonido elegido. Los vas a encontrar en el grupo FAVORITOS de la pantalla.", favButton.getBounds() },
         { "PERILLAS",          "MOD: vibrato y filtro que se mueven estilo Roland (arranca despues de un ratito, tambien con la rueda de tu teclado). RATE: velocidad. FILTRO, ST, SWING (atrasa los 16avos), HUMAN (velocity y tiempo humanos) y VEL (curva de velocity). Click derecho: asignar a tu MIDI.", knobs },
-        { "PROBA Y SUMA MAS",  "Toca el mini piano con el mouse. < > pasan de sonido. CARPETA abre la carpeta para sumar tus .sf2 y RESCAN los carga.", keySlot.getUnion (folderButton.getBounds()) },
+        { "PROBA Y SUMA MAS",  "Toca el mini piano con el mouse. < > pasan de sonido. CARPETA abre la carpeta para sumar tus .sf2 y RESCAN los carga. BAJAR SF2 (arriba) te muestra paginas con soundfonts gratis.", keySlot.getUnion (folderButton.getBounds()) },
         { "LISTO!",            "Si te olvidas de algo, toca ? arriba a la derecha y vuelve este tutorial.", helpButton.getBounds() },
     });
     tutorial.setBounds (getLocalBounds());
@@ -801,7 +803,7 @@ void TMUEditor::paint (juce::Graphics& g)
         g.setFont (look.pixel (12.0f));
         glowText (g, "NO HAY SOUNDFONTS", presetList.getBounds().withHeight (30).translated (0, 40), juce::Justification::centred, scrHi);
         g.setFont (look.pixel (8.0f));
-        glowText (g, "Pone .sf2 en Musica/TMU SoundFonts y toca RESCAN", presetList.getBounds().withHeight (20).translated (0, 76), juce::Justification::centred, screenTxt);
+        glowText (g, "Toca BAJAR SF2 (arriba) o pone tus .sf2 en Musica/TMU SoundFonts y toca RESCAN", presetList.getBounds().withHeight (20).translated (0, 76), juce::Justification::centred, screenTxt);
     }
 
     // ---- sonando (con pista de ayuda)
@@ -891,9 +893,9 @@ void TMUEditor::resized()
     // botones de la franja violeta: mismo ancho, mismo espacio, centrados en la franja y alineados a la derecha
     int x = R;
     const int bh = 30, by = (HEADER - bh) / 2;
-    for (auto* b : { &helpButton, &favButton, &dupButton, &viewAZ, &viewSource, &viewType })
+    for (auto* b : { &helpButton, &favButton, &dupButton, &viewAZ, &viewSource, &viewType, &getButton })
     {
-        const int bw = b == &helpButton ? bh : 80;
+        const int bw = b == &helpButton ? bh : (b == &getButton ? 104 : 80);
         x -= bw;
         b->setBounds (x, by, bw, bh);
         x -= 8;
@@ -994,6 +996,28 @@ void TMUEditor::updateVelButton()
 {
     velButton.setButtonText (velText());
     velButton.setToggleState (velButton.getButtonText() != "NORMAL", juce::dontSendNotification);
+}
+
+void TMUEditor::showSoundfontLinks()
+{
+    // Links a las paginas originales: TMU no incluye ni reparte soundfonts.
+    struct Link { const char* name; const char* url; };
+    static const Link links[] = {
+        { "Musical Artifacts - miles de .sf2 gratis (con su licencia)", "https://musical-artifacts.com/artifacts?formats=sf2" },
+        { "Polyphone - soundfonts gratis por categoria",                "https://www.polyphone.io/en/soundfonts" },
+        { "GeneralUser GS - banco General MIDI completo (S. Christian Collins)", "https://www.schristiancollins.com" },
+        { "MuseScore - lista de soundfonts gratis recomendados",       "https://musescore.org/en/handbook/soundfonts" },
+    };
+    juce::PopupMenu m;
+    m.addSectionHeader ("Soundfonts gratis (se bajan de la pagina de cada autor)");
+    for (auto& l : links)
+        m.addItem (l.name, [u = juce::String (l.url)] { juce::URL (u).launchInDefaultBrowser(); });
+    m.addSeparator();
+    m.addItem ("Abrir mi carpeta TMU SoundFonts", [] { auto f = PresetLibrary::getUserFolder(); f.createDirectory(); f.startAsProcess(); });
+    m.addItem ("Ya los baje: RESCAN", [this] { proc.library->rescan(); });
+    m.addSeparator();
+    m.addItem ("Cada soundfont es de su autor: fijate su licencia antes de usarlo en un tema.", false, false, [] {});
+    m.showMenuAsync (juce::PopupMenu::Options().withTargetComponent (&getButton));
 }
 
 void TMUEditor::showKnobMenu (ParamKnob& knob)

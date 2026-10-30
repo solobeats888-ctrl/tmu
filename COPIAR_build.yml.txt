@@ -120,9 +120,9 @@ jobs:
                  -RedirectStandardOutput pv-out.txt -RedirectStandardError pv-err.txt
           Get-Content pv-out.txt, pv-err.txt
           Write-Host "pluginval exit code: $($p.ExitCode)"
-          # resumen visible en la pagina del workflow
-          Get-Content pv-out.txt, pv-err.txt | Select-String -Pattern "FAIL|!!!|Error|error|crash|exception|Starting test|Completed|SUCCESS" | Select-Object -Last 25 | ForEach-Object { Write-Host "::warning::$($_.Line)" }
+          # resumen visible en la pagina del workflow (GitHub muestra hasta 10 avisos por paso)
           Write-Host "::warning::pluginval exit code $($p.ExitCode)"
+          Get-Content pv-out.txt, pv-err.txt | Select-String -Pattern "FAILED|!!!|crash|exception|ALL TESTS PASSED|SUCCESS" | Select-Object -First 8 | ForEach-Object { Write-Host "::warning::$($_.Line)" }
           if ($p.ExitCode -ne 0) { exit 1 }
 
       - name: Subir resultado

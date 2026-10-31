@@ -59,6 +59,27 @@ private:
     size_t index = 0;
 };
 
+// Activacion: tapa la interfaz hasta que se pone el mail y el numero de serie de la compra
+class LicenseOverlay : public juce::Component
+{
+public:
+    explicit LicenseOverlay (TMULook&);
+    std::function<void()> onActivated;
+    void paint (juce::Graphics&) override;
+    void resized() override;
+private:
+    juce::Rectangle<int> boxArea() const { return getLocalBounds().withSizeKeepingCentre (600, 360); }
+    void tryActivate();
+    void onlineResult (const juce::String& mail, const juce::String& serial, tmulicense::OnlineResult r);
+    bool busy = false;
+    TMULook& look;
+    juce::SharedResourcePointer<tmulicense::State> state;
+    juce::TextEditor emailBox, serialBox;
+    juce::TextButton activateButton { "ACTIVAR" };
+    juce::String message;
+    bool error = false;
+};
+
 // Perilla con click derecho: MIDI learn propio + el menu del host (FL: "Link to controller")
 class ParamKnob : public juce::Slider
 {
@@ -144,6 +165,7 @@ private:
     juce::TextEditor search;
     juce::TextButton rescanButton { "RESCAN" }, folderButton { "CARPETA" }, prevButton { "<" }, nextButton { ">" };
     TutorialOverlay tutorial { look };
+    LicenseOverlay licenseOverlay { look };
     void showTutorial();
     juce::SharedResourcePointer<UserPrefs> prefs;
     int prefsVersion = -1;

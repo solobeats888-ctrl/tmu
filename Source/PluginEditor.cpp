@@ -386,6 +386,132 @@ void TutorialOverlay::mouseUp (const juce::MouseEvent& e)
 }
 
 //==============================================================================
+LicenseOverlay::LicenseOverlay (TMULook& l) : look (l)
+{
+    setInterceptsMouseClicks (true, true);
+    for (auto* ed : { &emailBox, &serialBox })
+    {
+        ed->setFont (look.pixel (12.0f));
+        ed->setIndents (8, 6);
+        ed->setColour (juce::TextEditor::backgroundColourId, winDeep);
+        ed->setColour (juce::TextEditor::textColourId, scrHi);
+        ed->setColour (juce::TextEditor::outlineColourId, winBlue);
+        ed->setColour (juce::TextEditor::focusedOutlineColourId, selBlue);
+        ed->setColour (juce::TextEditor::highlightColourId, winBlue);
+        ed->setColour (juce::CaretComponent::caretColourId, scrHi);
+        ed->setColour (juce::TextEditor::outlineColourId, juce::Colours::transparentBlack);
+        ed->setColour (juce::TextEditor::focusedOutlineColourId, juce::Colours::transparentBlack);
+        ed->onFocusLost = [this] { repaint(); };
+        addAndMakeVisible (*ed);
+    }
+    emailBox.setTextToShowWhenEmpty ("el mail con el que compraste", screenDim);
+    serialBox.setTextToShowWhenEmpty ("pega aca el numero de serie", screenDim);
+    serialBox.setMultiLine (true, true);
+    serialBox.setReturnKeyStartsNewLine (false);
+    emailBox.onReturnKey = serialBox.onReturnKey = [this] { tryActivate(); };
+    activateButton.onClick = [this] { tryActivate(); };
+    addAndMakeVisible (activateButton);
+}
+
+void LicenseOverlay::tryActivate()
+{
+    if (busy) return;
+    const auto mail = emailBox.getText(), serial = serialBox.getText();
+    if (! tmulicense::verify (mail, serial))
+    {
+        error = true;
+        message = "El mail y el serial no coinciden. Revisa que sea el mail de la compra.";
+        repaint();
+        return;
+    }
+
+    busy = true;
+    error = false;
+    message = "Activando... (la primera vez necesita internet)";
+    activateButton.setEnabled (false);
+    repaint();
+
+    juce::Component::SafePointer<LicenseOverlay> safe (this);
+    juce::Thread::launch ([safe, mail, serial]
+    {
+        const auto r = tmulicense::activateOnline (mail, serial);
+        juce::MessageManager::callAsync ([safe, mail, serial, r]
+        {
+            if (auto* self = safe.getComponent())
+                self->onlineResult (mail, serial, r);
+        });
+    });
+}
+
+void LicenseOverlay::onlineResult (const juce::String& mail, const juce::String& serial, tmulicense::OnlineResult r)
+{
+    busy = false;
+    activateButton.setEnabled (true);
+    using R = tmulicense::OnlineResult;
+    if (r == R::ok && state->activate (mail, serial))
+    {
+        error = false;
+        message = {};
+        setVisible (false);
+        if (onActivated) onActivated();
+        return;
+    }
+    error = true;
+    message = r == R::limit    ? "Esta licencia ya se activo en el maximo de compus. Escribime si cambiaste de compu."
+            : r == R::rejected ? "Esta licencia no es valida. Escribime a tmucontacto@gmail.com."
+                               : "No me pude conectar. Revisa tu internet y toca ACTIVAR de nuevo.";
+    repaint();
+}
+
+void LicenseOverlay::resized()
+{
+    auto inner = boxArea().reduced (28, 24);
+    inner.removeFromTop (118);
+    emailBox.setBounds (inner.removeFromTop (34));
+    inner.removeFromTop (12);
+    serialBox.setBounds (inner.removeFromTop (70));
+    inner.removeFromTop (16);
+    activateButton.setBounds (inner.removeFromTop (34).removeFromRight (150));
+}
+
+void LicenseOverlay::paint (juce::Graphics& g)
+{
+    g.fillAll (juce::Colours::black.withAlpha (0.82f));
+    auto box = boxArea();
+    g.setColour (juce::Colour (0xff0a1f55));
+    g.fillRoundedRectangle (box.toFloat(), 14.0f);
+    g.setColour (selBlue);
+    g.drawRoundedRectangle (box.toFloat().reduced (1), 14.0f, 2.0f);
+
+    auto inner = box.reduced (28, 24);
+    g.setFont (look.pixel (18.0f));
+    glowText (g, "ACTIVA TMU", inner.removeFromTop (28), juce::Justification::centredLeft, scrHi);
+    inner.removeFromTop (8);
+    juce::AttributedString as;
+    as.append ("Pone el mail con el que compraste y el numero de serie que te llego. "
+               "Se activa una sola vez en esta compu. Si no lo tenes, escribi a tmucontacto@gmail.com.",
+               look.pixel (10.0f), screenTxt);
+    as.setLineSpacing (5.0f);
+    as.setWordWrap (juce::AttributedString::byWord);
+    juce::TextLayout tl;
+    tl.createLayout (as, (float) inner.getWidth());
+    tl.draw (g, inner.removeFromTop (70).toFloat());
+
+    for (auto* ed : { &emailBox, &serialBox })
+    {
+        g.setColour (winDeep);
+        g.fillRoundedRectangle (ed->getBounds().toFloat().expanded (3), 8.0f);
+        g.setColour (ed->hasKeyboardFocus (true) ? selBlue : winBlue);
+        g.drawRoundedRectangle (ed->getBounds().toFloat().expanded (3), 8.0f, 1.5f);
+    }
+
+    auto msgArea = juce::Rectangle<int> (box.getX() + 28, activateButton.getY(), activateButton.getX() - box.getX() - 40, activateButton.getHeight());
+    g.setFont (look.pixel (9.0f));
+    g.setColour (error ? juce::Colour (0xffff6b8a) : screenDim.brighter (0.5f));
+    g.drawFittedText (message.isNotEmpty() ? message : juce::String ("viszeversza.shop"), msgArea, juce::Justification::centredLeft, 2);
+}
+
+//==============================================================================
 TMUEditor::TMUEditor (TMUProcessor& p)
     : juce::AudioProcessorEditor (&p), proc (p),
       volumeAtt (p.params, "volume", volume),
@@ -502,6 +628,8 @@ TMUEditor::TMUEditor (TMUProcessor& p)
     addAndMakeVisible (keyboard);
 
     addChildComponent (tutorial);
+    addChildComponent (licenseOverlay);
+    licenseOverlay.onActivated = [this] { if (! prefs->getTutorialSeen()) showTutorial(); };
     tutorial.onFinished = [this] { prefs->setTutorialSeen (true); prefsVersion = prefs->getVersion(); };
 
     setSize (W, H);
@@ -510,7 +638,12 @@ TMUEditor::TMUEditor (TMUProcessor& p)
     setView (proc.uiView.isEmpty() ? juce::String ("type") : proc.uiView);
     startTimerHz (15);
 
-    if (! prefs->getTutorialSeen())
+    if (! proc.license->isActive())
+    {
+        licenseOverlay.setVisible (true);
+        licenseOverlay.toFront (true);
+    }
+    else if (! prefs->getTutorialSeen())
         showTutorial();
 }
 
@@ -533,6 +666,7 @@ void TMUEditor::showTutorial()
         { "LISTO!",            "Si te olvidas de algo, toca ? arriba a la derecha y vuelve este tutorial.", helpButton.getBounds() },
     });
     tutorial.setBounds (getLocalBounds());
+    licenseOverlay.setBounds (getLocalBounds());
 }
 
 //==============================================================================
@@ -921,6 +1055,7 @@ void TMUEditor::resized()
     keyboard.setKeyWidth ((float) keySlot.getWidth() / 22.0f);   // C4..C7 = 22 teclas blancas
 
     tutorial.setBounds (getLocalBounds());
+    licenseOverlay.setBounds (getLocalBounds());
     chassis = {};   // se vuelve a dibujar en el proximo paint
 }
 

@@ -340,6 +340,9 @@ void TMUProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuf
             lowCut.process (ctx);
         }
     }
+
+    if (! license->isActive())   // TMU sin activar: no suena hasta poner el serial
+        buffer.clear();
 }
 
 //==============================================================================

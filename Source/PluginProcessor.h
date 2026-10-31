@@ -2,6 +2,7 @@
 #include <JuceHeader.h>
 #include <juce_dsp/juce_dsp.h>
 #include "Library.h"
+#include "License.h"
 
 struct tsf;
 
@@ -61,6 +62,8 @@ public:
 
     // estado de la interfaz (se guarda con el proyecto)
     juce::String uiView { "type" }, uiGroup, uiSearch;
+
+    juce::SharedResourcePointer<tmulicense::State> license;   // sin licencia: no suena
 
 private:
     void run() override;   // hilo de carga

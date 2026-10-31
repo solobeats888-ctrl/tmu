@@ -52,5 +52,5 @@ target_compile_definitions(TMU PUBLIC
     JUCE_VST3_CAN_REPLACE_VST2=0)
 
 target_link_libraries(TMU
-    PRIVATE TMUData juce::juce_audio_utils juce::juce_dsp
+    PRIVATE TMUData juce::juce_audio_utils juce::juce_dsp juce::juce_cryptography
     PUBLIC juce::juce_recommended_config_flags juce::juce_recommended_lto_flags juce::juce_recommended_warning_flags)

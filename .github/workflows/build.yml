@@ -1,7 +1,7 @@
 name: Build TMU (Mac + Windows)
 
+# Solo compila cuando tocás "Run workflow" en la pestaña Actions (para no gastar minutos)
 on:
-  push:
   workflow_dispatch:
 
 jobs:

@@ -1,0 +1,38 @@
+name: Publicar instaladores (sin compilar)
+
+# Toma los instaladores de un build que ya terminó y los publica en Releases.
+# No compila de nuevo, así que casi no gasta minutos.
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "Número del build (Actions > el build en verde > número en la dirección)"
+        required: true
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ github.token }}
+          path: dist
+
+      - name: Armar zips y publicar
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          ls -R dist
+          mkdir -p rel
+          for d in dist/*/; do n=$(basename "$d"); (cd dist && zip -qr "../rel/$n.zip" "$n"); done
+          ls -la rel
+          TAG="build-${{ inputs.run_id }}"
+          gh release delete "$TAG" -R "$GITHUB_REPOSITORY" -y --cleanup-tag 2>/dev/null || true
+          gh release create "$TAG" rel/*.zip -R "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
+            --title "Instaladores (build ${{ inputs.run_id }})" --notes "Instaladores del build ${{ inputs.run_id }}." --prerelease

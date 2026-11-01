@@ -15,6 +15,11 @@ TMUProcessor::TMUProcessor()
     swingParam = params.getRawParameterValue ("swing");
     humanParam = params.getRawParameterValue ("humanize");
     velCurveParam = params.getRawParameterValue ("velcurve");
+    for (int k = 0; k < numLayers; ++k)
+    {
+        layers[(size_t) k].onParam = params.getRawParameterValue (layerOnId (k));
+        layers[(size_t) k].volParam = params.getRawParameterValue (layerVolId (k));
+    }
     scheduled.reserve (1024);
     due.reserve (1024);
     for (auto& m : ccMap) m = -1;
@@ -34,7 +39,8 @@ TMUProcessor::~TMUProcessor()
     signalThreadShouldExit();
     notify();
     stopThread (5000);
-    if (synth != nullptr) tsf_close (synth);
+    for (auto& L : layers)
+        if (L.synth != nullptr) { tsf_close (L.synth); L.synth = nullptr; }
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout TMUProcessor::createLayout()
@@ -76,6 +82,16 @@ juce::AudioProcessorValueTreeState::ParameterLayout TMUProcessor::createLayout()
                         .withStringFromValueFunction ([] (float v, int) { return juce::String (juce::roundToInt (v * 100.0f)) + " %"; })));
     layout.add (std::make_unique<juce::AudioParameterChoice> (juce::ParameterID { "velcurve", 1 }, "Velocity",
                     juce::StringArray { "Suave", "Normal", "Dura", "Fija" }, 1));
+    // Capas: ON y volumen de cada una (version 2 = parametros agregados en la primera actualizacion)
+    for (int k = 0; k < numLayers; ++k)
+    {
+        layout.add (std::make_unique<juce::AudioParameterBool> (juce::ParameterID { layerOnId (k), 2 },
+                        "Layer " + juce::String (k + 1) + " On", true));
+        layout.add (std::make_unique<juce::AudioParameterFloat> (juce::ParameterID { layerVolId (k), 2 },
+                        "Layer " + juce::String (k + 1) + " Volume",
+                        juce::NormalisableRange<float> (-36.0f, 12.0f, 0.1f), 0.0f,
+                        juce::AudioParameterFloatAttributes().withLabel ("dB")));
+    }
     return layout;
 }
 
@@ -85,10 +101,24 @@ bool TMUProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
     return out == juce::AudioChannelSet::stereo() || out == juce::AudioChannelSet::mono();
 }
 
+// ganancia que tiene que tener una capa: 0 si esta apagada o con el volumen al piso
+static float layerTarget (const std::atomic<float>* on, const std::atomic<float>* vol)
+{
+    if (on == nullptr || vol == nullptr || on->load() < 0.5f) return 0.0f;
+    const float db = vol->load();
+    return db <= -35.9f ? 0.0f : juce::Decibels::decibelsToGain (db);
+}
+
 void TMUProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     currentSampleRate = sampleRate;
     renderBuffer.assign ((size_t) juce::jmax (512, samplesPerBlock) * 2, 0.0f);
+    layerBuffer.assign (renderBuffer.size(), 0.0f);
+    for (auto& L : layers)
+    {
+        L.gain.reset (sampleRate, 0.03);
+        L.gain.setCurrentAndTargetValue (layerTarget (L.onParam, L.volParam));
+    }
     gainSmoothed.reset (sampleRate, 0.03);
     gainSmoothed.setCurrentAndTargetValue (juce::Decibels::decibelsToGain (volumeParam->load(), -36.0f));
 
@@ -108,11 +138,12 @@ void TMUProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
     notesHeld = 0;
 
     const juce::SpinLock::ScopedLockType sl (synthLock);
-    if (synth != nullptr)
-    {
-        tsf_set_output (synth, TSF_STEREO_INTERLEAVED, (int) sampleRate, 0.0f);
-        tsf_reset (synth);
-    }
+    for (auto& L : layers)
+        if (L.synth != nullptr)
+        {
+            tsf_set_output (L.synth, TSF_STEREO_INTERLEAVED, (int) sampleRate, 0.0f);
+            tsf_reset (L.synth);
+        }
 }
 
 void TMUProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midi)
@@ -213,12 +244,25 @@ void TMUProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuf
     std::stable_sort (due.begin(), due.end(), [] (const Event& a, const Event& b) { return a.time < b.time; });
 
     const juce::SpinLock::ScopedTryLockType sl (synthLock);
-    if (! sl.isLocked() || synth == nullptr)
+    if (! sl.isLocked())
         return;
+
+    bool anySynth = false, anyVoices = false;
+    for (auto& L : layers)
+        if (L.synth != nullptr)
+        {
+            anySynth = true;
+            if (tsf_active_voice_count (L.synth) > 0) anyVoices = true;
+        }
+    if (! anySynth)
+        return;
+    if (renderBuffer.size() < 2 || layerBuffer.size() < renderBuffer.size())
+        return;   // prepareToPlay todavia no corrio
 
     if (transpose != lastTranspose)
     {
-        tsf_channel_note_off_all (synth, 0);
+        for (auto& L : layers)
+            if (L.synth != nullptr) tsf_channel_note_off_all (L.synth, 0);
         lastTranspose = transpose;
         notesHeld = 0;
     }
@@ -226,10 +270,15 @@ void TMUProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuf
     // Sin notas sonando ni eventos: no hay nada que calcular (asi 10 TMU quietos no gastan CPU)
     filterSmoothed.setTargetValue (filterParam->load());
     modSmoothed.setTargetValue (juce::jmax (modParam->load(), modWheel.load()));
-    if (due.empty() && tsf_active_voice_count (synth) == 0 && ! filterSmoothed.isSmoothing())
+    if (due.empty() && ! anyVoices && ! filterSmoothed.isSmoothing())
     {
         gainSmoothed.skip (numSamples);
         modSmoothed.skip (numSamples);
+        for (auto& L : layers)
+        {
+            L.gain.setTargetValue (layerTarget (L.onParam, L.volParam));
+            L.gain.skip (numSamples);
+        }
         if (! wasSilent) { lowCut.reset(); highCut.reset(); modFilter.reset(); wasSilent = true; }
         return;
     }
@@ -259,10 +308,40 @@ void TMUProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuf
                 lfoPhase = std::fmod (lfoPhase + lfoInc * span, juce::MathConstants<double>::twoPi);
             }
             const float amount = depth * fade;
-            tsf_channel_set_tuning (synth, 0, amount > 0.0005f ? 0.5f * amount * lfo : 0.0f);
+            const float tuning = amount > 0.0005f ? 0.5f * amount * lfo : 0.0f;
 
             const int chunk = juce::jmin (span, (int) renderBuffer.size() / 2);
-            tsf_render_float (synth, renderBuffer.data(), chunk, 0);
+
+            // capas: cada una se calcula aparte y se suma con su volumen (una capa sin notas no gasta nada)
+            bool wrote = false;
+            for (auto& L : layers)
+            {
+                if (L.synth == nullptr) continue;
+                L.gain.setTargetValue (layerTarget (L.onParam, L.volParam));
+                if (tsf_active_voice_count (L.synth) == 0) { L.gain.skip (chunk); continue; }
+
+                const float g0 = L.gain.getCurrentValue();
+                const float g1 = L.gain.skip (chunk);
+                const float inc = (g1 - g0) / (float) chunk;
+                tsf_channel_set_tuning (L.synth, 0, tuning);
+                if (! wrote)
+                {
+                    tsf_render_float (L.synth, renderBuffer.data(), chunk, 0);
+                    if (g0 != 1.0f || g1 != 1.0f)
+                        for (int i = 0; i < chunk * 2; ++i)
+                            renderBuffer[(size_t) i] *= g0 + inc * (float) (i / 2);
+                    wrote = true;
+                }
+                else
+                {
+                    tsf_render_float (L.synth, layerBuffer.data(), chunk, 0);
+                    for (int i = 0; i < chunk * 2; ++i)
+                        renderBuffer[(size_t) i] += layerBuffer[(size_t) i] * (g0 + inc * (float) (i / 2));
+                }
+            }
+            if (! wrote)
+                std::fill (renderBuffer.begin(), renderBuffer.begin() + chunk * 2, 0.0f);
+
             for (int i = 0; i < chunk; ++i)
             {
                 const float g = gainSmoothed.getNextValue();
@@ -302,23 +381,34 @@ void TMUProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuf
             ++noteCounter;
             // TinySoundFont responde a la velocity en forma lineal (casi no se nota la diferencia).
             // Al cuadrado se parece a la respuesta de un sampler / rompler: tocar suave suena de verdad mas suave.
-            tsf_channel_note_on (synth, 0, key, e.vel * e.vel);
+            // las capas apagadas no reciben notas nuevas (pero si los note off, para que no queden colgadas)
+            for (auto& L : layers)
+                if (L.synth != nullptr && L.onParam->load() >= 0.5f)
+                    tsf_channel_note_on (L.synth, 0, key, e.vel * e.vel);
         }
         else if (type == 0x80 || (type == 0x90 && e.d2 == 0))
         {
             notesHeld = juce::jmax (0, notesHeld - 1);
-            tsf_channel_note_off (synth, 0, noteMap[(size_t) e.d1]);
+            for (auto& L : layers)
+                if (L.synth != nullptr) tsf_channel_note_off (L.synth, 0, noteMap[(size_t) e.d1]);
         }
         else if (type == 0xE0)
         {
-            tsf_channel_set_pitchwheel (synth, 0, (int) e.d1 | ((int) e.d2 << 7));
+            for (auto& L : layers)
+                if (L.synth != nullptr) tsf_channel_set_pitchwheel (L.synth, 0, (int) e.d1 | ((int) e.d2 << 7));
         }
         else if (type == 0xB0)
         {
             const int cc = e.d1;
-            if (cc == 123 || cc == 120) { tsf_channel_note_off_all (synth, 0); notesHeld = 0; }
+            if (cc == 123 || cc == 120)
+            {
+                for (auto& L : layers)
+                    if (L.synth != nullptr) tsf_channel_note_off_all (L.synth, 0);
+                notesHeld = 0;
+            }
             else if (cc != 1 && cc != 6 && cc != 38 && cc != 100 && cc != 101 && ccMap[(size_t) cc].load() < 0)
-                tsf_channel_midi_control (synth, 0, cc, e.d2);
+                for (auto& L : layers)
+                    if (L.synth != nullptr) tsf_channel_midi_control (L.synth, 0, cc, e.d2);
         }
     }
     if (pos < numSamples) render (pos, numSamples - pos);
@@ -392,21 +482,45 @@ juce::String TMUProcessor::getLearningParam() const
 }
 
 //==============================================================================
-void TMUProcessor::loadPreset (const PresetEntry& e)
+void TMUProcessor::loadPreset (const PresetEntry& e, int layer)
 {
+    const int k = layer < 0 ? getActiveLayer() : juce::jlimit (0, numLayers - 1, layer);
     {
         const juce::ScopedLock sl (infoLock);
-        pending = e;
-        hasPending = true;
-        loaded.loading = true;
+        auto& L = layers[(size_t) k];
+        L.pending = e;
+        L.hasPending = true;
+        L.requested = e;
+        L.hasRequested = true;
+        L.info.loading = true;
     }
     notify();
 }
 
-TMUProcessor::LoadedInfo TMUProcessor::getLoadedInfo() const
+void TMUProcessor::clearLayer (int layer)
+{
+    if (layer < 0 || layer >= numLayers) return;
+    tsf* old = nullptr;
+    {
+        const juce::SpinLock::ScopedLockType sl (synthLock);
+        old = layers[(size_t) layer].synth;
+        layers[(size_t) layer].synth = nullptr;
+    }
+    if (old != nullptr) tsf_close (old);
+
+    const juce::ScopedLock sl (infoLock);
+    auto& L = layers[(size_t) layer];
+    L.info = {};
+    L.pending = {};
+    L.requested = {};
+    L.hasPending = false;
+    L.hasRequested = false;
+}
+
+TMUProcessor::LoadedInfo TMUProcessor::getLoadedInfo (int layer) const
 {
     const juce::ScopedLock sl (infoLock);
-    return loaded;
+    return layers[(size_t) juce::jlimit (0, numLayers - 1, layer)].info;
 }
 
 void TMUProcessor::run()
@@ -414,13 +528,20 @@ void TMUProcessor::run()
     while (! threadShouldExit())
     {
         PresetEntry job;
+        int k = -1;
         {
             const juce::ScopedLock sl (infoLock);
-            if (hasPending) { job = pending; hasPending = false; }
-            else job.phdrIndex = -1;
+            for (int i = 0; i < numLayers; ++i)
+                if (layers[(size_t) i].hasPending)
+                {
+                    k = i;
+                    job = layers[(size_t) i].pending;
+                    layers[(size_t) i].hasPending = false;
+                    break;
+                }
         }
 
-        if (job.phdrIndex < 0) { wait (-1); continue; }
+        if (k < 0) { wait (-1); continue; }
 
         std::vector<uint8_t> sf2;
         std::string err;
@@ -437,48 +558,50 @@ void TMUProcessor::run()
         if (fresh != nullptr)
         {
             tsf_set_output (fresh, TSF_STEREO_INTERLEAVED, (int) currentSampleRate.load(), 0.0f);
-            tsf_set_max_voices (fresh, 96);
+            tsf_set_max_voices (fresh, k == 0 ? 96 : 64);
             tsf_channel_set_presetindex (fresh, 0, 0);
             tsf_channel_set_pitchrange (fresh, 0, 2.0f);
 
             tsf* old = nullptr;
             {
                 const juce::SpinLock::ScopedLockType sl (synthLock);
-                old = synth;
-                synth = fresh;
-                tsf_set_output (synth, TSF_STEREO_INTERLEAVED, (int) currentSampleRate.load(), 0.0f);
+                old = layers[(size_t) k].synth;
+                layers[(size_t) k].synth = fresh;
+                tsf_set_output (fresh, TSF_STEREO_INTERLEAVED, (int) currentSampleRate.load(), 0.0f);
             }
             if (old != nullptr) tsf_close (old);
         }
 
         const juce::ScopedLock sl (infoLock);
+        auto& L = layers[(size_t) k];
         if (fresh != nullptr)
         {
-            loaded.file = job.file; loaded.source = job.source; loaded.name = job.name;
-            loaded.phdrIndex = job.phdrIndex; loaded.category = job.category;
-            loaded.error = {};
+            L.info.file = job.file; L.info.source = job.source; L.info.name = job.name;
+            L.info.phdrIndex = job.phdrIndex; L.info.category = job.category;
+            L.info.error = {};
         }
         else
         {
-            loaded.error = juce::String (err) + ": " + job.name;
+            L.info.error = juce::String (err) + ": " + job.name;
         }
-        loaded.loading = hasPending;
+        L.info.loading = L.hasPending;
     }
 }
 
 void TMUProcessor::changeListenerCallback (juce::ChangeBroadcaster*)
 {
-    // Instancia nueva sin sonido elegido: cargar el primer piano de la biblioteca.
+    // Instancia nueva sin sonido elegido: cargar el primer piano de la biblioteca (en la capa 1).
     {
         const juce::ScopedLock sl (infoLock);
-        if (loaded.phdrIndex >= 0 || hasPending || loaded.loading) return;
+        const auto& L = layers[0];
+        if (L.info.phdrIndex >= 0 || L.hasPending || L.hasRequested || L.info.loading) return;
     }
     auto list = library->getEntries();
     const PresetEntry* pick = nullptr;
     for (auto& e : *list)
         if (e.category == tmu::Pianos && e.name.containsIgnoreCase ("grand")) { pick = &e; break; }
     if (pick == nullptr && ! list->empty()) pick = &list->front();
-    if (pick != nullptr) loadPreset (*pick);
+    if (pick != nullptr) loadPreset (*pick, 0);
 }
 
 //==============================================================================
@@ -488,7 +611,22 @@ void TMUProcessor::getStateInformation (juce::MemoryBlock& destData)
     juce::ValueTree root ("TMUState");
     root.addChild (state, -1, nullptr);
 
-    const auto info = getLoadedInfo();
+    // lo que hay que guardar de una capa: el ultimo sonido pedido (aunque todavia se este cargando)
+    auto layerState = [this] (int k)
+    {
+        const juce::ScopedLock sl (infoLock);
+        const auto& L = layers[(size_t) k];
+        LoadedInfo r = L.info;
+        if (L.hasRequested)
+        {
+            r.file = L.requested.file; r.source = L.requested.source; r.name = L.requested.name;
+            r.phdrIndex = L.requested.phdrIndex; r.category = L.requested.category;
+        }
+        return r;
+    };
+
+    // capa 1: las mismas propiedades de siempre (los proyectos viejos y nuevos se leen igual)
+    const auto info = layerState (0);
     root.setProperty ("file", info.file, nullptr);
     root.setProperty ("source", info.source, nullptr);
     root.setProperty ("name", info.name, nullptr);
@@ -497,6 +635,21 @@ void TMUProcessor::getStateInformation (juce::MemoryBlock& destData)
     root.setProperty ("uiView", uiView, nullptr);
     root.setProperty ("uiGroup", uiGroup, nullptr);
     root.setProperty ("uiSearch", uiSearch, nullptr);
+    root.setProperty ("uiLayer", getActiveLayer(), nullptr);
+    // capas 2 a 4
+    for (int k = 1; k < numLayers; ++k)
+    {
+        const auto li = layerState (k);
+        if (li.phdrIndex < 0 || li.file.isEmpty()) continue;
+        juce::ValueTree v ("Layer");
+        v.setProperty ("index", k, nullptr);
+        v.setProperty ("file", li.file, nullptr);
+        v.setProperty ("source", li.source, nullptr);
+        v.setProperty ("name", li.name, nullptr);
+        v.setProperty ("phdr", li.phdrIndex, nullptr);
+        v.setProperty ("category", li.category, nullptr);
+        root.addChild (v, -1, nullptr);
+    }
     juce::StringArray map;
     for (int cc = 0; cc < 128; ++cc)
         if (ccMap[(size_t) cc].load() >= 0) map.add (juce::String (cc) + ":" + learnableIds[ccMap[(size_t) cc].load()]);
@@ -519,6 +672,7 @@ void TMUProcessor::setStateInformation (const void* data, int sizeInBytes)
     uiView = root.getProperty ("uiView", "type").toString();
     uiGroup = root.getProperty ("uiGroup").toString();
     uiSearch = root.getProperty ("uiSearch").toString();
+    setActiveLayer ((int) root.getProperty ("uiLayer", 0));
     for (auto& m : ccMap) m = -1;
     for (auto& item : juce::StringArray::fromTokens (root.getProperty ("midiMap").toString(), ",", ""))
     {
@@ -528,16 +682,17 @@ void TMUProcessor::setStateInformation (const void* data, int sizeInBytes)
             if (id == learnableIds[i] && cc >= 0 && cc < 128) ccMap[(size_t) cc] = i;
     }
 
-    PresetEntry e;
-    e.file = root.getProperty ("file").toString();
-    e.source = root.getProperty ("source").toString();
-    e.name = root.getProperty ("name").toString();
-    e.phdrIndex = (int) root.getProperty ("phdr", -1);
-    e.category = (int) root.getProperty ("category", (int) tmu::Other);
-
-    if (e.phdrIndex >= 0 && e.file.isNotEmpty())
+    // Si el archivo se movio (por ej. se reinstalo en otra carpeta), buscarlo por nombre.
+    auto restore = [this] (const juce::ValueTree& v, int layer)
     {
-        // Si el archivo se movio (por ej. se reinstalo en otra carpeta), buscarlo por nombre.
+        PresetEntry e;
+        e.file = v.getProperty ("file").toString();
+        e.source = v.getProperty ("source").toString();
+        e.name = v.getProperty ("name").toString();
+        e.phdrIndex = (int) v.getProperty ("phdr", -1);
+        e.category = (int) v.getProperty ("category", (int) tmu::Other);
+
+        if (e.phdrIndex < 0 || e.file.isEmpty()) return false;
         if (! juce::File (e.file).existsAsFile())
         {
             const auto fileName = juce::File (e.file).getFileName();
@@ -545,7 +700,24 @@ void TMUProcessor::setStateInformation (const void* data, int sizeInBytes)
                 for (const auto& it : juce::RangedDirectoryIterator (dir, true, fileName, juce::File::findFiles))
                     { e.file = it.getFile().getFullPathName(); break; }
         }
-        loadPreset (e);
+        loadPreset (e, layer);
+        return true;
+    };
+
+    restore (root, 0);
+    for (int k = 1; k < numLayers; ++k)
+    {
+        bool found = false;
+        for (int i = 0; i < root.getNumChildren(); ++i)
+        {
+            auto v = root.getChild (i);
+            if (v.hasType ("Layer") && (int) v.getProperty ("index", -1) == k)
+            {
+                found = restore (v, k);
+                break;
+            }
+        }
+        if (! found) clearLayer (k);
     }
 }
 

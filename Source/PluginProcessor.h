@@ -40,11 +40,20 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
     //==============================================================================
-    // Carga un sonido en segundo plano (no corta el audio).
-    void loadPreset (const PresetEntry& e);
+    // Capas (layering): hasta 4 sonidos tocando a la vez con el mismo MIDI, cada uno con su volumen y su ON.
+    static constexpr int numLayers = 4;
+    static juce::String layerOnId (int layer)  { return "l" + juce::String (layer + 1) + "on"; }
+    static juce::String layerVolId (int layer) { return "l" + juce::String (layer + 1) + "vol"; }
+
+    // Carga un sonido en segundo plano (no corta el audio). layer = -1: la capa elegida en la pantalla.
+    void loadPreset (const PresetEntry& e, int layer = -1);
+    void clearLayer (int layer);   // vacia una capa (la 1 no se puede vaciar desde la interfaz)
 
     struct LoadedInfo { juce::String file, source, name; int phdrIndex = -1, category = tmu::Other; juce::String error; bool loading = false; };
-    LoadedInfo getLoadedInfo() const;
+    LoadedInfo getLoadedInfo() const { return getLoadedInfo (getActiveLayer()); }   // de la capa elegida
+    LoadedInfo getLoadedInfo (int layer) const;
+    int getActiveLayer() const { return activeLayer.load(); }
+    void setActiveLayer (int layer) { activeLayer = juce::jlimit (0, numLayers - 1, layer); }
 
     juce::AudioProcessorValueTreeState params;
     juce::MidiKeyboardState keyboardState;
@@ -98,16 +107,27 @@ private:
     juce::Random rng;
     static juce::AudioProcessorValueTreeState::ParameterLayout createLayout();
 
-    juce::SpinLock synthLock;
-    tsf* synth = nullptr;
+    // cada capa: su propio soundfont cargado + volumen y ON (parametros l1on, l1vol, ...)
+    struct Layer
+    {
+        tsf* synth = nullptr;                 // protegido por synthLock
+        std::atomic<float>* onParam = nullptr;
+        std::atomic<float>* volParam = nullptr;
+        juce::SmoothedValue<float> gain;      // solo hilo de audio
+        LoadedInfo info;                      // protegido por infoLock
+        PresetEntry pending;                  // proximo sonido a cargar
+        bool hasPending = false;
+        PresetEntry requested;                // ultimo sonido pedido (es lo que se guarda en el proyecto)
+        bool hasRequested = false;
+    };
 
+    juce::SpinLock synthLock;
     mutable juce::CriticalSection infoLock;
-    LoadedInfo loaded;
-    PresetEntry pending;
-    bool hasPending = false;
+    std::array<Layer, numLayers> layers;
+    std::atomic<int> activeLayer { 0 };
 
     std::atomic<double> currentSampleRate { 44100.0 };
-    std::vector<float> renderBuffer;
+    std::vector<float> renderBuffer, layerBuffer;
     juce::SmoothedValue<float> gainSmoothed;
     int lastTranspose = 0;
     std::array<int, 128> noteMap {};   // nota que realmente sono para cada tecla (por el transpose)

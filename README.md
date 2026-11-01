@@ -11,6 +11,8 @@ y los organiza **por tipo de sonido**, **por soundfont** o **de la A a la Z**, c
 - **RATE** (velocidad de la modulación) — **MOD** es estilo Roland: vibrato con retardo + filtro que se mueve.
 - **SWING** (50–75 %, con el tempo de FL), **HUMAN** (velocity y timing humanos) y **VEL** (curva: Suave / Normal / Dura / Fija).
 - **Favoritos**: click en las estrellas de un sonido (1, 2 o 3), click derecho > Favoritos, o las teclas 1, 2, 3 (0 para quitar). Aparecen en el grupo **★ FAVORITOS**, ordenados por estrellas. Se guardan en `~/Library/Application Support/TMU/TMU-favoritos.xml` y valen para todos los proyectos.
+- **Recientes**: los `.sf2` que agregás a la carpeta (después de tocar RESCAN) aparecen en **verde** y en el grupo **RECIENTES**, el último agregado primero. Quedan así 14 días.
+- **Capas (layering)**: hasta 4 sonidos tocando a la vez con el mismo MIDI. Tocá una capa en la barra de abajo de la pantalla, elegí el sonido en la lista y listo. El cuadrito con el número la prende o apaga, la barra es su volumen (doble click = 0 dB) y click derecho te deja vaciarla. ON y volumen de cada capa se automatizan desde FL y todo se guarda con el proyecto.
 - **SIN REPETIDOS**: oculta los sonidos que suenan igual a otro y los que no suenan (ver `REPORTE_REPETIDOS.txt`). Tocalo para verlos todos.
 - **Rueda de modulación (CC1)** y **pitch bend** de tu teclado MIDI funcionan directo.
 - **Click derecho en una perilla**: *Aprender controlador* (movés una perilla de tu teclado y queda asignada; se guarda con el proyecto) o el menú de FL con *Link to controller*.

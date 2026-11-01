@@ -94,6 +94,44 @@ public:
     std::function<void (ParamKnob&)> onRightClick;
 };
 
+// Capas (layering): 4 casilleros con el sonido de cada capa. Click = elegir la capa (a donde va el
+// sonido que elijas en la lista), cuadrito = prender/apagar, barra = volumen, click derecho = mas opciones.
+class LayerStrip : public juce::Component,
+                   public juce::SettableTooltipClient
+{
+public:
+    LayerStrip (TMUProcessor& p, TMULook& l) : proc (p), look (l)
+    {
+        setTooltip ("Capas: click elige la capa, el cuadrito la prende o apaga, la barra es su volumen (doble click = 0 dB). Click derecho: mas opciones");
+    }
+    std::function<void()> onChange;   // se eligio otra capa o se vacio una
+    void refresh();                   // repinta solo si algo cambio
+
+    void paint (juce::Graphics&) override;
+    void mouseDown (const juce::MouseEvent&) override;
+    void mouseDrag (const juce::MouseEvent&) override;
+    void mouseUp (const juce::MouseEvent&) override;
+    void mouseDoubleClick (const juce::MouseEvent&) override;
+
+private:
+    static constexpr int gap = 8;
+    juce::Rectangle<int> slot (int i) const;
+    juce::Rectangle<int> ledArea (int i) const;
+    juce::Rectangle<int> barArea (int i) const;
+    int slotAt (juce::Point<int>) const;
+    bool isOn (int i) const;
+    void selectLayer (int i);
+    void toggleOn (int i);
+    void resetVolume (int i);
+    void setVolumeFromX (int i, int x);
+    void showMenu (int i);
+
+    TMUProcessor& proc;
+    TMULook& look;
+    int dragLayer = -1;
+    juce::String lastSig;
+};
+
 class TMUEditor : public juce::AudioProcessorEditor,
                   private juce::Timer
 {
@@ -140,6 +178,7 @@ private:
     bool entryInGroup (const PresetEntry& e, const juce::String& groupKey) const;
     void buildChassis();
     void showKnobMenu (ParamKnob&);
+    void onLayerChanged();
 
     TMUProcessor& proc;
     TMULook look;
@@ -180,8 +219,10 @@ private:
     juce::String velText() const;
 
     RetroKeyboard keyboard;
+    LayerStrip layerStrip;
+    int lastLayer = 0;
 
-    juce::Rectangle<int> lcdArea, miniLcdArea, keySlot, volArea, modArea, filterArea, trArea,
+    juce::Rectangle<int> lcdArea, miniLcdArea, layerArea, keySlot, volArea, modArea, filterArea, trArea,
                          rateArea, swingArea, humanArea, velArea, knobsArea;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TMUEditor)

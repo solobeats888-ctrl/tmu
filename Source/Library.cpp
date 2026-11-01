@@ -14,6 +14,12 @@ UserPrefs::UserPrefs()
     {
         showDuplicates = xml->getBoolAttribute ("showDuplicates", false);
         tutorialSeen = xml->getBoolAttribute ("tutorialSeen", false);
+        seenBaselineDone = xml->getBoolAttribute ("seenBaselineDone", false);
+        for (auto* sf : xml->getChildWithTagNameIterator ("seen"))
+        {
+            const auto t = sf->getStringAttribute ("t").getLargeIntValue();
+            if (t > 0) seen[sf->getStringAttribute ("key")] = t;
+        }
         for (auto* f : xml->getChildWithTagNameIterator ("fav"))
         {
             const int n = juce::jlimit (0, 3, f->getIntAttribute ("stars"));
@@ -74,6 +80,29 @@ void UserPrefs::setTutorialSeen (bool b)
     save();
 }
 
+juce::int64 UserPrefs::getFirstSeen (const juce::String& fileKey) const
+{
+    const juce::ScopedLock sl (lock);
+    auto it = seen.find (fileKey);
+    return it == seen.end() ? 0 : it->second;
+}
+
+bool UserPrefs::isSeenBaselineDone() const
+{
+    const juce::ScopedLock sl (lock);
+    return seenBaselineDone;
+}
+
+void UserPrefs::recordSeen (const std::map<juce::String, juce::int64>& newFiles)
+{
+    {
+        const juce::ScopedLock sl (lock);
+        for (auto& [k, t] : newFiles) seen[k] = t;
+        seenBaselineDone = true;
+    }
+    save();
+}
+
 void UserPrefs::save()
 {
     juce::XmlElement xml ("TMUFavoritos");
@@ -81,6 +110,13 @@ void UserPrefs::save()
         const juce::ScopedLock sl (lock);
         xml.setAttribute ("showDuplicates", showDuplicates);
         xml.setAttribute ("tutorialSeen", tutorialSeen);
+        xml.setAttribute ("seenBaselineDone", seenBaselineDone);
+        for (auto& [k, t] : seen)
+        {
+            auto* sf = xml.createNewChildElement ("seen");
+            sf->setAttribute ("key", k);
+            sf->setAttribute ("t", juce::String (t));
+        }
         for (auto& [k, n] : stars)
         {
             auto* f = xml.createNewChildElement ("fav");
@@ -159,6 +195,12 @@ void PresetLibrary::run()
     auto list = std::make_shared<std::vector<PresetEntry>>();
     juce::StringArray seenFiles;
 
+    // .sf2 nuevos: la primera vez que se instala esta funcion todo lo que ya habia queda como "viejo"
+    // (1); lo que se agregue despues se anota con la fecha y figura en RECIENTES.
+    const bool baselineDone = prefs->isSeenBaselineDone();
+    const juce::int64 scanTime = juce::Time::currentTimeMillis();
+    std::map<juce::String, juce::int64> newFiles;
+
     getUserFolder().createDirectory();
 
     for (auto& dir : getSearchFolders())
@@ -177,6 +219,13 @@ void PresetLibrary::run()
             if (seenFiles.contains (key)) continue;   // mismo archivo en dos carpetas
             seenFiles.add (key);
 
+            juce::int64 addedMs = prefs->getFirstSeen (key);
+            if (addedMs == 0)
+            {
+                addedMs = baselineDone ? scanTime : 1;
+                newFiles[key] = addedMs;
+            }
+
             std::vector<tmu::RawPreset> raw;
             if (! tmu::readPresetList (f.getFullPathName().toStdString(), raw)) continue;
             const auto cats = tmu::categorizeFile (raw);
@@ -192,6 +241,7 @@ void PresetLibrary::run()
                 e.program = raw[i].program;
                 e.phdrIndex = raw[i].phdrIndex;
                 e.category = cats[i];
+                e.addedMs = addedMs;
                 e.key = PresetEntry::makeKey (f.getFileName(), e.phdrIndex, e.name);
                 auto hid = knownHidden().find (e.key);
                 if (hid != knownHidden().end()) e.hidden = hid->second;
@@ -205,6 +255,9 @@ void PresetLibrary::run()
         const int c = a.name.compareNatural (b.name);
         return c != 0 ? c < 0 : a.source.compareNatural (b.source) < 0;
     });
+
+    if (! newFiles.empty() || ! baselineDone)
+        prefs->recordSeen (newFiles);
 
     {
         const juce::ScopedLock sl (lock);

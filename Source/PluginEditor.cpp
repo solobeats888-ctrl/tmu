@@ -552,7 +552,7 @@ void LayerStrip::refresh()
     {
         const auto info = proc.getLoadedInfo (i);
         sig << info.name << "|" << (int) info.loading << "|" << info.error << "|" << (int) isOn (i) << "|";
-        if (auto* prm = proc.params.getParameter (TMUProcessor::layerVolId (i))) sig << prm->getValue() << "|";
+        if (auto* prm = proc.params.getParameter (TMUProcessor::layerParamId ("volume", i))) sig << prm->getValue() << "|";
     }
     sig << proc.getActiveLayer();
     if (sig != lastSig)
@@ -591,7 +591,7 @@ void LayerStrip::paint (juce::Graphics& g)
         auto col = on ? screenTxt : screenDim;
         if (dragLayer == i)
         {
-            label = juce::String (proc.params.getRawParameterValue (TMUProcessor::layerVolId (i))->load(), 1) + " dB";
+            label = juce::String (proc.params.getRawParameterValue (TMUProcessor::layerParamId ("volume", i))->load(), 1) + " dB";
             col = scrHi;
         }
         else if (info.loading)           { label = "CARGANDO..."; col = screenDim.brighter (0.5f); }
@@ -602,7 +602,7 @@ void LayerStrip::paint (juce::Graphics& g)
         glowText (g, label, { s.getX() + 34, s.getY() + 3, s.getWidth() - 34 - 8, 14 }, juce::Justification::centredLeft, col);
 
         // barra de volumen con la marca de 0 dB
-        if (auto* prm = proc.params.getParameter (TMUProcessor::layerVolId (i)))
+        if (auto* prm = proc.params.getParameter (TMUProcessor::layerParamId ("volume", i)))
         {
             const auto bar = barArea (i).withSizeKeepingCentre (barArea (i).getWidth(), 4).toFloat();
             g.setColour (juce::Colours::white.withAlpha (0.16f));
@@ -636,7 +636,7 @@ void LayerStrip::toggleOn (int i)
 
 void LayerStrip::resetVolume (int i)
 {
-    if (auto* prm = proc.params.getParameter (TMUProcessor::layerVolId (i)))
+    if (auto* prm = proc.params.getParameter (TMUProcessor::layerParamId ("volume", i)))
     {
         prm->beginChangeGesture();
         prm->setValueNotifyingHost (prm->convertTo0to1 (0.0f));
@@ -647,7 +647,7 @@ void LayerStrip::resetVolume (int i)
 
 void LayerStrip::setVolumeFromX (int i, int x)
 {
-    auto* prm = proc.params.getParameter (TMUProcessor::layerVolId (i));
+    auto* prm = proc.params.getParameter (TMUProcessor::layerParamId ("volume", i));
     if (prm == nullptr) return;
     const auto bar = barArea (i);
     float n = juce::jlimit (0.0f, 1.0f, (float) (x - bar.getX()) / (float) juce::jmax (1, bar.getWidth()));
@@ -670,7 +670,7 @@ void LayerStrip::mouseDown (const juce::MouseEvent& e)
     else if (barArea (i).expanded (0, 3).contains (e.getPosition()))
     {
         dragLayer = i;
-        if (auto* prm = proc.params.getParameter (TMUProcessor::layerVolId (i))) prm->beginChangeGesture();
+        if (auto* prm = proc.params.getParameter (TMUProcessor::layerParamId ("volume", i))) prm->beginChangeGesture();
         setVolumeFromX (i, e.x);
     }
 }
@@ -683,7 +683,7 @@ void LayerStrip::mouseDrag (const juce::MouseEvent& e)
 void LayerStrip::mouseUp (const juce::MouseEvent&)
 {
     if (dragLayer < 0) return;
-    if (auto* prm = proc.params.getParameter (TMUProcessor::layerVolId (dragLayer))) prm->endChangeGesture();
+    if (auto* prm = proc.params.getParameter (TMUProcessor::layerParamId ("volume", dragLayer))) prm->endChangeGesture();
     dragLayer = -1;
     repaint();
 }
@@ -706,6 +706,7 @@ void LayerStrip::showMenu (int i)
     m.addItem ("Vaciar capa", i > 0 && has, false, [this, i]
     {
         proc.clearLayer (i);
+        proc.resetLayerParams (i);
         if (onChange) onChange();
         repaint();
     });
@@ -715,13 +716,6 @@ void LayerStrip::showMenu (int i)
 //==============================================================================
 TMUEditor::TMUEditor (TMUProcessor& p)
     : juce::AudioProcessorEditor (&p), proc (p),
-      volumeAtt (p.params, "volume", volume),
-      modAtt (p.params, "mod", modKnob),
-      filterAtt (p.params, "filter", filterKnob),
-      transposeAtt (p.params, "transpose", transpose),
-      rateAtt (p.params, "rate", rateKnob),
-      swingAtt (p.params, "swing", swingKnob),
-      humanAtt (p.params, "humanize", humanKnob),
       keyboard (p.keyboardState, look),
       layerStrip (p, look)
 {
@@ -801,9 +795,10 @@ TMUEditor::TMUEditor (TMUProcessor& p)
     velButton.setTooltip ("Curva de velocity: SUAVE (suena fuerte aunque toques despacio), NORMAL, DURA (hay que pegarle) o FIJA");
     velButton.onClick = [this]
     {
-        if (auto* prm = proc.params.getParameter ("velcurve"))
+        const auto velId = TMUProcessor::layerParamId ("velcurve", proc.getActiveLayer());
+        if (auto* prm = proc.params.getParameter (velId))
         {
-            const int n = ((int) proc.params.getRawParameterValue ("velcurve")->load() + 1) % 4;
+            const int n = ((int) proc.params.getRawParameterValue (velId)->load() + 1) % 4;
             prm->setValueNotifyingHost (prm->convertTo0to1 ((float) n));
         }
         updateVelButton();
@@ -820,6 +815,8 @@ TMUEditor::TMUEditor (TMUProcessor& p)
         k->getProperties().set ("bipolar", k == &filterKnob || k == &transpose);
         addAndMakeVisible (k);
     }
+
+    attachKnobs();
 
     keyboard.setAvailableRange (48, 84);   // C4 a C7 (como FL)
     keyboard.setOctaveForMiddleC (5);
@@ -867,7 +864,7 @@ void TMUEditor::showTutorial()
         { "LA PANTALLA",       "Elegi un sonido con un click o con las flechas arriba/abajo. A la izquierda estan los grupos. Arriba escribis para buscar: bass, pad, mario...", lcdArea },
         { "COMO SE ORDENA",    "TIPO: pianos, bajos, pads...\nSF2: por soundfont.\nA-Z: alfabetico.\nSIN REP: oculta los sonidos repetidos y los que no suenan.", pills },
         { "FAVORITOS",         "Toca FAV (o las teclas 1, 2, 3) para darle estrellas al sonido elegido. Los vas a encontrar en el grupo FAVORITOS de la pantalla.", favButton.getBounds() },
-        { "CAPAS",             "Suma hasta 4 sonidos que suenan a la vez. Toca una capa para elegirla y despues elegi el sonido en la lista. El cuadrito con el numero la prende o apaga, la barra de abajo es su volumen (doble click = 0 dB) y click derecho te deja vaciarla.", layerArea },
+        { "CAPAS",             "Suma hasta 4 sonidos que suenan a la vez. Toca una capa para elegirla y despues elegi el sonido en la lista. Cada capa tiene sus propias perillas: las de abajo manejan la capa elegida (dice CAPA 1, 2...). El cuadrito con el numero la prende o apaga, la barra es su volumen (doble click = 0 dB) y click derecho te deja vaciarla. Al sumar una capa nueva, sus perillas arrancan en 0.", layerArea },
         { "PERILLAS",          "MOD: vibrato y filtro que se mueven estilo Roland (arranca despues de un ratito, tambien con la rueda de tu teclado). RATE: velocidad. FILTRO, ST, SWING (atrasa los 16avos), HUMAN (velocity y tiempo humanos) y VEL (curva de velocity). Click derecho: asignar a tu MIDI.", knobs },
         { "PROBA Y SUMA MAS",  "Toca el mini piano con el mouse. < > pasan de sonido. CARPETA abre la carpeta para sumar tus .sf2 y RESCAN los carga: los sonidos nuevos aparecen en verde y en el grupo RECIENTES (14 dias). BAJAR SF2 (arriba) te muestra paginas con soundfonts gratis.", keySlot.getUnion (folderButton.getBounds()) },
         { "LISTO!",            "Si te olvidas de algo, toca ? arriba a la derecha y vuelve este tutorial.", helpButton.getBounds() },
@@ -1181,6 +1178,11 @@ void TMUEditor::paint (juce::Graphics& g)
     g.setFont (look.pixel (16.0f));
     glowText (g, info.name.isNotEmpty() ? info.name.toUpperCase() : juce::String ("---"), nameRow, juce::Justification::centredLeft, scrHi, 0.0f);
 
+    // ---- a que capa pertenecen las perillas
+    g.setFont (look.pixel (8.0f));
+    g.setColour (fnBlue.darker (0.15f));
+    g.drawText ("CAPA " + juce::String (proc.getActiveLayer() + 1), knobsArea.getX(), DECK + 3, 80, 10, juce::Justification::centredLeft);
+
     // ---- transporte y CC asignados
     const int tr = (int) transpose.getValue();
     g.setFont (look.pixel (8.0f));
@@ -1336,7 +1338,7 @@ void TMUEditor::timerCallback()
 juce::String TMUEditor::velText() const
 {
     static const char* names[] = { "SUAVE", "NORMAL", "DURA", "FIJA" };
-    return names[juce::jlimit (0, 3, (int) proc.params.getRawParameterValue ("velcurve")->load())];
+    return names[juce::jlimit (0, 3, (int) proc.params.getRawParameterValue (TMUProcessor::layerParamId ("velcurve", proc.getActiveLayer()))->load())];
 }
 
 void TMUEditor::updateVelButton()
@@ -1345,14 +1347,28 @@ void TMUEditor::updateVelButton()
     velButton.setToggleState (velButton.getButtonText() != "NORMAL", juce::dontSendNotification);
 }
 
+void TMUEditor::attachKnobs()
+{
+    const auto knobs = allKnobs();
+    for (size_t i = 0; i < knobs.size(); ++i)
+    {
+        knobAtt[i].reset();   // primero se suelta la capa anterior
+        knobAtt[i] = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment> (
+            proc.params, TMUProcessor::layerParamId (knobs[i]->paramId, proc.getActiveLayer()), *knobs[i]);
+    }
+}
+
 void TMUEditor::onLayerChanged()
 {
-    // otra capa elegida (o vaciada): la lista y la pantallita muestran el sonido de esa capa
+    // otra capa elegida (o vaciada): la lista, la pantallita y las perillas muestran los de esa capa
     lastLayer = proc.getActiveLayer();
     lastInfo = proc.getLoadedInfo();
+    attachKnobs();
+    updateVelButton();
     selectLoadedRow();
     presetList.repaint();
     repaint (miniLcdArea);
+    repaint (knobsArea.expanded (20, 16));
     layerStrip.repaint();
 }
 
@@ -1390,7 +1406,7 @@ void TMUEditor::showKnobMenu (ParamKnob& knob)
 
     // menu del DAW para este parametro (en FL Studio incluye "Link to controller")
     if (auto* host = getHostContext())
-        if (auto* prm = proc.params.getParameter (knob.paramId))
+        if (auto* prm = proc.params.getParameter (TMUProcessor::layerParamId (knob.paramId, proc.getActiveLayer())))
             if (auto hostMenu = host->getContextMenuForParameter (prm))
             {
                 menu.addSeparator();
@@ -1537,11 +1553,15 @@ void TMUEditor::selectLoadedRow()
 void TMUEditor::choosePreset (int row)
 {
     if (entries == nullptr || row < 0 || row >= (int) filtered.size()) return;
+    const int layer = proc.getActiveLayer();
+    const auto before = proc.getLoadedInfo (layer);
+    const bool adding = layer > 0 && before.phdrIndex < 0 && ! before.loading;   // capa vacia que recibe su primer sonido
     proc.loadPreset ((*entries)[(size_t) filtered[(size_t) row]]);
 
-    // si elegiste un sonido para una capa apagada, se prende sola (si no, no ibas a escuchar nada)
-    if (auto* on = proc.params.getParameter (TMUProcessor::layerOnId (proc.getActiveLayer())))
-        if (on->getValue() < 0.5f)
+    if (adding)
+        proc.resetLayerParams (layer);   // capa nueva: todos sus controles arrancan en 0 (y queda prendida)
+    else if (auto* on = proc.params.getParameter (TMUProcessor::layerOnId (layer)))
+        if (on->getValue() < 0.5f)       // sonido nuevo en una capa apagada: se prende sola
         {
             on->beginChangeGesture();
             on->setValueNotifyingHost (1.0f);

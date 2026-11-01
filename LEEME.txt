@@ -73,8 +73,10 @@ CONTROLES (la interfaz es una netbook: tapa negra, pantalla azul y teclado blanc
 - RECIENTES: los .sf2 que agregas a la carpeta (despues de tocar RESCAN) aparecen en verde y en el
   grupo "RECIENTES" de la izquierda, el ultimo agregado primero. Quedan asi 14 dias.
 - CAPAS: hasta 4 sonidos tocando a la vez con el mismo MIDI. Toca una capa en la barra de abajo de la
-  pantalla y elegi el sonido en la lista. El cuadrito con el numero la prende o apaga, la barra es su
-  volumen (doble click = 0 dB) y click derecho te deja vaciarla. Se guarda con el proyecto.
+  pantalla y elegi el sonido en la lista. Cada capa tiene todos los controles del primero (VOL, MOD,
+  RATE, FILTRO, ST, SWING, HUMAN y VEL): las perillas de abajo manejan la capa elegida (dice CAPA 1,
+  2...). Al sumar una capa nueva, sus perillas arrancan en 0. El cuadrito con el numero la prende o
+  apaga, la barra es su volumen (doble click = 0 dB) y click derecho te deja vaciarla. Se guarda con el proyecto.
 - SIN REP: oculta los sonidos repetidos y los que no suenan de los soundfonts que TMU ya
   conoce. Tocalo para ver todos.
 - Asignar una perilla de tu teclado MIDI: click derecho en la perilla > "Aprender controlador",

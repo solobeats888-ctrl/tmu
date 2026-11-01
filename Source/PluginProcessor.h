@@ -40,10 +40,16 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
     //==============================================================================
-    // Capas (layering): hasta 4 sonidos tocando a la vez con el mismo MIDI, cada uno con su volumen y su ON.
+    // Capas (layering): hasta 4 sonidos tocando a la vez con el mismo MIDI. Cada capa tiene TODOS los
+    // controles del primero (VOL, MOD, RATE, FILTRO, ST, SWING, HUMAN y VEL) y su ON.
     static constexpr int numLayers = 4;
-    static juce::String layerOnId (int layer)  { return "l" + juce::String (layer + 1) + "on"; }
-    static juce::String layerVolId (int layer) { return "l" + juce::String (layer + 1) + "vol"; }
+    static juce::String layerOnId (int layer) { return "l" + juce::String (layer + 1) + "on"; }
+    // id del parametro "base" (volume, mod, ...) de una capa: la capa 1 usa los de siempre, las otras "l2_volume", ...
+    static juce::String layerParamId (const juce::String& base, int layer)
+    {
+        return layer <= 0 ? base : "l" + juce::String (layer + 1) + "_" + base;
+    }
+    void resetLayerParams (int layer);   // deja los controles de la capa en 0 / su valor de fabrica y la prende
 
     // Carga un sonido en segundo plano (no corta el audio). layer = -1: la capa elegida en la pantalla.
     void loadPreset (const PresetEntry& e, int layer = -1);
@@ -85,35 +91,43 @@ private:
     std::array<std::atomic<float>, numLearnable> pendingCC;
     std::atomic<int> learningParam { -1 };
     std::atomic<float> modWheel { 0.0f };
-    std::atomic<float>* modParam = nullptr;
-    std::atomic<float>* filterParam = nullptr;
-    juce::SmoothedValue<float> modSmoothed, filterSmoothed;
-    double lfoPhase = 0.0;
-    bool wasSilent = false;
-    juce::dsp::StateVariableTPTFilter<float> lowCut, highCut, modFilter;
-    std::atomic<float>* rateParam = nullptr;
-    std::atomic<float>* swingParam = nullptr;
-    std::atomic<float>* humanParam = nullptr;
-    std::atomic<float>* velCurveParam = nullptr;
 
     // eventos MIDI programados (para SWING y HUMANIZE, que atrasan notas)
     struct Event { juce::int64 time; juce::uint8 status, d1, d2; float vel; };
-    std::vector<Event> scheduled, due;
-    std::array<juce::int64, 128> noteDelay {};
     juce::int64 sampleCounter = 0;
-    juce::int64 modTriggerTime = 0;   // cuando empezo la frase (para el vibrato con retardo estilo Roland)
-    int notesHeld = 0;
     std::atomic<int> lastVelocity { -1 }, noteCounter { 0 };
     juce::Random rng;
     static juce::AudioProcessorValueTreeState::ParameterLayout createLayout();
 
-    // cada capa: su propio soundfont cargado + volumen y ON (parametros l1on, l1vol, ...)
+    // cada capa: su soundfont cargado + sus propios controles, filtros y cola de notas
     struct Layer
     {
         tsf* synth = nullptr;                 // protegido por synthLock
+
+        // parametros de esta capa
         std::atomic<float>* onParam = nullptr;
         std::atomic<float>* volParam = nullptr;
-        juce::SmoothedValue<float> gain;      // solo hilo de audio
+        std::atomic<float>* transposeParam = nullptr;
+        std::atomic<float>* modParam = nullptr;
+        std::atomic<float>* filterParam = nullptr;
+        std::atomic<float>* rateParam = nullptr;
+        std::atomic<float>* swingParam = nullptr;
+        std::atomic<float>* humanParam = nullptr;
+        std::atomic<float>* velCurveParam = nullptr;
+
+        // audio (solo hilo de audio)
+        juce::SmoothedValue<float> gain, modSmoothed, filterSmoothed;
+        juce::dsp::StateVariableTPTFilter<float> lowCut, highCut, modFilter;
+        double lfoPhase = 0.0;
+        bool wasSilent = false;
+        juce::int64 modTriggerTime = 0;       // cuando empezo la frase (vibrato con retardo estilo Roland)
+        int notesHeld = 0, lastTranspose = 0;
+        std::array<juce::int64, 128> noteDelay {};
+        std::array<int, 128> noteMap {};      // nota que realmente sono para cada tecla (por el transpose)
+        std::vector<Event> scheduled, due;
+        juce::AudioBuffer<float> audio;       // salida de esta capa antes de mezclar
+
+        // sonido cargado
         LoadedInfo info;                      // protegido por infoLock
         PresetEntry pending;                  // proximo sonido a cargar
         bool hasPending = false;
@@ -121,19 +135,15 @@ private:
         bool hasRequested = false;
     };
 
+    bool processLayer (int layer, int numSamples, juce::int64 blockStart, double sampleRate);   // true si hay audio en layers[layer].audio
+
     juce::SpinLock synthLock;
     mutable juce::CriticalSection infoLock;
     std::array<Layer, numLayers> layers;
     std::atomic<int> activeLayer { 0 };
 
     std::atomic<double> currentSampleRate { 44100.0 };
-    std::vector<float> renderBuffer, layerBuffer;
-    juce::SmoothedValue<float> gainSmoothed;
-    int lastTranspose = 0;
-    std::array<int, 128> noteMap {};   // nota que realmente sono para cada tecla (por el transpose)
-
-    std::atomic<float>* volumeParam = nullptr;
-    std::atomic<float>* transposeParam = nullptr;
+    std::vector<float> renderBuffer;   // lo que devuelve TinySoundFont (estereo intercalado)
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TMUProcessor)
 };

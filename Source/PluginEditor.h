@@ -212,7 +212,8 @@ private:
 
     ParamKnob volume { "volume" }, modKnob { "mod" }, filterKnob { "filter" }, transpose { "transpose" },
               rateKnob { "rate" }, swingKnob { "swing" }, humanKnob { "humanize" };
-    juce::AudioProcessorValueTreeState::SliderAttachment volumeAtt, modAtt, filterAtt, transposeAtt, rateAtt, swingAtt, humanAtt;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> knobAtt[7];   // mismo orden que allKnobs()
+    void attachKnobs();   // las perillas manejan los parametros de la capa elegida
     juce::TextButton velButton;   // curva de velocity: SUAVE / NORMAL / DURA / FIJA
     std::array<ParamKnob*, 7> allKnobs() { return { &volume, &modKnob, &rateKnob, &filterKnob, &transpose, &swingKnob, &humanKnob }; }
     void updateVelButton();

@@ -153,6 +153,9 @@ enum TSFOutputMode
 //   global_gain_db: volume gain in decibels (>0 means higher, <0 means lower)
 TSFDEF void tsf_set_output(tsf* f, enum TSFOutputMode outputmode, int samplerate, float global_gain_db CPP_DEFAULT0);
 
+// TMU: fundido de entrada (IN) y de salida (OUT), en segundos. Valen para las notas que se toquen de ahi en mas.
+TSFDEF void tsf_set_fades(tsf* f, float fadeInSecs, float fadeOutSecs);
+
 // Set the global gain as a volume factor
 //   global_gain: the desired volume where 1.0 is 100%
 TSFDEF void tsf_set_volume(tsf* f, float global_gain);
@@ -342,6 +345,7 @@ struct tsf
 	enum TSFOutputMode outputmode;
 	float outSampleRate;
 	float globalGainDB;
+	float fadeInSecs, fadeOutSecs;   // TMU: IN (ataque minimo) y OUT (release minimo) de todas las notas nuevas
 	int* refCount;
 };
 
@@ -1525,6 +1529,12 @@ TSFDEF const char* tsf_bank_get_presetname(const tsf* f, int bank, int preset_nu
 	return tsf_get_presetname(f, tsf_get_presetindex(f, bank, preset_number));
 }
 
+TSFDEF void tsf_set_fades(tsf* f, float fadeInSecs, float fadeOutSecs)
+{
+	f->fadeInSecs = (fadeInSecs > 0.0f ? fadeInSecs : 0.0f);
+	f->fadeOutSecs = (fadeOutSecs > 0.0f ? fadeOutSecs : 0.0f);
+}
+
 TSFDEF void tsf_set_output(tsf* f, enum TSFOutputMode outputmode, int samplerate, float global_gain_db)
 {
 	f->outputmode = outputmode;
@@ -1639,7 +1649,12 @@ TSFDEF int tsf_note_on(tsf* f, int preset_index, int key, float vel)
 		voice->loopEnd = (doLoop ? region->loop_end : 0);
 
 		// Setup envelopes.
-		tsf_voice_envelope_setup(&voice->ampenv, &region->ampenv, key, midiVelocity, TSF_TRUE, f->outSampleRate);
+		{
+			struct tsf_envelope ampParams = region->ampenv;   // IN / OUT de TMU: el ataque y el release no bajan de lo que pide el usuario
+			if (f->fadeInSecs > ampParams.attack) ampParams.attack = f->fadeInSecs;
+			if (f->fadeOutSecs > ampParams.release) ampParams.release = f->fadeOutSecs;
+			tsf_voice_envelope_setup(&voice->ampenv, &ampParams, key, midiVelocity, TSF_TRUE, f->outSampleRate);
+		}
 		tsf_voice_envelope_setup(&voice->modenv, &region->modenv, key, midiVelocity, TSF_FALSE, f->outSampleRate);
 
 		// Setup lowpass filter.

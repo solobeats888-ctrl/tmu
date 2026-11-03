@@ -865,7 +865,7 @@ void TMUEditor::showTutorial()
         { "COMO SE ORDENA",    "TIPO: pianos, bajos, pads...\nSF2: por soundfont.\nA-Z: alfabetico.\nSIN REP: oculta los sonidos repetidos y los que no suenan.", pills },
         { "FAVORITOS",         "Toca FAV (o las teclas 1, 2, 3) para darle estrellas al sonido elegido. Los vas a encontrar en el grupo FAVORITOS de la pantalla.", favButton.getBounds() },
         { "CAPAS",             "Suma hasta 4 sonidos que suenan a la vez. Toca una capa para elegirla y despues elegi el sonido en la lista. Cada capa tiene sus propias perillas: las de abajo manejan la capa elegida (dice CAPA 1, 2...). El cuadrito con el numero la prende o apaga, la barra es su volumen (doble click = 0 dB) y click derecho te deja vaciarla. Al sumar una capa nueva, sus perillas arrancan en 0.", layerArea },
-        { "PERILLAS",          "MOD: vibrato y filtro que se mueven estilo Roland (arranca despues de un ratito, tambien con la rueda de tu teclado). RATE: velocidad. FILTRO, ST, SWING (atrasa los 16avos), HUMAN (velocity y tiempo humanos) y VEL (curva de velocity). Click derecho: asignar a tu MIDI.", knobs },
+        { "PERILLAS",          "MOD: vibrato y filtro que se mueven estilo Roland (arranca despues de un ratito, tambien con la rueda de tu teclado). RATE: velocidad. FILTRO, ST, SWING (atrasa los 16avos), HUMAN (velocity y tiempo humanos) y VEL (curva de velocity). IN: fundido de entrada de cada nota. OUT: cuanto tarda en apagarse al soltar la tecla. Click derecho: asignar a tu MIDI.", knobs },
         { "PROBA Y SUMA MAS",  "Toca el mini piano con el mouse. < > pasan de sonido. CARPETA abre la carpeta para sumar tus .sf2 y RESCAN los carga: los sonidos nuevos aparecen en verde y en el grupo RECIENTES (14 dias). BAJAR SF2 (arriba) te muestra paginas con soundfonts gratis.", keySlot.getUnion (folderButton.getBounds()) },
         { "LISTO!",            "Si te olvidas de algo, toca ? arriba a la derecha y vuelve este tutorial.", helpButton.getBounds() },
     });
@@ -1071,6 +1071,8 @@ void TMUEditor::buildChassis()
     knobLabel (swingArea, "SWING");
     knobLabel (humanArea, "HUMAN");
     knobLabel (velArea, "VEL");
+    knobLabel (inArea, "IN");
+    knobLabel (outArea, "OUT");
     g.drawText ("SONIDO", prevButton.getBounds().getUnion (nextButton.getBounds()).withY (prevButton.getY() - 14).withHeight (10), juce::Justification::centred);
 
     // ---- etiqueta plateada abajo, como la de fabrica: INDUSTRIA ARGENTINA
@@ -1218,21 +1220,21 @@ void TMUEditor::resized()
     rescanButton.setBounds (colX, rowTop + 88, colW, 30);
     folderButton.setBounds (colX, rowTop + 134, colW, 30);
 
-    // 2 filas de 4 perillas con el mismo espacio entre el piano y la columna derecha:
-    // arriba el sonido (VOL MOD RATE FILTRO), abajo el groove (ST SWING HUMAN VEL)
-    const int knob = 46, freeW = colX - keySlot.getRight(), gapK = (freeW - 4 * knob) / 5;
+    // 2 filas de 5 perillas con el mismo espacio entre el piano y la columna derecha:
+    // arriba el sonido (VOL MOD RATE FILTRO IN), abajo el groove (ST SWING HUMAN VEL OUT)
+    const int knob = 44, freeW = colX - keySlot.getRight(), gapK = (freeW - 5 * knob) / 6;
     const int rowY[2] = { rowTop + 4, rowTop + 4 + 82 };
-    juce::Rectangle<int>* rows[2][4] = { { &volArea, &modArea, &rateArea, &filterArea }, { &trArea, &swingArea, &humanArea, &velArea } };
+    juce::Rectangle<int>* rows[2][5] = { { &volArea, &modArea, &rateArea, &filterArea, &inArea }, { &trArea, &swingArea, &humanArea, &velArea, &outArea } };
     for (int r = 0; r < 2; ++r)
     {
-        int kx = keySlot.getRight() + gapK + (freeW - 4 * knob - 5 * gapK) / 2;
+        int kx = keySlot.getRight() + gapK + (freeW - 5 * knob - 6 * gapK) / 2;
         for (auto* a : rows[r])
         {
             *a = { kx, rowY[r], knob, knob };
             kx += knob + gapK;
         }
     }
-    knobsArea = volArea.getUnion (velArea).expanded (12, 16);
+    knobsArea = volArea.getUnion (outArea).expanded (12, 16);
 
     // botones de la franja violeta: mismo ancho, mismo espacio, centrados en la franja y alineados a la derecha
     int x = R;
@@ -1259,6 +1261,8 @@ void TMUEditor::resized()
     rateKnob.setBounds (rateArea);
     swingKnob.setBounds (swingArea);
     humanKnob.setBounds (humanArea);
+    inKnob.setBounds (inArea);
+    outKnob.setBounds (outArea);
     velButton.setBounds (velArea.withSizeKeepingCentre (64, 26));
 
 

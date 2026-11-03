@@ -41,7 +41,7 @@ public:
 
     //==============================================================================
     // Capas (layering): hasta 4 sonidos tocando a la vez con el mismo MIDI. Cada capa tiene TODOS los
-    // controles del primero (VOL, MOD, RATE, FILTRO, ST, SWING, HUMAN y VEL) y su ON.
+    // controles del primero (VOL, MOD, RATE, FILTRO, ST, SWING, HUMAN, VEL, IN y OUT) y su ON.
     static constexpr int numLayers = 4;
     static juce::String layerOnId (int layer) { return "l" + juce::String (layer + 1) + "on"; }
     // id del parametro "base" (volume, mod, ...) de una capa: la capa 1 usa los de siempre, las otras "l2_volume", ...
@@ -85,7 +85,7 @@ private:
     void changeListenerCallback (juce::ChangeBroadcaster*) override;
     void timerCallback() override;
 
-    static constexpr int numLearnable = 7;
+    static constexpr int numLearnable = 9;
     static const char* learnableIds[numLearnable];
     std::array<std::atomic<int>, 128> ccMap;
     std::array<std::atomic<float>, numLearnable> pendingCC;
@@ -114,6 +114,8 @@ private:
         std::atomic<float>* swingParam = nullptr;
         std::atomic<float>* humanParam = nullptr;
         std::atomic<float>* velCurveParam = nullptr;
+        std::atomic<float>* fadeInParam = nullptr;
+        std::atomic<float>* fadeOutParam = nullptr;
 
         // audio (solo hilo de audio)
         juce::SmoothedValue<float> gain, modSmoothed, filterSmoothed;

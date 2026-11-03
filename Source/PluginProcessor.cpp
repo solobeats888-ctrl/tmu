@@ -19,6 +19,8 @@ TMUProcessor::TMUProcessor()
         L.swingParam     = params.getRawParameterValue (layerParamId ("swing", k));
         L.humanParam     = params.getRawParameterValue (layerParamId ("humanize", k));
         L.velCurveParam  = params.getRawParameterValue (layerParamId ("velcurve", k));
+        L.fadeInParam    = params.getRawParameterValue (layerParamId ("fadein", k));
+        L.fadeOutParam   = params.getRawParameterValue (layerParamId ("fadeout", k));
         L.scheduled.reserve (1024);
         L.due.reserve (1024);
         for (int i = 0; i < 128; ++i) L.noteMap[(size_t) i] = i;
@@ -91,6 +93,15 @@ juce::AudioProcessorValueTreeState::ParameterLayout TMUProcessor::createLayout()
                             .withStringFromValueFunction ([] (float v, int) { return juce::String (juce::roundToInt (v * 100.0f)) + " %"; })));
         layout.add (std::make_unique<juce::AudioParameterChoice> (id ("velcurve"), pre + "Velocity",
                         juce::StringArray { "Suave", "Normal", "Dura", "Fija" }, 1));
+        // IN: ataque (fundido de entrada) de cada nota. OUT: cuanto tarda en apagarse al soltar la tecla.
+        // Version 2 tambien en la capa 1: son parametros nuevos.
+        auto fadeText = [] (float v, int) { return v < 0.5f ? juce::String ("OFF") : juce::String (juce::roundToInt (v)) + " ms"; };
+        layout.add (std::make_unique<juce::AudioParameterFloat> (juce::ParameterID { layerParamId ("fadein", k), 2 }, pre + "Fade In",
+                        juce::NormalisableRange<float> (0.0f, 1000.0f, 0.1f, 0.4f), 0.0f,
+                        juce::AudioParameterFloatAttributes().withLabel ("ms").withStringFromValueFunction (fadeText)));
+        layout.add (std::make_unique<juce::AudioParameterFloat> (juce::ParameterID { layerParamId ("fadeout", k), 2 }, pre + "Fade Out",
+                        juce::NormalisableRange<float> (0.0f, 1000.0f, 0.1f, 0.4f), 0.0f,
+                        juce::AudioParameterFloatAttributes().withLabel ("ms").withStringFromValueFunction (fadeText)));
     }
     // ON de cada capa
     for (int k = 0; k < numLayers; ++k)
@@ -297,6 +308,7 @@ bool TMUProcessor::processLayer (int k, int numSamples, juce::int64 blockStart, 
         return false;
     }
     L.wasSilent = false;
+    tsf_set_fades (L.synth, 0.001f * L.fadeInParam->load(), 0.001f * L.fadeOutParam->load());
 
     auto& out = L.audio;
     out.clear (0, numSamples);
@@ -411,7 +423,7 @@ bool TMUProcessor::processLayer (int k, int numSamples, juce::int64 blockStart, 
 }
 
 //==============================================================================
-const char* TMUProcessor::learnableIds[TMUProcessor::numLearnable] = { "volume", "mod", "filter", "transpose", "rate", "swing", "humanize" };
+const char* TMUProcessor::learnableIds[TMUProcessor::numLearnable] = { "volume", "mod", "filter", "transpose", "rate", "swing", "humanize", "fadein", "fadeout" };
 
 void TMUProcessor::timerCallback()
 {
@@ -485,7 +497,7 @@ void TMUProcessor::resetLayerParams (int layer)
             prm->endChangeGesture();
         }
     };
-    for (auto* base : { "volume", "transpose", "mod", "filter", "rate", "swing", "humanize", "velcurve" })
+    for (auto* base : { "volume", "transpose", "mod", "filter", "rate", "swing", "humanize", "velcurve", "fadein", "fadeout" })
         setDefault (layerParamId (base, layer), -1.0f);
     setDefault (layerOnId (layer), 1.0f);
 }

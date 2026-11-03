@@ -211,11 +211,12 @@ private:
     bool showDuplicates = false;
 
     ParamKnob volume { "volume" }, modKnob { "mod" }, filterKnob { "filter" }, transpose { "transpose" },
-              rateKnob { "rate" }, swingKnob { "swing" }, humanKnob { "humanize" };
-    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> knobAtt[7];   // mismo orden que allKnobs()
+              rateKnob { "rate" }, swingKnob { "swing" }, humanKnob { "humanize" },
+              inKnob { "fadein" }, outKnob { "fadeout" };
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> knobAtt[9];   // mismo orden que allKnobs()
     void attachKnobs();   // las perillas manejan los parametros de la capa elegida
     juce::TextButton velButton;   // curva de velocity: SUAVE / NORMAL / DURA / FIJA
-    std::array<ParamKnob*, 7> allKnobs() { return { &volume, &modKnob, &rateKnob, &filterKnob, &transpose, &swingKnob, &humanKnob }; }
+    std::array<ParamKnob*, 9> allKnobs() { return { &volume, &modKnob, &rateKnob, &filterKnob, &transpose, &swingKnob, &humanKnob, &inKnob, &outKnob }; }
     void updateVelButton();
     juce::String velText() const;
 
@@ -224,7 +225,7 @@ private:
     int lastLayer = 0;
 
     juce::Rectangle<int> lcdArea, miniLcdArea, layerArea, keySlot, volArea, modArea, filterArea, trArea,
-                         rateArea, swingArea, humanArea, velArea, knobsArea;
+                         rateArea, swingArea, humanArea, velArea, inArea, outArea, knobsArea;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TMUEditor)
 };

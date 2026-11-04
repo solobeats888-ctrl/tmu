@@ -1,6 +1,7 @@
 #pragma once
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "Lang.h"
 
 // Estetica: consola de cartucho (diseno original) en negro con franja violeta / purpura:
 // pantalla en la ranura del cartucho, botones pill, perillas, mini piano y tutorial al empezar.
@@ -167,6 +168,7 @@ private:
     TutorialOverlay tutorial { look };
     LicenseOverlay licenseOverlay { look };
     void showTutorial();
+    void applyLanguage();   // textos fijos (botones, tooltips) en el idioma elegido
     juce::SharedResourcePointer<UserPrefs> prefs;
     int prefsVersion = -1;
     bool showDuplicates = false;

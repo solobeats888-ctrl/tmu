@@ -362,11 +362,11 @@ void TutorialOverlay::paint (juce::Graphics& g)
     g.fillRoundedRectangle (nextArea().toFloat(), 5.0f);
     g.setFont (look.pixel (9.0f));
     g.setColour (juce::Colours::white);
-    g.drawText (last ? "A JUGAR!" : "SIGUIENTE >", nextArea(), juce::Justification::centred);
+    g.drawText (last ? TR ("A JUGAR!") : TR ("SIGUIENTE >"), nextArea(), juce::Justification::centred);
     if (! last)
     {
         g.setColour (screenTxt.withAlpha (0.6f));
-        g.drawText ("SALTAR", skipArea(), juce::Justification::centredLeft);
+        g.drawText (TR ("SALTAR"), skipArea(), juce::Justification::centredLeft);
     }
 }
 
@@ -404,11 +404,12 @@ LicenseOverlay::LicenseOverlay (TMULook& l) : look (l)
         ed->onFocusLost = [this] { repaint(); };
         addAndMakeVisible (*ed);
     }
-    emailBox.setTextToShowWhenEmpty ("el mail con el que compraste", screenDim);
-    serialBox.setTextToShowWhenEmpty ("pega aca el numero de serie", screenDim);
+    emailBox.setTextToShowWhenEmpty (TR ("el mail con el que compraste"), screenDim);
+    serialBox.setTextToShowWhenEmpty (TR ("pega aca el numero de serie"), screenDim);
     serialBox.setMultiLine (true, true);
     serialBox.setReturnKeyStartsNewLine (false);
     emailBox.onReturnKey = serialBox.onReturnKey = [this] { tryActivate(); };
+    activateButton.setButtonText (TR ("ACTIVAR"));
     activateButton.onClick = [this] { tryActivate(); };
     addAndMakeVisible (activateButton);
 }
@@ -420,14 +421,14 @@ void LicenseOverlay::tryActivate()
     if (! tmulicense::verify (mail, serial))
     {
         error = true;
-        message = "El mail y el serial no coinciden. Revisa que sea el mail de la compra.";
+        message = TR ("El mail y el serial no coinciden. Revisa que sea el mail de la compra.");
         repaint();
         return;
     }
 
     busy = true;
     error = false;
-    message = "Activando... (la primera vez necesita internet)";
+    message = TR ("Activando... (la primera vez necesita internet)");
     activateButton.setEnabled (false);
     repaint();
 
@@ -457,9 +458,9 @@ void LicenseOverlay::onlineResult (const juce::String& mail, const juce::String&
         return;
     }
     error = true;
-    message = r == R::limit    ? "Esta licencia ya se activo en el maximo de compus. Escribime si cambiaste de compu."
-            : r == R::rejected ? "Esta licencia no es valida. Escribime a tmucontacto@gmail.com."
-                               : "No me pude conectar. Revisa tu internet y toca ACTIVAR de nuevo.";
+    message = r == R::limit    ? TR ("Esta licencia ya se activo en el maximo de compus. Escribime si cambiaste de compu.")
+            : r == R::rejected ? TR ("Esta licencia no es valida. Escribime a tmucontacto@gmail.com.")
+                               : TR ("No me pude conectar. Revisa tu internet y toca ACTIVAR de nuevo.");
     repaint();
 }
 
@@ -485,11 +486,10 @@ void LicenseOverlay::paint (juce::Graphics& g)
 
     auto inner = box.reduced (28, 24);
     g.setFont (look.pixel (18.0f));
-    glowText (g, "ACTIVA TMU", inner.removeFromTop (28), juce::Justification::centredLeft, scrHi);
+    glowText (g, TR ("ACTIVA TMU"), inner.removeFromTop (28), juce::Justification::centredLeft, scrHi);
     inner.removeFromTop (8);
     juce::AttributedString as;
-    as.append ("Pone el mail con el que compraste y el numero de serie que te llego. "
-               "Se activa una sola vez en esta compu. Si no lo tenes, escribi a tmucontacto@gmail.com.",
+    as.append (TR ("Pone el mail con el que compraste y el numero de serie que te llego. Se activa una sola vez en esta compu. Si no lo tenes, escribi a tmucontacto@gmail.com."),
                look.pixel (10.0f), screenTxt);
     as.setLineSpacing (5.0f);
     as.setWordWrap (juce::AttributedString::byWord);
@@ -531,16 +531,10 @@ TMUEditor::TMUEditor (TMUProcessor& p)
         addAndMakeVisible (b);
     }
     favButton.getProperties().set ("star", true);
-    viewType.setTooltip ("Ordenar por tipo de sonido");
-    viewSource.setTooltip ("Ordenar por soundfont");
-    viewAZ.setTooltip ("Ordenar de la A a la Z");
-    favButton.setTooltip ("Estrellas del sonido elegido: 1, 2, 3 y sin estrellas (solo con click)");
-    helpButton.setTooltip ("Ver el tutorial");
     viewType.onClick   = [this] { setView ("type"); };
     viewSource.onClick = [this] { setView ("source"); };
     viewAZ.onClick     = [this] { setView ("az"); };
     helpButton.onClick = [this] { showTutorial(); };
-    getButton.setTooltip ("Donde conseguir soundfonts gratis (paginas de sus autores)");
     getButton.onClick = [this] { showSoundfontLinks(); };
     favButton.onClick  = [this]
     {
@@ -552,7 +546,6 @@ TMUEditor::TMUEditor (TMUProcessor& p)
     search.setFont (look.pixel (13.0f));
     search.setIndents (4, 3);
     search.setColour (juce::TextEditor::textColourId, scrHi);
-    search.setTextToShowWhenEmpty ("nombre, tipo o soundfont", screenDim);
     search.setText (proc.uiSearch, false);
     search.applyFontToAllText (look.pixel (13.0f));
     search.onTextChange = [this] { proc.uiSearch = search.getText(); rebuildFiltered(); repaint (lcdArea); };
@@ -562,7 +555,6 @@ TMUEditor::TMUEditor (TMUProcessor& p)
     showDuplicates = prefs->getShowDuplicates();
     prefsVersion = prefs->getVersion();
     dupButton.setToggleState (! showDuplicates, juce::dontSendNotification);
-    dupButton.setTooltip ("Sin repetidos: oculta los sonidos iguales a otro y los que no suenan");
     dupButton.onClick = [this]
     {
         showDuplicates = ! showDuplicates;
@@ -579,13 +571,9 @@ TMUEditor::TMUEditor (TMUProcessor& p)
         addAndMakeVisible (b);
     }
     rescanButton.onClick = [this] { proc.library->rescan(); };
-    rescanButton.setTooltip ("Volver a buscar soundfonts");
     folderButton.onClick = [] { auto f = PresetLibrary::getUserFolder(); f.createDirectory(); f.startAsProcess(); };
-    folderButton.setTooltip ("Abre la carpeta donde podes agregar mas .sf2");
     prevButton.onClick = [this] { step (-1); };
     nextButton.onClick = [this] { step (1); };
-    prevButton.setTooltip ("Sonido anterior");
-    nextButton.setTooltip ("Sonido siguiente");
 
     for (auto* lb : { &groupList, &presetList })
     {
@@ -596,7 +584,6 @@ TMUEditor::TMUEditor (TMUProcessor& p)
     presetList.setWantsKeyboardFocus (true);
 
     velButton.getProperties().set ("style", "body");
-    velButton.setTooltip ("Curva de velocity: SUAVE (suena fuerte aunque toques despacio), NORMAL, DURA (hay que pegarle) o FIJA");
     velButton.onClick = [this]
     {
         if (auto* prm = proc.params.getParameter ("velcurve"))
@@ -614,7 +601,6 @@ TMUEditor::TMUEditor (TMUProcessor& p)
         k->setDoubleClickReturnValue (true, k == &rateKnob ? 5.5 : 0.0);
         k->setPopupDisplayEnabled (true, true, this);
         k->onRightClick = [this] (ParamKnob& knob) { showKnobMenu (knob); };
-        k->setTooltip ("Click derecho: asignar a un control de tu teclado MIDI");
         k->getProperties().set ("bipolar", k == &filterKnob || k == &transpose);
         addAndMakeVisible (k);
     }
@@ -632,6 +618,7 @@ TMUEditor::TMUEditor (TMUProcessor& p)
     licenseOverlay.onActivated = [this] { if (! prefs->getTutorialSeen()) showTutorial(); };
     tutorial.onFinished = [this] { prefs->setTutorialSeen (true); prefsVersion = prefs->getVersion(); };
 
+    applyLanguage();
     setSize (W, H);
 
     currentGroup = proc.uiGroup;
@@ -652,18 +639,44 @@ TMUEditor::~TMUEditor()
     setLookAndFeel (nullptr);
 }
 
+// Textos que se ponen una vez (botones y tooltips): se vuelven a poner cuando se cambia el idioma
+void TMUEditor::applyLanguage()
+{
+    viewType.setButtonText (TR ("TIPO"));
+    dupButton.setButtonText (TR ("SIN REP"));
+    getButton.setButtonText (TR ("BAJAR SF2"));
+    folderButton.setButtonText (TR ("CARPETA"));
+    viewType.setTooltip (TR ("Ordenar por tipo de sonido"));
+    viewSource.setTooltip (TR ("Ordenar por soundfont"));
+    viewAZ.setTooltip (TR ("Ordenar de la A a la Z"));
+    favButton.setTooltip (TR ("Estrellas del sonido elegido: 1, 2, 3 y sin estrellas (solo con click)"));
+    helpButton.setTooltip (TR ("Ver el tutorial"));
+    getButton.setTooltip (TR ("Donde conseguir soundfonts gratis (paginas de sus autores)"));
+    dupButton.setTooltip (TR ("Sin repetidos: oculta los sonidos iguales a otro y los que no suenan"));
+    rescanButton.setTooltip (TR ("Volver a buscar soundfonts"));
+    folderButton.setTooltip (TR ("Abre la carpeta donde podes agregar mas .sf2"));
+    prevButton.setTooltip (TR ("Sonido anterior"));
+    nextButton.setTooltip (TR ("Sonido siguiente"));
+    velButton.setTooltip (TR ("Curva de velocity: SUAVE (suena fuerte aunque toques despacio), NORMAL, DURA (hay que pegarle) o FIJA"));
+    for (auto* k : allKnobs()) k->setTooltip (TR ("Click derecho: asignar a un control de tu teclado MIDI"));
+    search.setTextToShowWhenEmpty (TR ("nombre, tipo o soundfont"), screenDim);
+    updateVelButton();
+    chassis = {};
+    repaint();
+}
+
 void TMUEditor::showTutorial()
 {
     const auto pills = viewType.getBounds().getUnion (helpButton.getBounds());
     const auto knobs = knobsArea;
     tutorial.start ({
-        { "BIENVENIDO A TMU",  "Todos tus soundfonts en una netbook. Son miles de sonidos ordenados para que encuentres rapido lo que buscas.\n\nEn 6 pasos te muestro como se usa.", {} },
-        { "LA PANTALLA",       "Elegi un sonido con un click o con las flechas arriba/abajo. A la izquierda estan los grupos. Arriba escribis para buscar: bass, pad, mario...", lcdArea },
-        { "COMO SE ORDENA",    "TIPO: pianos, bajos, pads...\nSF2: por soundfont.\nA-Z: alfabetico.\nSIN REP: oculta los sonidos repetidos y los que no suenan.", pills },
-        { "FAVORITOS",         "Toca FAV (o clickea las estrellas del sonido) para darle estrellas al sonido elegido. Los vas a encontrar en el grupo FAVORITOS de la pantalla.", favButton.getBounds() },
-        { "PERILLAS",          "MOD: vibrato y filtro que se mueven estilo Roland (arranca despues de un ratito, tambien con la rueda de tu teclado). RATE: velocidad. FILTRO, ST, SWING (atrasa los 16avos), HUMAN (velocity y tiempo humanos) y VEL (curva de velocity). Click derecho: asignar a tu MIDI.", knobs },
-        { "PROBA Y SUMA MAS",  "Toca el mini piano con el mouse. < > pasan de sonido. CARPETA abre la carpeta para sumar tus .sf2 y RESCAN los carga. BAJAR SF2 (arriba) te muestra paginas con soundfonts gratis.", keySlot.getUnion (folderButton.getBounds()) },
-        { "LISTO!",            "Si te olvidas de algo, toca ? arriba a la derecha y vuelve este tutorial.", helpButton.getBounds() },
+        { TR ("BIENVENIDO A TMU"),  TR ("Todos tus soundfonts en una netbook. Son miles de sonidos ordenados para que encuentres rapido lo que buscas.\n\nEn 6 pasos te muestro como se usa."), {} },
+        { TR ("LA PANTALLA"),       TR ("Elegi un sonido con un click o con las flechas arriba/abajo. A la izquierda estan los grupos. Arriba escribis para buscar: bass, pad, mario..."), lcdArea },
+        { TR ("COMO SE ORDENA"),    TR ("TIPO: pianos, bajos, pads...\nSF2: por soundfont.\nA-Z: alfabetico.\nSIN REP: oculta los sonidos repetidos y los que no suenan."), pills },
+        { TR ("FAVORITOS"),         TR ("Toca FAV (o clickea las estrellas del sonido) para darle estrellas al sonido elegido. Los vas a encontrar en el grupo FAVORITOS de la pantalla."), favButton.getBounds() },
+        { TR ("PERILLAS"),          TR ("MOD: vibrato y filtro que se mueven estilo Roland (arranca despues de un ratito, tambien con la rueda de tu teclado). RATE: velocidad. FILTRO, ST, SWING (atrasa los 16avos), HUMAN (velocity y tiempo humanos) y VEL (curva de velocity). Click derecho: asignar a tu MIDI."), knobs },
+        { TR ("PROBA Y SUMA MAS"),  TR ("Toca el mini piano con el mouse. < > pasan de sonido. CARPETA abre la carpeta para sumar tus .sf2 y RESCAN los carga. BAJAR SF2 (arriba) te muestra paginas con soundfonts gratis."), keySlot.getUnion (folderButton.getBounds()) },
+        { TR ("LISTO!"),            TR ("Si te olvidas de algo, toca ? arriba a la derecha y vuelve este tutorial."), helpButton.getBounds() },
     });
     tutorial.setBounds (getLocalBounds());
     licenseOverlay.setBounds (getLocalBounds());
@@ -765,7 +778,7 @@ void TMUEditor::buildChassis()
         g.setColour (juce::Colour (0xff8a8a90));
         g.drawText ("SOUND FONT PLAYER", juce::Rectangle<int> ((int) b.getRight() + 22, HEADER / 2 - 12, 200, 12), juce::Justification::centredLeft);
         g.setColour (juce::Colour (0xff5f5f66));
-        g.drawText ("para compus de verdad", juce::Rectangle<int> ((int) b.getRight() + 22, HEADER / 2 + 1, 200, 12), juce::Justification::centredLeft);
+        g.drawText (TR ("para compus de verdad"), juce::Rectangle<int> ((int) b.getRight() + 22, HEADER / 2 + 1, 200, 12), juce::Justification::centredLeft);
     }
 
     // ---- abajo de la pantalla: dos rayitas y texto impreso (como en la tapa original)
@@ -776,8 +789,8 @@ void TMUEditor::buildChassis()
         g.fillRect ((float) M, y + 9.0f, 20.0f, 5.0f);
         g.setFont (look.pixel (8.0f));
         g.setColour (juce::Colour (0xff8a8a90));
-        g.drawText ("hecho en una netbook", juce::Rectangle<int> (M + 28, (int) y - 3, 200, 11), juce::Justification::centredLeft);
-        g.drawText ("por viszeversza", juce::Rectangle<int> (M + 28, (int) y + 7, 200, 11), juce::Justification::centredLeft);
+        g.drawText (TR ("hecho en una netbook"), juce::Rectangle<int> (M + 28, (int) y - 3, 200, 11), juce::Justification::centredLeft);
+        g.drawText (TR ("por viszeversza"), juce::Rectangle<int> (M + 28, (int) y + 7, 200, 11), juce::Justification::centredLeft);
     }
 
     // ---- bisagra
@@ -859,15 +872,15 @@ void TMUEditor::buildChassis()
     // ---- etiquetas impresas en el plastico
     g.setFont (look.pixel (8.0f));
     g.setColour (ink);
-    auto knobLabel = [&] (juce::Rectangle<int> a, const char* t) { g.drawText (t, a.withY (a.getBottom() + 6).withHeight (10).expanded (20, 0), juce::Justification::centred); };
+    auto knobLabel = [&] (juce::Rectangle<int> a, const juce::String& t) { g.drawText (t, a.withY (a.getBottom() + 6).withHeight (10).expanded (20, 0), juce::Justification::centred); };
     knobLabel (volArea, "VOL");
     knobLabel (modArea, "MOD");
-    knobLabel (filterArea, "FILTRO");
+    knobLabel (filterArea, TR ("FILTRO"));
     knobLabel (rateArea, "RATE");
     knobLabel (swingArea, "SWING");
     knobLabel (humanArea, "HUMAN");
     knobLabel (velArea, "VEL");
-    g.drawText ("SONIDO", prevButton.getBounds().getUnion (nextButton.getBounds()).withY (prevButton.getY() - 14).withHeight (10), juce::Justification::centred);
+    g.drawText (TR ("SONIDO"), prevButton.getBounds().getUnion (nextButton.getBounds()).withY (prevButton.getY() - 14).withHeight (10), juce::Justification::centred);
 
     // ---- etiqueta plateada abajo, como la de fabrica: INDUSTRIA ARGENTINA
     {
@@ -921,9 +934,9 @@ void TMUEditor::paint (juce::Graphics& g)
     const auto info = proc.getLoadedInfo();
     auto gi = glass.toNearestInt().reduced (18, 10);
     g.setFont (look.pixel (13.0f));
-    glowText (g, "BUSCAR>", gi.withHeight (28).withWidth (110), juce::Justification::centredLeft, scrHi);
+    glowText (g, TR ("BUSCAR>"), gi.withHeight (28).withWidth (110), juce::Justification::centredLeft, scrHi);
     juce::String status;
-    if (proc.library->isScanning()) status = "CARGANDO...";
+    if (proc.library->isScanning()) status = TR ("CARGANDO...");
     else if (entries != nullptr) status = juce::String (filtered.size()) + "/" + juce::String (groups.empty() ? (int) entries->size() : groups[0].count);
     g.setFont (look.pixel (11.0f));
     glowText (g, status, gi.withHeight (28).withTrimmedLeft (gi.getWidth() - 220), juce::Justification::centredRight, screenTxt);
@@ -935,16 +948,16 @@ void TMUEditor::paint (juce::Graphics& g)
     if (entries != nullptr && entries->empty() && ! proc.library->isScanning())
     {
         g.setFont (look.pixel (12.0f));
-        glowText (g, "NO HAY SOUNDFONTS", presetList.getBounds().withHeight (30).translated (0, 40), juce::Justification::centred, scrHi);
+        glowText (g, TR ("NO HAY SOUNDFONTS"), presetList.getBounds().withHeight (30).translated (0, 40), juce::Justification::centred, scrHi);
         g.setFont (look.pixel (8.0f));
-        glowText (g, "Toca BAJAR SF2 (arriba) o pone tus .sf2 en Musica/TMU SoundFonts y toca RESCAN", presetList.getBounds().withHeight (20).translated (0, 76), juce::Justification::centred, screenTxt);
+        glowText (g, TR ("Toca BAJAR SF2 (arriba) o pone tus .sf2 en Musica/TMU SoundFonts y toca RESCAN"), presetList.getBounds().withHeight (20).translated (0, 76), juce::Justification::centred, screenTxt);
     }
 
     // ---- sonando (con pista de ayuda)
     auto mi = miniLcdArea;
-    juce::String top = "SONANDO";
-    if (info.loading) top = "CARGANDO...";
-    else if (info.error.isNotEmpty()) top = "ERROR: " + info.error;
+    juce::String top = TR ("SONANDO");
+    if (info.loading) top = TR ("CARGANDO...");
+    else if (info.error.isNotEmpty()) top = "ERROR: " + TR (info.error);
     auto topRow = mi.removeFromTop (14);
     g.setFont (look.pixel (8.0f));
     glowText (g, top, topRow.removeFromLeft (90), juce::Justification::centredLeft, screenDim.brighter (0.7f), 0.0f);
@@ -964,13 +977,13 @@ void TMUEditor::paint (juce::Graphics& g)
         const int st = prefs->getStars (PresetEntry::makeKey (juce::File (info.file).getFileName(), info.phdrIndex, info.name));
         drawStars (g, topRow.removeFromRight (44), st, starGold, scrHi.withAlpha (0.18f), 5.0f);
         topRow.removeFromRight (8);
-        glowText (g, juce::String (tmu::categoryName (info.category)).toUpperCase() + " / " + info.source.toUpperCase(), topRow,
+        glowText (g, TR (tmu::categoryName (info.category)).toUpperCase() + " / " + info.source.toUpperCase(), topRow,
                   juce::Justification::centredRight, screenTxt.withAlpha (0.8f), 0.0f);
     }
     auto nameRow = mi;
     g.setFont (look.pixel (8.0f));
     g.setColour (screenDim.brighter (0.5f));
-    g.drawText ("? = AYUDA", nameRow.removeFromRight (90), juce::Justification::centredRight);
+    g.drawText (TR ("? = AYUDA"), nameRow.removeFromRight (90), juce::Justification::centredRight);
     g.setFont (look.pixel (16.0f));
     glowText (g, info.name.isNotEmpty() ? info.name.toUpperCase() : juce::String ("---"), nameRow, juce::Justification::centredLeft, scrHi, 0.0f);
 
@@ -1119,7 +1132,7 @@ void TMUEditor::timerCallback()
 juce::String TMUEditor::velText() const
 {
     static const char* names[] = { "SUAVE", "NORMAL", "DURA", "FIJA" };
-    return names[juce::jlimit (0, 3, (int) proc.params.getRawParameterValue ("velcurve")->load())];
+    return TR (names[juce::jlimit (0, 3, (int) proc.params.getRawParameterValue ("velcurve")->load())]);
 }
 
 void TMUEditor::updateVelButton()
@@ -1139,14 +1152,18 @@ void TMUEditor::showSoundfontLinks()
         { "MuseScore - lista de soundfonts gratis recomendados",       "https://musescore.org/en/handbook/soundfonts" },
     };
     juce::PopupMenu m;
-    m.addSectionHeader ("Soundfonts gratis (se bajan de la pagina de cada autor)");
+    m.addSectionHeader (TR ("Soundfonts gratis (se bajan de la pagina de cada autor)"));
     for (auto& l : links)
-        m.addItem (l.name, [u = juce::String (l.url)] { juce::URL (u).launchInDefaultBrowser(); });
+        m.addItem (TR (l.name), [u = juce::String (l.url)] { juce::URL (u).launchInDefaultBrowser(); });
     m.addSeparator();
-    m.addItem ("Abrir mi carpeta TMU SoundFonts", [] { auto f = PresetLibrary::getUserFolder(); f.createDirectory(); f.startAsProcess(); });
-    m.addItem ("Ya los baje: RESCAN", [this] { proc.library->rescan(); });
+    m.addItem (TR ("Abrir mi carpeta TMU SoundFonts"), [] { auto f = PresetLibrary::getUserFolder(); f.createDirectory(); f.startAsProcess(); });
+    m.addItem (TR ("Ya los baje: RESCAN"), [this] { proc.library->rescan(); });
     m.addSeparator();
-    m.addItem ("Cada soundfont es de su autor: fijate su licencia antes de usarlo en un tema.", false, false, [] {});
+    m.addItem (TR ("Cada soundfont es de su autor: fijate su licencia antes de usarlo en un tema."), false, false, [] {});
+    m.addSeparator();
+    m.addSectionHeader (TR ("Idioma / Language"));
+    m.addItem (juce::String (juce::CharPointer_UTF8 ("Espa\xc3\xb1ol")), true, lang::get() == lang::ES, [this] { lang::set (lang::ES); applyLanguage(); rebuildGroups(); });
+    m.addItem ("English", true, lang::get() == lang::EN, [this] { lang::set (lang::EN); applyLanguage(); rebuildGroups(); });
     m.showMenuAsync (juce::PopupMenu::Options().withTargetComponent (&getButton));
 }
 
@@ -1154,10 +1171,10 @@ void TMUEditor::showKnobMenu (ParamKnob& knob)
 {
     juce::PopupMenu menu;
     const int cc = proc.getAssignedCC (knob.paramId);
-    menu.addSectionHeader ("Controlador MIDI");
-    menu.addItem (proc.getLearningParam() == knob.paramId ? "Esperando... (move una perilla)" : "Aprender controlador (MIDI learn)",
+    menu.addSectionHeader (TR ("Controlador MIDI"));
+    menu.addItem (proc.getLearningParam() == knob.paramId ? TR ("Esperando... (move una perilla)") : TR ("Aprender controlador (MIDI learn)"),
                   [this, id = knob.paramId] { proc.startLearning (id); repaint(); });
-    menu.addItem (cc >= 0 ? "Quitar controlador (CC " + juce::String (cc) + ")" : "Quitar controlador", cc >= 0,
+    menu.addItem (cc >= 0 ? TR ("Quitar controlador (CC ") + juce::String (cc) + ")" : TR ("Quitar controlador"), cc >= 0,
                   false, [this, id = knob.paramId] { proc.clearLearning (id); repaint(); });
 
     // menu del DAW para este parametro (en FL Studio incluye "Link to controller")
@@ -1166,7 +1183,7 @@ void TMUEditor::showKnobMenu (ParamKnob& knob)
             if (auto hostMenu = host->getContextMenuForParameter (prm))
             {
                 menu.addSeparator();
-                menu.addSubMenu ("Opciones del DAW (Link to controller...)", hostMenu->getEquivalentPopupMenu());
+                menu.addSubMenu (TR ("Opciones del DAW (Link to controller...)"), hostMenu->getEquivalentPopupMenu());
             }
 
     menu.showMenuAsync (juce::PopupMenu::Options().withTargetComponent (&knob));
@@ -1202,15 +1219,15 @@ void TMUEditor::rebuildGroups()
     int visible = 0, favs = 0;
     for (auto& e : *entries)
         if (isVisible (e)) { ++visible; if (prefs->getStars (e.key) > 0) ++favs; }
-    groups.push_back ({ "*", "Todos", visible });
-    groups.push_back ({ "fav", juce::String (juce::CharPointer_UTF8 ("\xe2\x98\x85 Favoritos")), favs });
+    groups.push_back ({ "*", TR ("Todos"), visible });
+    groups.push_back ({ "fav", juce::String (juce::CharPointer_UTF8 ("\xe2\x98\x85 ")) + TR ("Favoritos"), favs });
 
     if (proc.uiView == "type")
     {
         std::array<int, tmu::NumCategories> counts {};
         for (auto& e : *entries) if (isVisible (e)) counts[(size_t) e.category]++;
         for (int c = 0; c < tmu::NumCategories; ++c)
-            if (counts[(size_t) c] > 0) groups.push_back ({ juce::String (c), tmu::categoryName (c), counts[(size_t) c] });
+            if (counts[(size_t) c] > 0) groups.push_back ({ juce::String (c), TR (tmu::categoryName (c)), counts[(size_t) c] });
     }
     else if (proc.uiView == "source")
     {
@@ -1261,7 +1278,7 @@ void TMUEditor::rebuildFiltered()
             bool ok = true;
             for (auto& w : words)
                 if (! e.name.containsIgnoreCase (w) && ! e.source.containsIgnoreCase (w)
-                    && ! juce::String (tmu::categoryName (e.category)).containsIgnoreCase (w)) { ok = false; break; }
+                    && ! juce::String (tmu::categoryName (e.category)).containsIgnoreCase (w) && ! TR (tmu::categoryName (e.category)).containsIgnoreCase (w)) { ok = false; break; }
             if (ok) filtered.push_back (i);
         }
         if (currentGroup == "fav")   // favoritos: primero los de 3 estrellas
@@ -1360,7 +1377,7 @@ void TMUEditor::PresetModel::paintListBoxItem (int row, juce::Graphics& g, int w
     const auto textCol = isLoaded ? juce::Colours::white : (e.hidden != 0 ? screenDim : screenTxt);
     if (w >= 480)
     {
-        const auto right = ed.proc.uiView == "source" ? juce::String (tmu::categoryName (e.category)) : e.source;
+        const auto right = ed.proc.uiView == "source" ? TR (tmu::categoryName (e.category)) : e.source;
         g.setFont (ed.look.pixel (8.0f));
         g.setColour (screenTxt.withAlpha (isLoaded ? 0.8f : 0.45f));
         g.drawText (right.toUpperCase(), r.removeFromRight (juce::jmin (230, w / 2)).withTrimmedRight (6), juce::Justification::centredRight, true);
@@ -1411,11 +1428,11 @@ void TMUEditor::PresetModel::listBoxItemClicked (int row, const juce::MouseEvent
     if (e.mods.isPopupMenu())
     {
         juce::PopupMenu m;
-        m.addSectionHeader ("Favoritos");
+        m.addSectionHeader (TR ("Favoritos"));
         const juce::String star (juce::CharPointer_UTF8 ("\xe2\x98\x85"));
         for (int n = 1; n <= 3; ++n)
             m.addItem (juce::String::repeatedString (star, n), true, current == n, [this, row, n] { ed.setStarsForRow (row, n); });
-        m.addItem ("Quitar de favoritos", current > 0, false, [this, row] { ed.setStarsForRow (row, 0); });
+        m.addItem (TR ("Quitar de favoritos"), current > 0, false, [this, row] { ed.setStarsForRow (row, 0); });
         m.showMenuAsync (juce::PopupMenu::Options().withMousePosition());
         return;
     }

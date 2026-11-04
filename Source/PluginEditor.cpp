@@ -534,7 +534,7 @@ TMUEditor::TMUEditor (TMUProcessor& p)
     viewType.setTooltip ("Ordenar por tipo de sonido");
     viewSource.setTooltip ("Ordenar por soundfont");
     viewAZ.setTooltip ("Ordenar de la A a la Z");
-    favButton.setTooltip ("Estrellas del sonido elegido: 1, 2, 3 y sin estrellas");
+    favButton.setTooltip ("Estrellas del sonido elegido: 1, 2, 3 y sin estrellas (solo con click)");
     helpButton.setTooltip ("Ver el tutorial");
     viewType.onClick   = [this] { setView ("type"); };
     viewSource.onClick = [this] { setView ("source"); };
@@ -660,7 +660,7 @@ void TMUEditor::showTutorial()
         { "BIENVENIDO A TMU",  "Todos tus soundfonts en una netbook. Son miles de sonidos ordenados para que encuentres rapido lo que buscas.\n\nEn 6 pasos te muestro como se usa.", {} },
         { "LA PANTALLA",       "Elegi un sonido con un click o con las flechas arriba/abajo. A la izquierda estan los grupos. Arriba escribis para buscar: bass, pad, mario...", lcdArea },
         { "COMO SE ORDENA",    "TIPO: pianos, bajos, pads...\nSF2: por soundfont.\nA-Z: alfabetico.\nSIN REP: oculta los sonidos repetidos y los que no suenan.", pills },
-        { "FAVORITOS",         "Toca FAV (o las teclas 1, 2, 3) para darle estrellas al sonido elegido. Los vas a encontrar en el grupo FAVORITOS de la pantalla.", favButton.getBounds() },
+        { "FAVORITOS",         "Toca FAV (o clickea las estrellas del sonido) para darle estrellas al sonido elegido. Los vas a encontrar en el grupo FAVORITOS de la pantalla.", favButton.getBounds() },
         { "PERILLAS",          "MOD: vibrato y filtro que se mueven estilo Roland (arranca despues de un ratito, tambien con la rueda de tu teclado). RATE: velocidad. FILTRO, ST, SWING (atrasa los 16avos), HUMAN (velocity y tiempo humanos) y VEL (curva de velocity). Click derecho: asignar a tu MIDI.", knobs },
         { "PROBA Y SUMA MAS",  "Toca el mini piano con el mouse. < > pasan de sonido. CARPETA abre la carpeta para sumar tus .sf2 y RESCAN los carga. BAJAR SF2 (arriba) te muestra paginas con soundfonts gratis.", keySlot.getUnion (folderButton.getBounds()) },
         { "LISTO!",            "Si te olvidas de algo, toca ? arriba a la derecha y vuelve este tutorial.", helpButton.getBounds() },
@@ -1063,12 +1063,7 @@ bool TMUEditor::keyPressed (const juce::KeyPress& k)
 {
     if (k == juce::KeyPress::upKey)   { step (-1); return true; }
     if (k == juce::KeyPress::downKey) { step (1);  return true; }
-    const auto ch = k.getTextCharacter();
-    if (ch >= '0' && ch <= '3' && ! search.hasKeyboardFocus (true))
-    {
-        setStarsForRow (presetList.getSelectedRow(), ch - '0');
-        return true;
-    }
+    // las estrellas se cambian solo con el click (si no, al tocar con el teclado de la compu se cambian sin querer)
     return false;
 }
 

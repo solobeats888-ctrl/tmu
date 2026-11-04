@@ -545,13 +545,20 @@ bool LayerStrip::isOn (int i) const
     return proc.params.getRawParameterValue (TMUProcessor::layerOnId (i))->load() > 0.5f;
 }
 
+juce::String LayerStrip::nameOfLayer (int i) const
+{
+    const auto info = proc.getLoadedInfo (i);
+    if (info.name.isEmpty()) return {};
+    return prefs->shownName (PresetEntry::makeKey (juce::File (info.file).getFileName(), info.phdrIndex, info.name), info.name);
+}
+
 void LayerStrip::refresh()
 {
     juce::String sig;
     for (int i = 0; i < TMUProcessor::numLayers; ++i)
     {
         const auto info = proc.getLoadedInfo (i);
-        sig << info.name << "|" << (int) info.loading << "|" << info.error << "|" << (int) isOn (i) << "|";
+        sig << nameOfLayer (i) << "|" << (int) info.loading << "|" << info.error << "|" << (int) isOn (i) << "|";
         if (auto* prm = proc.params.getParameter (TMUProcessor::layerParamId ("volume", i))) sig << prm->getValue() << "|";
     }
     sig << proc.getActiveLayer();
@@ -595,7 +602,7 @@ void LayerStrip::paint (juce::Graphics& g)
             col = scrHi;
         }
         else if (info.loading)           { label = "CARGANDO..."; col = screenDim.brighter (0.5f); }
-        else if (has)                    label = info.name.toUpperCase();
+        else if (has)                    label = nameOfLayer (i).toUpperCase();
         else if (info.error.isNotEmpty()) { label = "ERROR"; col = juce::Colour (0xffff6b8a); }
         else                             { label = i == 0 ? juce::String ("---") : juce::String ("+ SUMAR SONIDO"); col = screenDim; }
         g.setFont (look.pixel (9.0f));
@@ -1178,7 +1185,12 @@ void TMUEditor::paint (juce::Graphics& g)
     g.setColour (screenDim.brighter (0.5f));
     g.drawText ("? = AYUDA", nameRow.removeFromRight (90), juce::Justification::centredRight);
     g.setFont (look.pixel (16.0f));
-    glowText (g, info.name.isNotEmpty() ? info.name.toUpperCase() : juce::String ("---"), nameRow, juce::Justification::centredLeft, scrHi, 0.0f);
+    {
+        const auto shown = info.name.isNotEmpty()
+                             ? prefs->shownName (PresetEntry::makeKey (juce::File (info.file).getFileName(), info.phdrIndex, info.name), info.name)
+                             : juce::String();
+        glowText (g, shown.isNotEmpty() ? shown.toUpperCase() : juce::String ("---"), nameRow, juce::Justification::centredLeft, scrHi, 0.0f);
+    }
 
     // ---- a que capa pertenecen las perillas
     g.setFont (look.pixel (8.0f));
@@ -1438,7 +1450,7 @@ bool TMUEditor::entryInGroup (const PresetEntry& e, const juce::String& key) con
     if (proc.uiView == "type")   return juce::String (e.category) == key;
     if (proc.uiView == "source") return e.source == key;
     // A-Z
-    const auto c = juce::CharacterFunctions::toUpperCase (e.name[0]);
+    const auto c = juce::CharacterFunctions::toUpperCase (shownName (e)[0]);
     if (key == "#") return ! (c >= 'A' && c <= 'Z');
     return juce::String::charToString (c) == key;
 }
@@ -1481,7 +1493,7 @@ void TMUEditor::rebuildGroups()
         for (auto& e : *entries)
         {
             if (! isVisible (e)) continue;
-            const auto c = juce::CharacterFunctions::toUpperCase (e.name[0]);
+            const auto c = juce::CharacterFunctions::toUpperCase (shownName (e)[0]);
             counts[(c >= 'A' && c <= 'Z') ? juce::String::charToString (c) : juce::String ("#")]++;
         }
         for (auto& [k, n] : counts) groups.push_back ({ k, k, n });
@@ -1515,10 +1527,18 @@ void TMUEditor::rebuildFiltered()
             if (! isVisible (e) || ! entryInGroup (e, currentGroup)) continue;
             bool ok = true;
             for (auto& w : words)
-                if (! e.name.containsIgnoreCase (w) && ! e.source.containsIgnoreCase (w)
+                if (! e.name.containsIgnoreCase (w) && ! shownName (e).containsIgnoreCase (w) && ! e.source.containsIgnoreCase (w)
                     && ! juce::String (tmu::categoryName (e.category)).containsIgnoreCase (w)) { ok = false; break; }
             if (ok) filtered.push_back (i);
         }
+        if (currentGroup != "fav" && currentGroup != "new")   // los renombrados se ordenan por el nombre nuevo
+            std::stable_sort (filtered.begin(), filtered.end(), [this] (int a, int b)
+            {
+                const auto& ea = (*entries)[(size_t) a];
+                const auto& eb = (*entries)[(size_t) b];
+                const int c = shownName (ea).compareNatural (shownName (eb));
+                return c != 0 ? c < 0 : ea.source.compareNatural (eb.source) < 0;
+            });
         if (currentGroup == "fav")   // favoritos: primero los de 3 estrellas
             std::stable_sort (filtered.begin(), filtered.end(), [this] (int a, int b)
             { return prefs->getStars ((*entries)[(size_t) a].key) > prefs->getStars ((*entries)[(size_t) b].key); });
@@ -1655,7 +1675,7 @@ void TMUEditor::PresetModel::paintListBoxItem (int row, juce::Graphics& g, int w
     drawStars (g, starsArea (w, h), st, starGold, juce::Colours::white.withAlpha (selected || isLoaded ? 0.28f : 0.13f));
     r.setRight (starsArea (w, h).getX() - 6);
     g.setFont (ed.look.pixel (10.0f));
-    glowText (g, e.name.toUpperCase(), r, juce::Justification::centredLeft, textCol, 0.0f);
+    glowText (g, ed.shownName (e).toUpperCase(), r, juce::Justification::centredLeft, textCol, 0.0f);
 }
 
 void TMUEditor::GroupModel::selectedRowsChanged (int row)
@@ -1688,6 +1708,43 @@ void TMUEditor::setStarsForRow (int row, int n)
     repaint (miniLcdArea);
 }
 
+// Cambia el nombre con el que se ve un sonido (en la lista, el visor y las capas).
+// No toca el .sf2: el nombre nuevo se guarda aparte, en TMU-favoritos.xml, y vale para todas las instancias.
+void TMUEditor::applyCustomName (const juce::String& key, const juce::String& newName)
+{
+    prefs->setCustomName (key, newName);
+    prefsVersion = prefs->getVersion();
+    rebuildGroups();        // un nombre nuevo puede cambiar la letra del A-Z y el orden de la lista
+    layerStrip.refresh();
+    presetList.repaint();
+    repaint();
+}
+
+void TMUEditor::renameRow (int row)
+{
+    if (entries == nullptr || row < 0 || row >= (int) filtered.size()) return;
+    const auto& e = (*entries)[(size_t) filtered[(size_t) row]];
+    const auto key = e.key;
+    const auto original = e.name;
+
+    auto* w = new juce::AlertWindow ("Renombrar sonido",
+                                     "Nombre original: " + original + "\nDejalo vacio para volver al original.",
+                                     juce::MessageBoxIconType::NoIcon, this);
+    w->addTextEditor ("nombre", shownName (e), "Nombre nuevo:");
+    if (auto* te = w->getTextEditor ("nombre")) { te->setInputRestrictions (80); te->selectAll(); }
+    w->addButton ("Guardar", 1, juce::KeyPress (juce::KeyPress::returnKey));
+    w->addButton ("Cancelar", 0, juce::KeyPress (juce::KeyPress::escapeKey));
+
+    juce::Component::SafePointer<TMUEditor> safe (this);
+    w->enterModalState (true, juce::ModalCallbackFunction::create ([safe, w, key, original] (int result)
+    {
+        if (result != 1 || safe == nullptr) return;
+        auto nn = w->getTextEditorContents ("nombre").trim();
+        if (nn == original) nn = {};   // igual al original = sin nombre propio
+        safe->applyCustomName (key, nn);
+    }), true);
+}
+
 void TMUEditor::PresetModel::listBoxItemClicked (int row, const juce::MouseEvent& e)
 {
     if (ed.entries == nullptr || row < 0 || row >= (int) ed.filtered.size()) return;
@@ -1696,12 +1753,17 @@ void TMUEditor::PresetModel::listBoxItemClicked (int row, const juce::MouseEvent
 
     if (e.mods.isPopupMenu())
     {
+        const bool renamed = ed.prefs->getCustomName (key).isNotEmpty();
         juce::PopupMenu m;
         m.addSectionHeader ("Favoritos");
         const juce::String star (juce::CharPointer_UTF8 ("\xe2\x98\x85"));
         for (int n = 1; n <= 3; ++n)
             m.addItem (juce::String::repeatedString (star, n), true, current == n, [this, row, n] { ed.setStarsForRow (row, n); });
         m.addItem ("Quitar de favoritos", current > 0, false, [this, row] { ed.setStarsForRow (row, 0); });
+        m.addSeparator();
+        m.addSectionHeader ("Nombre");
+        m.addItem ("Renombrar...", [this, row] { ed.renameRow (row); });
+        m.addItem ("Volver al nombre original", renamed, false, [this, key] { ed.applyCustomName (key, {}); });
         m.showMenuAsync (juce::PopupMenu::Options().withMousePosition());
         return;
     }

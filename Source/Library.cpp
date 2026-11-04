@@ -25,7 +25,36 @@ UserPrefs::UserPrefs()
             const int n = juce::jlimit (0, 3, f->getIntAttribute ("stars"));
             if (n > 0) stars[f->getStringAttribute ("key")] = n;
         }
+        for (auto* c : xml->getChildWithTagNameIterator ("nombre"))
+        {
+            const auto k = c->getStringAttribute ("key");
+            const auto n = c->getStringAttribute ("name").trim();
+            if (k.isNotEmpty() && n.isNotEmpty()) customNames[k] = n;
+        }
     }
+}
+
+juce::String UserPrefs::getCustomName (const juce::String& key) const
+{
+    const juce::ScopedLock sl (lock);
+    auto it = customNames.find (key);
+    return it == customNames.end() ? juce::String() : it->second;
+}
+
+void UserPrefs::setCustomName (const juce::String& key, const juce::String& newName)
+{
+    {
+        const juce::ScopedLock sl (lock);
+        const auto n = newName.trim().substring (0, 80);
+        if (n.isEmpty()) customNames.erase (key); else customNames[key] = n;
+    }
+    save();
+}
+
+juce::String UserPrefs::shownName (const juce::String& key, const juce::String& original) const
+{
+    const auto c = getCustomName (key);
+    return c.isNotEmpty() ? c : original;
 }
 
 int UserPrefs::getStars (const juce::String& key) const
@@ -122,6 +151,12 @@ void UserPrefs::save()
             auto* f = xml.createNewChildElement ("fav");
             f->setAttribute ("key", k);
             f->setAttribute ("stars", n);
+        }
+        for (auto& [k, n] : customNames)
+        {
+            auto* c = xml.createNewChildElement ("nombre");
+            c->setAttribute ("key", k);
+            c->setAttribute ("name", n);
         }
     }
     file.getParentDirectory().createDirectory();

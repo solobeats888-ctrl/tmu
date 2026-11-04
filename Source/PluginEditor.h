@@ -126,8 +126,11 @@ private:
     void setVolumeFromX (int i, int x);
     void showMenu (int i);
 
+    juce::String nameOfLayer (int i) const;   // nombre que se muestra (el propio si lo renombro)
+
     TMUProcessor& proc;
     TMULook& look;
+    juce::SharedResourcePointer<UserPrefs> prefs;
     int dragLayer = -1;
     juce::String lastSig;
 };
@@ -168,6 +171,9 @@ private:
     void timerCallback() override;
     bool isVisible (const PresetEntry& e) const { return showDuplicates || e.hidden == 0; }
     void setStarsForRow (int filteredRow, int stars);
+    juce::String shownName (const PresetEntry& e) const { return prefs->shownName (e.key, e.name); }   // nombre propio si lo renombro
+    void renameRow (int filteredRow);        // abre la ventanita para cambiarle el nombre al sonido
+    void applyCustomName (const juce::String& key, const juce::String& newName);
     static juce::Rectangle<int> starsArea (int rowWidth, int rowHeight);
     void setView (const juce::String& v);
     void rebuildGroups();

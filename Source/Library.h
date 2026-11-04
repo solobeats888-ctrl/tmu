@@ -42,6 +42,12 @@ public:
     void setTutorialSeen (bool);
     int getVersion() const { return version.load(); }   // cambia cada vez que se modifica algo
 
+    // Nombres propios: el usuario le puede cambiar el nombre a un sonido. El archivo .sf2 no se toca,
+    // solo se guarda "clave del sonido -> nombre que quiere ver". Vacio = sigue el nombre original.
+    juce::String getCustomName (const juce::String& key) const;
+    void setCustomName (const juce::String& key, const juce::String& newName);   // vacio = volver al original
+    juce::String shownName (const juce::String& key, const juce::String& original) const;   // nombre propio si hay, si no el original
+
     // Soundfonts ya vistos (para marcar los nuevos). La clave es "nombre.sf2" + tamano.
     // Devuelve 0 si ese archivo nunca se vio; 1 si ya estaba cuando se instalo esta funcion; si no, cuando se agrego (ms).
     juce::int64 getFirstSeen (const juce::String& fileKey) const;
@@ -53,6 +59,7 @@ private:
     juce::File file;
     mutable juce::CriticalSection lock;
     std::map<juce::String, int> stars;
+    std::map<juce::String, juce::String> customNames;
     std::map<juce::String, juce::int64> seen;
     bool seenBaselineDone = false;
     bool showDuplicates = false;

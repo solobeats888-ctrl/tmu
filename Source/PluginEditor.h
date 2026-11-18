@@ -94,6 +94,47 @@ public:
     std::function<void (ParamKnob&)> onRightClick;
 };
 
+// Capas (layering): 4 casilleros con el sonido de cada capa. Click = elegir la capa (a donde va el
+// sonido que elijas en la lista), cuadrito = prender/apagar, barra = volumen, click derecho = mas opciones.
+class LayerStrip : public juce::Component,
+                   public juce::SettableTooltipClient
+{
+public:
+    LayerStrip (TMUProcessor& p, TMULook& l) : proc (p), look (l)
+    {
+        setTooltip ("Capas: click elige la capa, el cuadrito la prende o apaga, la barra es su volumen (doble click = 0 dB). Click derecho: mas opciones");
+    }
+    std::function<void()> onChange;   // se eligio otra capa o se vacio una
+    void refresh();                   // repinta solo si algo cambio
+
+    void paint (juce::Graphics&) override;
+    void mouseDown (const juce::MouseEvent&) override;
+    void mouseDrag (const juce::MouseEvent&) override;
+    void mouseUp (const juce::MouseEvent&) override;
+    void mouseDoubleClick (const juce::MouseEvent&) override;
+
+private:
+    static constexpr int gap = 8;
+    juce::Rectangle<int> slot (int i) const;
+    juce::Rectangle<int> ledArea (int i) const;
+    juce::Rectangle<int> barArea (int i) const;
+    int slotAt (juce::Point<int>) const;
+    bool isOn (int i) const;
+    void selectLayer (int i);
+    void toggleOn (int i);
+    void resetVolume (int i);
+    void setVolumeFromX (int i, int x);
+    void showMenu (int i);
+
+    juce::String nameOfLayer (int i) const;   // nombre que se muestra (el propio si lo renombro)
+
+    TMUProcessor& proc;
+    TMULook& look;
+    juce::SharedResourcePointer<UserPrefs> prefs;
+    int dragLayer = -1;
+    juce::String lastSig;
+};
+
 class TMUEditor : public juce::AudioProcessorEditor,
                   private juce::Timer
 {
@@ -130,6 +171,9 @@ private:
     void timerCallback() override;
     bool isVisible (const PresetEntry& e) const { return showDuplicates || e.hidden == 0; }
     void setStarsForRow (int filteredRow, int stars);
+    juce::String shownName (const PresetEntry& e) const { return prefs->shownName (e.key, e.name); }   // nombre propio si lo renombro
+    void renameRow (int filteredRow);        // abre la ventanita para cambiarle el nombre al sonido
+    void applyCustomName (const juce::String& key, const juce::String& newName);
     static juce::Rectangle<int> starsArea (int rowWidth, int rowHeight);
     void setView (const juce::String& v);
     void rebuildGroups();
@@ -140,6 +184,7 @@ private:
     bool entryInGroup (const PresetEntry& e, const juce::String& groupKey) const;
     void buildChassis();
     void showKnobMenu (ParamKnob&);
+    void onLayerChanged();
 
     TMUProcessor& proc;
     TMULook look;
@@ -172,17 +217,21 @@ private:
     bool showDuplicates = false;
 
     ParamKnob volume { "volume" }, modKnob { "mod" }, filterKnob { "filter" }, transpose { "transpose" },
-              rateKnob { "rate" }, swingKnob { "swing" }, humanKnob { "humanize" };
-    juce::AudioProcessorValueTreeState::SliderAttachment volumeAtt, modAtt, filterAtt, transposeAtt, rateAtt, swingAtt, humanAtt;
+              rateKnob { "rate" }, swingKnob { "swing" }, humanKnob { "humanize" },
+              inKnob { "fadein" }, outKnob { "fadeout" };
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> knobAtt[9];   // mismo orden que allKnobs()
+    void attachKnobs();   // las perillas manejan los parametros de la capa elegida
     juce::TextButton velButton;   // curva de velocity: SUAVE / NORMAL / DURA / FIJA
-    std::array<ParamKnob*, 7> allKnobs() { return { &volume, &modKnob, &rateKnob, &filterKnob, &transpose, &swingKnob, &humanKnob }; }
+    std::array<ParamKnob*, 9> allKnobs() { return { &volume, &modKnob, &rateKnob, &filterKnob, &transpose, &swingKnob, &humanKnob, &inKnob, &outKnob }; }
     void updateVelButton();
     juce::String velText() const;
 
     RetroKeyboard keyboard;
+    LayerStrip layerStrip;
+    int lastLayer = 0;
 
-    juce::Rectangle<int> lcdArea, miniLcdArea, keySlot, volArea, modArea, filterArea, trArea,
-                         rateArea, swingArea, humanArea, velArea, knobsArea;
+    juce::Rectangle<int> lcdArea, miniLcdArea, layerArea, keySlot, volArea, modArea, filterArea, trArea,
+                         rateArea, swingArea, humanArea, velArea, inArea, outArea, knobsArea;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TMUEditor)
 };

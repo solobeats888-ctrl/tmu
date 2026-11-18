@@ -21,6 +21,7 @@ const juce::Colour screenTxt  (0xffdce7ff);
 const juce::Colour screenDim  (0xff7d93c2);
 const juce::Colour selBlue    (0xff3399ff);
 const juce::Colour starGold   (0xffffd24a);
+const juce::Colour newMint    (0xff62f5a8);   // soundfonts recien agregados (RECIENTES)
 
 constexpr int W = 1000, H = 658;
 constexpr int M = 70;            // margen izquierdo / derecho de todo el contenido
@@ -512,16 +513,218 @@ void LicenseOverlay::paint (juce::Graphics& g)
 }
 
 //==============================================================================
+// Capas
+juce::Rectangle<int> LayerStrip::slot (int i) const
+{
+    const int n = TMUProcessor::numLayers;
+    const int w = (getWidth() - gap * (n - 1)) / n;
+    return { i * (w + gap), 0, w, getHeight() };
+}
+
+juce::Rectangle<int> LayerStrip::ledArea (int i) const
+{
+    const auto s = slot (i);
+    return juce::Rectangle<int> (22, 22).withPosition (s.getX() + 4, s.getCentreY() - 11);
+}
+
+juce::Rectangle<int> LayerStrip::barArea (int i) const
+{
+    const auto s = slot (i);
+    return { s.getX() + 34, s.getBottom() - 13, s.getWidth() - 34 - 8, 11 };
+}
+
+int LayerStrip::slotAt (juce::Point<int> p) const
+{
+    for (int i = 0; i < TMUProcessor::numLayers; ++i)
+        if (slot (i).contains (p)) return i;
+    return -1;
+}
+
+bool LayerStrip::isOn (int i) const
+{
+    return proc.params.getRawParameterValue (TMUProcessor::layerOnId (i))->load() > 0.5f;
+}
+
+juce::String LayerStrip::nameOfLayer (int i) const
+{
+    const auto info = proc.getLoadedInfo (i);
+    if (info.name.isEmpty()) return {};
+    return prefs->shownName (PresetEntry::makeKey (juce::File (info.file).getFileName(), info.phdrIndex, info.name), info.name);
+}
+
+void LayerStrip::refresh()
+{
+    juce::String sig;
+    for (int i = 0; i < TMUProcessor::numLayers; ++i)
+    {
+        const auto info = proc.getLoadedInfo (i);
+        sig << nameOfLayer (i) << "|" << (int) info.loading << "|" << info.error << "|" << (int) isOn (i) << "|";
+        if (auto* prm = proc.params.getParameter (TMUProcessor::layerParamId ("volume", i))) sig << prm->getValue() << "|";
+    }
+    sig << proc.getActiveLayer();
+    if (sig != lastSig)
+    {
+        lastSig = sig;
+        repaint();
+    }
+}
+
+void LayerStrip::paint (juce::Graphics& g)
+{
+    for (int i = 0; i < TMUProcessor::numLayers; ++i)
+    {
+        const auto s = slot (i);
+        const bool selected = i == proc.getActiveLayer();
+        const auto info = proc.getLoadedInfo (i);
+        const bool has = info.phdrIndex >= 0 && info.name.isNotEmpty();
+        const bool on = isOn (i);
+
+        g.setColour (juce::Colours::black.withAlpha (selected ? 0.58f : 0.38f));
+        g.fillRoundedRectangle (s.toFloat(), 4.0f);
+        g.setColour (selected ? selBlue : juce::Colours::white.withAlpha (0.16f));
+        g.drawRoundedRectangle (s.toFloat().reduced (0.5f), 4.0f, selected ? 1.6f : 1.0f);
+
+        // cuadrito con el numero: prendido (celeste) = la capa suena
+        const auto led = ledArea (i);
+        const bool lit = has && on;
+        g.setColour (lit ? fnBlue : juce::Colours::white.withAlpha (0.14f));
+        g.fillRoundedRectangle (led.toFloat(), 4.0f);
+        g.setFont (look.pixel (10.0f));
+        g.setColour (lit ? juce::Colours::white : screenDim);
+        g.drawText (juce::String (i + 1), led, juce::Justification::centred);
+
+        // nombre del sonido (o el volumen mientras se arrastra la barra)
+        juce::String label;
+        auto col = on ? screenTxt : screenDim;
+        if (dragLayer == i)
+        {
+            label = juce::String (proc.params.getRawParameterValue (TMUProcessor::layerParamId ("volume", i))->load(), 1) + " dB";
+            col = scrHi;
+        }
+        else if (info.loading)           { label = "CARGANDO..."; col = screenDim.brighter (0.5f); }
+        else if (has)                    label = nameOfLayer (i).toUpperCase();
+        else if (info.error.isNotEmpty()) { label = "ERROR"; col = juce::Colour (0xffff6b8a); }
+        else                             { label = i == 0 ? juce::String ("---") : juce::String ("+ SUMAR SONIDO"); col = screenDim; }
+        g.setFont (look.pixel (9.0f));
+        glowText (g, label, { s.getX() + 34, s.getY() + 3, s.getWidth() - 34 - 8, 14 }, juce::Justification::centredLeft, col);
+
+        // barra de volumen con la marca de 0 dB
+        if (auto* prm = proc.params.getParameter (TMUProcessor::layerParamId ("volume", i)))
+        {
+            const auto bar = barArea (i).withSizeKeepingCentre (barArea (i).getWidth(), 4).toFloat();
+            g.setColour (juce::Colours::white.withAlpha (0.16f));
+            g.fillRoundedRectangle (bar, 2.0f);
+            g.setColour (on ? selBlue.brighter (0.3f) : screenDim.withAlpha (0.7f));
+            g.fillRoundedRectangle (bar.withWidth (juce::jmax (2.0f, bar.getWidth() * prm->getValue())), 2.0f);
+            g.setColour (juce::Colours::white.withAlpha (0.45f));
+            g.fillRect (bar.getX() + bar.getWidth() * prm->convertTo0to1 (0.0f) - 0.5f, bar.getY() - 2.0f, 1.0f, bar.getHeight() + 4.0f);
+        }
+    }
+}
+
+void LayerStrip::selectLayer (int i)
+{
+    if (i == proc.getActiveLayer()) return;
+    proc.setActiveLayer (i);
+    if (onChange) onChange();
+    repaint();
+}
+
+void LayerStrip::toggleOn (int i)
+{
+    if (auto* prm = proc.params.getParameter (TMUProcessor::layerOnId (i)))
+    {
+        prm->beginChangeGesture();
+        prm->setValueNotifyingHost (isOn (i) ? 0.0f : 1.0f);
+        prm->endChangeGesture();
+    }
+    repaint();
+}
+
+void LayerStrip::resetVolume (int i)
+{
+    if (auto* prm = proc.params.getParameter (TMUProcessor::layerParamId ("volume", i)))
+    {
+        prm->beginChangeGesture();
+        prm->setValueNotifyingHost (prm->convertTo0to1 (0.0f));
+        prm->endChangeGesture();
+    }
+    repaint();
+}
+
+void LayerStrip::setVolumeFromX (int i, int x)
+{
+    auto* prm = proc.params.getParameter (TMUProcessor::layerParamId ("volume", i));
+    if (prm == nullptr) return;
+    const auto bar = barArea (i);
+    float n = juce::jlimit (0.0f, 1.0f, (float) (x - bar.getX()) / (float) juce::jmax (1, bar.getWidth()));
+    const float zero = prm->convertTo0to1 (0.0f);
+    if (std::abs (n - zero) < 0.02f) n = zero;   // se pega a 0 dB
+    prm->setValueNotifyingHost (n);
+    repaint();
+}
+
+void LayerStrip::mouseDown (const juce::MouseEvent& e)
+{
+    const int i = slotAt (e.getPosition());
+    if (i < 0) return;
+    selectLayer (i);
+
+    if (e.mods.isPopupMenu()) { showMenu (i); return; }
+
+    if (ledArea (i).expanded (3).contains (e.getPosition()))
+        toggleOn (i);
+    else if (barArea (i).expanded (0, 3).contains (e.getPosition()))
+    {
+        dragLayer = i;
+        if (auto* prm = proc.params.getParameter (TMUProcessor::layerParamId ("volume", i))) prm->beginChangeGesture();
+        setVolumeFromX (i, e.x);
+    }
+}
+
+void LayerStrip::mouseDrag (const juce::MouseEvent& e)
+{
+    if (dragLayer >= 0) setVolumeFromX (dragLayer, e.x);
+}
+
+void LayerStrip::mouseUp (const juce::MouseEvent&)
+{
+    if (dragLayer < 0) return;
+    if (auto* prm = proc.params.getParameter (TMUProcessor::layerParamId ("volume", dragLayer))) prm->endChangeGesture();
+    dragLayer = -1;
+    repaint();
+}
+
+void LayerStrip::mouseDoubleClick (const juce::MouseEvent& e)
+{
+    const int i = slotAt (e.getPosition());
+    if (i >= 0 && barArea (i).expanded (0, 3).contains (e.getPosition()))
+        resetVolume (i);
+}
+
+void LayerStrip::showMenu (int i)
+{
+    const auto info = proc.getLoadedInfo (i);
+    const bool has = info.phdrIndex >= 0 && info.name.isNotEmpty();
+    juce::PopupMenu m;
+    m.addSectionHeader ("Capa " + juce::String (i + 1));
+    m.addItem (isOn (i) ? "Apagar capa" : "Prender capa", [this, i] { toggleOn (i); });
+    m.addItem ("Volumen a 0 dB", [this, i] { resetVolume (i); });
+    m.addItem ("Vaciar capa", i > 0 && has, false, [this, i]
+    {
+        proc.clearLayer (i);
+        proc.resetLayerParams (i);
+        if (onChange) onChange();
+        repaint();
+    });
+    m.showMenuAsync (juce::PopupMenu::Options().withMousePosition());
+}
+
+//==============================================================================
 TMUEditor::TMUEditor (TMUProcessor& p)
     : juce::AudioProcessorEditor (&p), proc (p),
-      volumeAtt (p.params, "volume", volume),
-      modAtt (p.params, "mod", modKnob),
-      filterAtt (p.params, "filter", filterKnob),
-      transposeAtt (p.params, "transpose", transpose),
-      rateAtt (p.params, "rate", rateKnob),
-      swingAtt (p.params, "swing", swingKnob),
-      humanAtt (p.params, "humanize", humanKnob),
-      keyboard (p.keyboardState, look)
+      keyboard (p.keyboardState, look),
+      layerStrip (p, look)
 {
     setLookAndFeel (&look);
 
@@ -599,9 +802,10 @@ TMUEditor::TMUEditor (TMUProcessor& p)
     velButton.setTooltip ("Curva de velocity: SUAVE (suena fuerte aunque toques despacio), NORMAL, DURA (hay que pegarle) o FIJA");
     velButton.onClick = [this]
     {
-        if (auto* prm = proc.params.getParameter ("velcurve"))
+        const auto velId = TMUProcessor::layerParamId ("velcurve", proc.getActiveLayer());
+        if (auto* prm = proc.params.getParameter (velId))
         {
-            const int n = ((int) proc.params.getRawParameterValue ("velcurve")->load() + 1) % 4;
+            const int n = ((int) proc.params.getRawParameterValue (velId)->load() + 1) % 4;
             prm->setValueNotifyingHost (prm->convertTo0to1 ((float) n));
         }
         updateVelButton();
@@ -619,6 +823,8 @@ TMUEditor::TMUEditor (TMUProcessor& p)
         addAndMakeVisible (k);
     }
 
+    attachKnobs();
+
     keyboard.setAvailableRange (48, 84);   // C4 a C7 (como FL)
     keyboard.setOctaveForMiddleC (5);
     keyboard.setBlackNoteLengthProportion (0.6f);
@@ -626,6 +832,10 @@ TMUEditor::TMUEditor (TMUProcessor& p)
     keyboard.setScrollButtonsVisible (false);
     keyboard.setOpaque (false);
     addAndMakeVisible (keyboard);
+
+    addAndMakeVisible (layerStrip);
+    layerStrip.onChange = [this] { onLayerChanged(); };
+    lastLayer = proc.getActiveLayer();
 
     addChildComponent (tutorial);
     addChildComponent (licenseOverlay);
@@ -657,12 +867,13 @@ void TMUEditor::showTutorial()
     const auto pills = viewType.getBounds().getUnion (helpButton.getBounds());
     const auto knobs = knobsArea;
     tutorial.start ({
-        { "BIENVENIDO A TMU",  "Todos tus soundfonts en una netbook. Son miles de sonidos ordenados para que encuentres rapido lo que buscas.\n\nEn 6 pasos te muestro como se usa.", {} },
+        { "BIENVENIDO A TMU",  "Todos tus soundfonts en una netbook. Son miles de sonidos ordenados para que encuentres rapido lo que buscas.\n\nEn 7 pasos te muestro como se usa.", {} },
         { "LA PANTALLA",       "Elegi un sonido con un click o con las flechas arriba/abajo. A la izquierda estan los grupos. Arriba escribis para buscar: bass, pad, mario...", lcdArea },
         { "COMO SE ORDENA",    "TIPO: pianos, bajos, pads...\nSF2: por soundfont.\nA-Z: alfabetico.\nSIN REP: oculta los sonidos repetidos y los que no suenan.", pills },
         { "FAVORITOS",         "Toca FAV (o clickea las estrellas del sonido) para darle estrellas al sonido elegido. Los vas a encontrar en el grupo FAVORITOS de la pantalla.", favButton.getBounds() },
-        { "PERILLAS",          "MOD: vibrato y filtro que se mueven estilo Roland (arranca despues de un ratito, tambien con la rueda de tu teclado). RATE: velocidad. FILTRO, ST, SWING (atrasa los 16avos), HUMAN (velocity y tiempo humanos) y VEL (curva de velocity). Click derecho: asignar a tu MIDI.", knobs },
-        { "PROBA Y SUMA MAS",  "Toca el mini piano con el mouse. < > pasan de sonido. CARPETA abre la carpeta para sumar tus .sf2 y RESCAN los carga. BAJAR SF2 (arriba) te muestra paginas con soundfonts gratis.", keySlot.getUnion (folderButton.getBounds()) },
+        { "CAPAS",             "Suma hasta 4 sonidos que suenan a la vez. Toca una capa para elegirla y despues elegi el sonido en la lista. Cada capa tiene sus propias perillas: las de abajo manejan la capa elegida (dice CAPA 1, 2...). El cuadrito con el numero la prende o apaga, la barra es su volumen (doble click = 0 dB) y click derecho te deja vaciarla. Al sumar una capa nueva, sus perillas arrancan en 0.", layerArea },
+        { "PERILLAS",          "MOD: vibrato y filtro que se mueven estilo Roland (arranca despues de un ratito, tambien con la rueda de tu teclado). RATE: velocidad. FILTRO, ST, SWING (atrasa los 16avos), HUMAN (velocity y tiempo humanos) y VEL (curva de velocity). IN: fundido de entrada de cada nota. OUT: cuanto tarda en apagarse al soltar la tecla. Click derecho: asignar a tu MIDI.", knobs },
+        { "PROBA Y SUMA MAS",  "Toca el mini piano con el mouse. < > pasan de sonido. CARPETA abre la carpeta para sumar tus .sf2 y RESCAN los carga: los sonidos nuevos aparecen en verde y en el grupo RECIENTES (14 dias). BAJAR SF2 (arriba) te muestra paginas con soundfonts gratis.", keySlot.getUnion (folderButton.getBounds()) },
         { "LISTO!",            "Si te olvidas de algo, toca ? arriba a la derecha y vuelve este tutorial.", helpButton.getBounds() },
     });
     tutorial.setBounds (getLocalBounds());
@@ -867,6 +1078,8 @@ void TMUEditor::buildChassis()
     knobLabel (swingArea, "SWING");
     knobLabel (humanArea, "HUMAN");
     knobLabel (velArea, "VEL");
+    knobLabel (inArea, "IN");
+    knobLabel (outArea, "OUT");
     g.drawText ("SONIDO", prevButton.getBounds().getUnion (nextButton.getBounds()).withY (prevButton.getY() - 14).withHeight (10), juce::Justification::centred);
 
     // ---- etiqueta plateada abajo, como la de fabrica: INDUSTRIA ARGENTINA
@@ -942,7 +1155,7 @@ void TMUEditor::paint (juce::Graphics& g)
 
     // ---- sonando (con pista de ayuda)
     auto mi = miniLcdArea;
-    juce::String top = "SONANDO";
+    juce::String top = proc.getActiveLayer() == 0 ? juce::String ("SONANDO") : "CAPA " + juce::String (proc.getActiveLayer() + 1);
     if (info.loading) top = "CARGANDO...";
     else if (info.error.isNotEmpty()) top = "ERROR: " + info.error;
     auto topRow = mi.removeFromTop (14);
@@ -972,7 +1185,17 @@ void TMUEditor::paint (juce::Graphics& g)
     g.setColour (screenDim.brighter (0.5f));
     g.drawText ("? = AYUDA", nameRow.removeFromRight (90), juce::Justification::centredRight);
     g.setFont (look.pixel (16.0f));
-    glowText (g, info.name.isNotEmpty() ? info.name.toUpperCase() : juce::String ("---"), nameRow, juce::Justification::centredLeft, scrHi, 0.0f);
+    {
+        const auto shown = info.name.isNotEmpty()
+                             ? prefs->shownName (PresetEntry::makeKey (juce::File (info.file).getFileName(), info.phdrIndex, info.name), info.name)
+                             : juce::String();
+        glowText (g, shown.isNotEmpty() ? shown.toUpperCase() : juce::String ("---"), nameRow, juce::Justification::centredLeft, scrHi, 0.0f);
+    }
+
+    // ---- a que capa pertenecen las perillas
+    g.setFont (look.pixel (8.0f));
+    g.setColour (fnBlue.darker (0.15f));
+    g.drawText ("CAPA " + juce::String (proc.getActiveLayer() + 1), knobsArea.getX(), DECK + 3, 80, 10, juce::Justification::centredLeft);
 
     // ---- transporte y CC asignados
     const int tr = (int) transpose.getValue();
@@ -997,6 +1220,7 @@ void TMUEditor::resized()
     lcdArea = { M - 14, HEADER + 2, R - M + 28, 352 };   // la pantalla (vidrio = lcdArea.reduced (14))
     auto glass = lcdArea.reduced (14).reduced (18, 10);
     miniLcdArea = { glass.getX(), glass.getBottom() - 36, glass.getWidth(), 36 };
+    layerArea = { glass.getX(), miniLcdArea.getY() - 6 - 30, glass.getWidth(), 30 };   // las 4 capas, arriba de la barra de tareas
 
     const int rowTop = DECK + 24;
     keySlot = { M, rowTop, 420, 126 };
@@ -1008,21 +1232,21 @@ void TMUEditor::resized()
     rescanButton.setBounds (colX, rowTop + 88, colW, 30);
     folderButton.setBounds (colX, rowTop + 134, colW, 30);
 
-    // 2 filas de 4 perillas con el mismo espacio entre el piano y la columna derecha:
-    // arriba el sonido (VOL MOD RATE FILTRO), abajo el groove (ST SWING HUMAN VEL)
-    const int knob = 46, freeW = colX - keySlot.getRight(), gapK = (freeW - 4 * knob) / 5;
+    // 2 filas de 5 perillas con el mismo espacio entre el piano y la columna derecha:
+    // arriba el sonido (VOL MOD RATE FILTRO IN), abajo el groove (ST SWING HUMAN VEL OUT)
+    const int knob = 44, freeW = colX - keySlot.getRight(), gapK = (freeW - 5 * knob) / 6;
     const int rowY[2] = { rowTop + 4, rowTop + 4 + 82 };
-    juce::Rectangle<int>* rows[2][4] = { { &volArea, &modArea, &rateArea, &filterArea }, { &trArea, &swingArea, &humanArea, &velArea } };
+    juce::Rectangle<int>* rows[2][5] = { { &volArea, &modArea, &rateArea, &filterArea, &inArea }, { &trArea, &swingArea, &humanArea, &velArea, &outArea } };
     for (int r = 0; r < 2; ++r)
     {
-        int kx = keySlot.getRight() + gapK + (freeW - 4 * knob - 5 * gapK) / 2;
+        int kx = keySlot.getRight() + gapK + (freeW - 5 * knob - 6 * gapK) / 2;
         for (auto* a : rows[r])
         {
             *a = { kx, rowY[r], knob, knob };
             kx += knob + gapK;
         }
     }
-    knobsArea = volArea.getUnion (velArea).expanded (12, 16);
+    knobsArea = volArea.getUnion (outArea).expanded (12, 16);
 
     // botones de la franja violeta: mismo ancho, mismo espacio, centrados en la franja y alineados a la derecha
     int x = R;
@@ -1036,7 +1260,8 @@ void TMUEditor::resized()
     }
 
     search.setBounds (glass.getX() + 112, glass.getY(), 340, 28);
-    auto body = glass.withTrimmedTop (42).withTrimmedBottom (48);
+    auto body = glass.withTrimmedTop (42).withTrimmedBottom (glass.getBottom() - layerArea.getY() + 6);
+    layerStrip.setBounds (layerArea);
     groupList.setBounds (body.removeFromLeft (250));
     body.removeFromLeft (14);
     presetList.setBounds (body);
@@ -1048,6 +1273,8 @@ void TMUEditor::resized()
     rateKnob.setBounds (rateArea);
     swingKnob.setBounds (swingArea);
     humanKnob.setBounds (humanArea);
+    inKnob.setBounds (inArea);
+    outKnob.setBounds (outArea);
     velButton.setBounds (velArea.withSizeKeepingCentre (64, 26));
 
 
@@ -1077,6 +1304,9 @@ void TMUEditor::timerCallback()
         rebuildGroups();
         repaint();
     }
+
+    if (proc.getActiveLayer() != lastLayer) onLayerChanged();   // por ej. al cargar un proyecto
+    layerStrip.refresh();
 
     const auto info = proc.getLoadedInfo();
     if (info.name != lastInfo.name || info.file != lastInfo.file || info.loading != lastInfo.loading
@@ -1119,13 +1349,38 @@ void TMUEditor::timerCallback()
 juce::String TMUEditor::velText() const
 {
     static const char* names[] = { "SUAVE", "NORMAL", "DURA", "FIJA" };
-    return names[juce::jlimit (0, 3, (int) proc.params.getRawParameterValue ("velcurve")->load())];
+    return names[juce::jlimit (0, 3, (int) proc.params.getRawParameterValue (TMUProcessor::layerParamId ("velcurve", proc.getActiveLayer()))->load())];
 }
 
 void TMUEditor::updateVelButton()
 {
     velButton.setButtonText (velText());
     velButton.setToggleState (velButton.getButtonText() != "NORMAL", juce::dontSendNotification);
+}
+
+void TMUEditor::attachKnobs()
+{
+    const auto knobs = allKnobs();
+    for (size_t i = 0; i < knobs.size(); ++i)
+    {
+        knobAtt[i].reset();   // primero se suelta la capa anterior
+        knobAtt[i] = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment> (
+            proc.params, TMUProcessor::layerParamId (knobs[i]->paramId, proc.getActiveLayer()), *knobs[i]);
+    }
+}
+
+void TMUEditor::onLayerChanged()
+{
+    // otra capa elegida (o vaciada): la lista, la pantallita y las perillas muestran los de esa capa
+    lastLayer = proc.getActiveLayer();
+    lastInfo = proc.getLoadedInfo();
+    attachKnobs();
+    updateVelButton();
+    selectLoadedRow();
+    presetList.repaint();
+    repaint (miniLcdArea);
+    repaint (knobsArea.expanded (20, 16));
+    layerStrip.repaint();
 }
 
 void TMUEditor::showSoundfontLinks()
@@ -1162,7 +1417,7 @@ void TMUEditor::showKnobMenu (ParamKnob& knob)
 
     // menu del DAW para este parametro (en FL Studio incluye "Link to controller")
     if (auto* host = getHostContext())
-        if (auto* prm = proc.params.getParameter (knob.paramId))
+        if (auto* prm = proc.params.getParameter (TMUProcessor::layerParamId (knob.paramId, proc.getActiveLayer())))
             if (auto hostMenu = host->getContextMenuForParameter (prm))
             {
                 menu.addSeparator();
@@ -1186,10 +1441,11 @@ bool TMUEditor::entryInGroup (const PresetEntry& e, const juce::String& key) con
 {
     if (key.isEmpty() || key == "*") return true;
     if (key == "fav") return prefs->getStars (e.key) > 0;
+    if (key == "new") return e.isRecent();
     if (proc.uiView == "type")   return juce::String (e.category) == key;
     if (proc.uiView == "source") return e.source == key;
     // A-Z
-    const auto c = juce::CharacterFunctions::toUpperCase (e.name[0]);
+    const auto c = juce::CharacterFunctions::toUpperCase (shownName (e)[0]);
     if (key == "#") return ! (c >= 'A' && c <= 'Z');
     return juce::String::charToString (c) == key;
 }
@@ -1199,11 +1455,17 @@ void TMUEditor::rebuildGroups()
     groups.clear();
     if (entries == nullptr) { groupList.updateContent(); rebuildFiltered(); return; }
 
-    int visible = 0, favs = 0;
+    int visible = 0, favs = 0, recents = 0;
     for (auto& e : *entries)
-        if (isVisible (e)) { ++visible; if (prefs->getStars (e.key) > 0) ++favs; }
+        if (isVisible (e))
+        {
+            ++visible;
+            if (prefs->getStars (e.key) > 0) ++favs;
+            if (e.isRecent()) ++recents;
+        }
     groups.push_back ({ "*", "Todos", visible });
     groups.push_back ({ "fav", juce::String (juce::CharPointer_UTF8 ("\xe2\x98\x85 Favoritos")), favs });
+    if (recents > 0) groups.push_back ({ "new", "Recientes", recents });   // .sf2 agregados hace poco
 
     if (proc.uiView == "type")
     {
@@ -1226,7 +1488,7 @@ void TMUEditor::rebuildGroups()
         for (auto& e : *entries)
         {
             if (! isVisible (e)) continue;
-            const auto c = juce::CharacterFunctions::toUpperCase (e.name[0]);
+            const auto c = juce::CharacterFunctions::toUpperCase (shownName (e)[0]);
             counts[(c >= 'A' && c <= 'Z') ? juce::String::charToString (c) : juce::String ("#")]++;
         }
         for (auto& [k, n] : counts) groups.push_back ({ k, k, n });
@@ -1260,13 +1522,29 @@ void TMUEditor::rebuildFiltered()
             if (! isVisible (e) || ! entryInGroup (e, currentGroup)) continue;
             bool ok = true;
             for (auto& w : words)
-                if (! e.name.containsIgnoreCase (w) && ! e.source.containsIgnoreCase (w)
+                if (! e.name.containsIgnoreCase (w) && ! shownName (e).containsIgnoreCase (w) && ! e.source.containsIgnoreCase (w)
                     && ! juce::String (tmu::categoryName (e.category)).containsIgnoreCase (w)) { ok = false; break; }
             if (ok) filtered.push_back (i);
         }
+        if (currentGroup != "fav" && currentGroup != "new")   // los renombrados se ordenan por el nombre nuevo
+            std::stable_sort (filtered.begin(), filtered.end(), [this] (int a, int b)
+            {
+                const auto& ea = (*entries)[(size_t) a];
+                const auto& eb = (*entries)[(size_t) b];
+                const int c = shownName (ea).compareNatural (shownName (eb));
+                return c != 0 ? c < 0 : ea.source.compareNatural (eb.source) < 0;
+            });
         if (currentGroup == "fav")   // favoritos: primero los de 3 estrellas
             std::stable_sort (filtered.begin(), filtered.end(), [this] (int a, int b)
             { return prefs->getStars ((*entries)[(size_t) a].key) > prefs->getStars ((*entries)[(size_t) b].key); });
+        else if (currentGroup == "new")   // recientes: lo ultimo que agregaste primero, y por soundfont
+            std::stable_sort (filtered.begin(), filtered.end(), [this] (int a, int b)
+            {
+                const auto& ea = (*entries)[(size_t) a];
+                const auto& eb = (*entries)[(size_t) b];
+                if (ea.addedMs != eb.addedMs) return ea.addedMs > eb.addedMs;
+                return ea.source.compareNatural (eb.source) < 0;
+            });
     }
     presetList.updateContent();
     selectLoadedRow();
@@ -1294,7 +1572,20 @@ void TMUEditor::selectLoadedRow()
 void TMUEditor::choosePreset (int row)
 {
     if (entries == nullptr || row < 0 || row >= (int) filtered.size()) return;
+    const int layer = proc.getActiveLayer();
+    const auto before = proc.getLoadedInfo (layer);
+    const bool adding = layer > 0 && before.phdrIndex < 0 && ! before.loading;   // capa vacia que recibe su primer sonido
     proc.loadPreset ((*entries)[(size_t) filtered[(size_t) row]]);
+
+    if (adding)
+        proc.resetLayerParams (layer);   // capa nueva: todos sus controles arrancan en 0 (y queda prendida)
+    else if (auto* on = proc.params.getParameter (TMUProcessor::layerOnId (layer)))
+        if (on->getValue() < 0.5f)       // sonido nuevo en una capa apagada: se prende sola
+        {
+            on->beginChangeGesture();
+            on->setValueNotifyingHost (1.0f);
+            on->endChangeGesture();
+        }
 }
 
 void TMUEditor::step (int delta)
@@ -1320,7 +1611,7 @@ void TMUEditor::GroupModel::paintListBoxItem (int row, juce::Graphics& g, int w,
         g.drawRoundedRectangle (r.toFloat().reduced (0.5f), 2.0f, 1.0f);
     }
     r.removeFromLeft (6);
-    const auto col = selected ? scrHi : screenTxt.withAlpha (0.85f);
+    auto col = selected ? scrHi : screenTxt.withAlpha (0.85f);
     g.setFont (ed.look.pixel (10.0f));
     glowText (g, selected ? ">" : "", r.removeFromLeft (16), juce::Justification::centredLeft, scrHi);
     if (gr.key == "fav")
@@ -1328,6 +1619,13 @@ void TMUEditor::GroupModel::paintListBoxItem (int row, juce::Graphics& g, int w,
         g.setColour (starGold);
         g.fillPath (starPath ({ (float) r.getX() + 6.0f, (float) r.getCentreY() }, 6.0f));
         r.removeFromLeft (16);
+    }
+    else if (gr.key == "new")
+    {
+        g.setColour (newMint);
+        g.fillRoundedRectangle (juce::Rectangle<float> (8.0f, 8.0f).withCentre ({ (float) r.getX() + 6.0f, (float) r.getCentreY() }), 2.0f);
+        r.removeFromLeft (16);
+        if (! selected) col = newMint;
     }
     if (selected)
     {
@@ -1357,19 +1655,22 @@ void TMUEditor::PresetModel::paintListBoxItem (int row, juce::Graphics& g, int w
     else r.removeFromLeft (8);
     r.removeFromLeft (8);
 
-    const auto textCol = isLoaded ? juce::Colours::white : (e.hidden != 0 ? screenDim : screenTxt);
+    const bool recent = e.isRecent();
+    const auto textCol = isLoaded ? juce::Colours::white
+                                  : (recent ? (e.hidden != 0 ? newMint.withAlpha (0.6f) : newMint)
+                                            : (e.hidden != 0 ? screenDim : screenTxt));
     if (w >= 480)
     {
         const auto right = ed.proc.uiView == "source" ? juce::String (tmu::categoryName (e.category)) : e.source;
         g.setFont (ed.look.pixel (8.0f));
-        g.setColour (screenTxt.withAlpha (isLoaded ? 0.8f : 0.45f));
+        g.setColour ((recent ? newMint : screenTxt).withAlpha (isLoaded ? 0.8f : (recent ? 0.7f : 0.45f)));
         g.drawText (right.toUpperCase(), r.removeFromRight (juce::jmin (230, w / 2)).withTrimmedRight (6), juce::Justification::centredRight, true);
     }
     const int st = ed.prefs->getStars (e.key);
     drawStars (g, starsArea (w, h), st, starGold, juce::Colours::white.withAlpha (selected || isLoaded ? 0.28f : 0.13f));
     r.setRight (starsArea (w, h).getX() - 6);
     g.setFont (ed.look.pixel (10.0f));
-    glowText (g, e.name.toUpperCase(), r, juce::Justification::centredLeft, textCol, 0.0f);
+    glowText (g, ed.shownName (e).toUpperCase(), r, juce::Justification::centredLeft, textCol, 0.0f);
 }
 
 void TMUEditor::GroupModel::selectedRowsChanged (int row)
@@ -1402,6 +1703,43 @@ void TMUEditor::setStarsForRow (int row, int n)
     repaint (miniLcdArea);
 }
 
+// Cambia el nombre con el que se ve un sonido (en la lista, el visor y las capas).
+// No toca el .sf2: el nombre nuevo se guarda aparte, en TMU-favoritos.xml, y vale para todas las instancias.
+void TMUEditor::applyCustomName (const juce::String& key, const juce::String& newName)
+{
+    prefs->setCustomName (key, newName);
+    prefsVersion = prefs->getVersion();
+    rebuildGroups();        // un nombre nuevo puede cambiar la letra del A-Z y el orden de la lista
+    layerStrip.refresh();
+    presetList.repaint();
+    repaint();
+}
+
+void TMUEditor::renameRow (int row)
+{
+    if (entries == nullptr || row < 0 || row >= (int) filtered.size()) return;
+    const auto& e = (*entries)[(size_t) filtered[(size_t) row]];
+    const auto key = e.key;
+    const auto original = e.name;
+
+    auto* w = new juce::AlertWindow ("Renombrar sonido",
+                                     "Nombre original: " + original + "\nDejalo vacio para volver al original.",
+                                     juce::MessageBoxIconType::NoIcon, this);
+    w->addTextEditor ("nombre", shownName (e), "Nombre nuevo:");
+    if (auto* te = w->getTextEditor ("nombre")) { te->setInputRestrictions (80); te->selectAll(); }
+    w->addButton ("Guardar", 1, juce::KeyPress (juce::KeyPress::returnKey));
+    w->addButton ("Cancelar", 0, juce::KeyPress (juce::KeyPress::escapeKey));
+
+    juce::Component::SafePointer<TMUEditor> safe (this);
+    w->enterModalState (true, juce::ModalCallbackFunction::create ([safe, w, key, original] (int result)
+    {
+        if (result != 1 || safe == nullptr) return;
+        auto nn = w->getTextEditorContents ("nombre").trim();
+        if (nn == original) nn = {};   // igual al original = sin nombre propio
+        safe->applyCustomName (key, nn);
+    }), true);
+}
+
 void TMUEditor::PresetModel::listBoxItemClicked (int row, const juce::MouseEvent& e)
 {
     if (ed.entries == nullptr || row < 0 || row >= (int) ed.filtered.size()) return;
@@ -1410,12 +1748,17 @@ void TMUEditor::PresetModel::listBoxItemClicked (int row, const juce::MouseEvent
 
     if (e.mods.isPopupMenu())
     {
+        const bool renamed = ed.prefs->getCustomName (key).isNotEmpty();
         juce::PopupMenu m;
         m.addSectionHeader ("Favoritos");
         const juce::String star (juce::CharPointer_UTF8 ("\xe2\x98\x85"));
         for (int n = 1; n <= 3; ++n)
             m.addItem (juce::String::repeatedString (star, n), true, current == n, [this, row, n] { ed.setStarsForRow (row, n); });
         m.addItem ("Quitar de favoritos", current > 0, false, [this, row] { ed.setStarsForRow (row, 0); });
+        m.addSeparator();
+        m.addSectionHeader ("Nombre");
+        m.addItem ("Renombrar...", [this, row] { ed.renameRow (row); });
+        m.addItem ("Volver al nombre original", renamed, false, [this, key] { ed.applyCustomName (key, {}); });
         m.showMenuAsync (juce::PopupMenu::Options().withMousePosition());
         return;
     }

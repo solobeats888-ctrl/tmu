@@ -11,7 +11,15 @@ struct PresetEntry
     juce::String name;        // nombre del sonido
     int bank = 0, program = 0, phdrIndex = 0, category = tmu::Other;
     int hidden = 0;           // 0 = visible, 1 = repetido de otro sonido, 2 = no suena
+    juce::int64 addedMs = 0;  // cuando se vio por primera vez el .sf2 (ms); 0 o 1 = ya estaba antes de la actualizacion
     juce::String key;         // "archivo.sf2|indice|nombre": identifica el sonido en favoritos
+
+    // Cuantos dias un .sf2 recien agregado figura como "reciente" (pintado de otro color y en el grupo RECIENTES)
+    static constexpr juce::int64 recentDays = 14;
+    bool isRecent() const
+    {
+        return addedMs > 1 && juce::Time::currentTimeMillis() - addedMs < recentDays * 24 * 60 * 60 * 1000;
+    }
 
     static juce::String makeKey (const juce::String& fileName, int phdr, const juce::String& presetName)
     {
@@ -34,11 +42,26 @@ public:
     void setTutorialSeen (bool);
     int getVersion() const { return version.load(); }   // cambia cada vez que se modifica algo
 
+    // Nombres propios: el usuario le puede cambiar el nombre a un sonido. El archivo .sf2 no se toca,
+    // solo se guarda "clave del sonido -> nombre que quiere ver". Vacio = sigue el nombre original.
+    juce::String getCustomName (const juce::String& key) const;
+    void setCustomName (const juce::String& key, const juce::String& newName);   // vacio = volver al original
+    juce::String shownName (const juce::String& key, const juce::String& original) const;   // nombre propio si hay, si no el original
+
+    // Soundfonts ya vistos (para marcar los nuevos). La clave es "nombre.sf2" + tamano.
+    // Devuelve 0 si ese archivo nunca se vio; 1 si ya estaba cuando se instalo esta funcion; si no, cuando se agrego (ms).
+    juce::int64 getFirstSeen (const juce::String& fileKey) const;
+    bool isSeenBaselineDone() const;
+    void recordSeen (const std::map<juce::String, juce::int64>& newFiles);   // guarda y marca la lista base como hecha
+
 private:
     void save();
     juce::File file;
     mutable juce::CriticalSection lock;
     std::map<juce::String, int> stars;
+    std::map<juce::String, juce::String> customNames;
+    std::map<juce::String, juce::int64> seen;
+    bool seenBaselineDone = false;
     bool showDuplicates = false;
     bool tutorialSeen = false;
     std::atomic<int> version { 0 };
@@ -66,4 +89,5 @@ private:
     mutable juce::CriticalSection lock;
     std::shared_ptr<const std::vector<PresetEntry>> entries;
     std::atomic<bool> scanning { false };
+    juce::SharedResourcePointer<UserPrefs> prefs;   // para saber que .sf2 son nuevos
 };

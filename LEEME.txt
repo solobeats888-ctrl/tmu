@@ -49,8 +49,8 @@ CONTROLES (la interfaz es una netbook: tapa negra, pantalla azul y teclado blanc
   FAV (estrellas del sonido elegido) y ? (tutorial).
 - Botones < > (debajo de POWER): sonido anterior / siguiente. Tambien con las flechas del teclado.
 - RESCAN vuelve a buscar soundfonts. CARPETA abre Musica/TMU SoundFonts.
-- Perillas, fila de arriba (SONIDO): VOL, MOD, RATE y FILTRO. Fila de abajo (GROOVE): ST, SWING,
-  HUMAN y VEL. El mini piano de la izquierda se toca con el mouse.
+- Perillas, fila de arriba (SONIDO): VOL, MOD, RATE, FILTRO e IN. Fila de abajo (GROOVE): ST, SWING,
+  HUMAN, VEL y OUT. El mini piano de la izquierda se toca con el mouse.
 - VOL: volumen.
 - MOD: modulacion estilo Roland (como un Fantom / JV): cuando tocas, la nota arranca quieta y
   despues de un ratito entra el vibrato y un filtro que se abre y se cierra (efecto "wah").
@@ -70,6 +70,16 @@ CONTROLES (la interfaz es una netbook: tapa negra, pantalla azul y teclado blanc
 - FAVORITOS: click en las estrellas de un sonido (1, 2 o 3 estrellas), o click derecho > Favoritos,
   o las teclas 1, 2, 3 (0 para quitar). Quedan en el grupo "FAVORITOS" de la izquierda,
   primero los de 3 estrellas. Se guardan para todos tus proyectos.
+- RECIENTES: los .sf2 que agregas a la carpeta (despues de tocar RESCAN) aparecen en verde y en el
+  grupo "RECIENTES" de la izquierda, el ultimo agregado primero. Quedan asi 14 dias.
+- IN: fundido de entrada de cada nota (0 a 1000 ms). OUT: cuanto tarda en apagarse al soltar la tecla
+  (0 a 1000 ms). Valen como minimo: si el soundfont ya tiene un ataque o un release mas largo, queda ese.
+  En 0 no hacen nada.
+- CAPAS: hasta 4 sonidos tocando a la vez con el mismo MIDI. Toca una capa en la barra de abajo de la
+  pantalla y elegi el sonido en la lista. Cada capa tiene todos los controles del primero (VOL, MOD,
+  RATE, FILTRO, ST, SWING, HUMAN, VEL, IN y OUT): las perillas de abajo manejan la capa elegida (dice CAPA 1,
+  2...). Al sumar una capa nueva, sus perillas arrancan en 0. El cuadrito con el numero la prende o
+  apaga, la barra es su volumen (doble click = 0 dB) y click derecho te deja vaciarla. Se guarda con el proyecto.
 - SIN REP: oculta los sonidos repetidos y los que no suenan de los soundfonts que TMU ya
   conoce. Tocalo para ver todos.
 - Asignar una perilla de tu teclado MIDI: click derecho en la perilla > "Aprender controlador",
